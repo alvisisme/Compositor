@@ -205,6 +205,7 @@ struct ProjectTabStrip: View {
     }
 }
 
+@MainActor
 private func projectTabLabelWidth(_ tab: ProjectTab, active: Bool) -> CGFloat {
     let font = NSFont.systemFont(ofSize: 12, weight: active ? .semibold : .medium)
     let titleWidth = (tab.title as NSString).size(withAttributes: [.font: font]).width
@@ -212,12 +213,14 @@ private func projectTabLabelWidth(_ tab: ProjectTab, active: Bool) -> CGFloat {
     return min(155, max(35, ceil(titleWidth) + dotWidth))
 }
 
+@MainActor
 private func projectTabPillWidth(_ tab: ProjectTab, active: Bool) -> CGFloat {
     // 11 px leading, 8 px trailing, 16 px close button, 5 px after close.
     projectTabLabelWidth(tab, active: active) + 40
 }
 
 /// Sized the same way the tab pills are: text measured at the same weight, plus the chevron and padding.
+@MainActor
 private func projectTabOverflowPillWidth(hiddenCount: Int) -> CGFloat {
     let font = NSFont.systemFont(ofSize: 12, weight: .medium)
     let text = projectTabOverflowLabel(for: hiddenCount)

@@ -168,6 +168,10 @@ import QuartzCore
     /// place by the GPU, in order with everything else it does to that texture. Written straight into the texture's
     /// memory instead, a tile isn't seen on every GPU — a virtual machine's keeps its own copy, and parts of the texture
     /// came out empty.
+    ///
+    /// `@MainActor` because a nested type does not inherit it from the class around it, and `place` calls the
+    /// main-actor `grayCopy` below.
+    @MainActor
     private final class TileWrites {
         let renderer: GPUCanvasRenderer
         let texture: MTLTexture

@@ -281,6 +281,7 @@ enum ColorPickerTarget: Equatable {
 
 /// The open color picker's working color. Nothing is written to the palette until OK.
 @Observable
+@MainActor
 final class ColorPickerState {
     let target: ColorPickerTarget
     var background: Bool { target == .palette(background: true) }

@@ -17,7 +17,7 @@ struct BlendModePicker: NSViewRepresentable {
         button.action = #selector(Coordinator.choose(_:))
         button.setAccessibilityLabel("Blend mode")
         // A capsule like the SwiftUI buttons and menus (`roundedControls`), which don't reach this AppKit pop-up.
-        button.borderShape = .capsule
+        button.appliesCapsuleBorder()
         return button
     }
     func updateNSView(_ button: NSPopUpButton, context: Context) {
@@ -30,6 +30,7 @@ struct BlendModePicker: NSViewRepresentable {
         if coordinator.tracking { coordinator.session.previewBlendMode(nil, for: nil) }
         button.menu?.delegate = nil
     }
+    @MainActor
     final class Coordinator: NSObject, NSMenuDelegate {
         let session: EditorSession
         var tracking = false

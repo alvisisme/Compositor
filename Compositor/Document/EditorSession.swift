@@ -100,6 +100,7 @@ enum NavigationTool: String, CaseIterable {
 }
 
 @Observable
+@MainActor
 final class EditorSession {
     var skipsInitialClipboardCanvasSize = false
     var document: CanvasDocument?
