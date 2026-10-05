@@ -219,7 +219,7 @@ struct SelectionAmountSheet: View {
                     .multilineTextAlignment(.trailing).focused($focused)
                     .unitSuffix("px")
             }
-            Text(Localization.v("Enter a whole number from 1 to %@ px.", maximum))
+            Text(Localization.v("Enter a whole number from 1 to %@ px.", String(maximum)))
                 .font(.callout).foregroundStyle(.secondary)
                 .opacity(amount == nil ? 1 : 0)
             Divider()

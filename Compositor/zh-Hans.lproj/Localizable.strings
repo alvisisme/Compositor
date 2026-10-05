@@ -21,6 +21,7 @@
 "Actual pixels (⌘1)" = "实际像素（⌘1）";
 "Add %@" = "添加 %@";
 "Add Mask" = "添加蒙版";
+"Add Noise" = "添加杂色";
 "Add layer" = "添加图层";
 "Add layer mask" = "添加图层蒙版";
 "Add layer mask (Option-click for a black mask)" = "添加图层蒙版（按住 Option 单击可添加黑色蒙版）";
@@ -60,12 +61,14 @@
 "Bayer 2 × 2" = "Bayer 2 × 2";
 "Bayer 4 × 4" = "Bayer 4 × 4";
 "Bayer 8 × 8" = "Bayer 8 × 8";
+"Black" = "黑场";
 "Black & White" = "黑白";
 "Black · Hide" = "黑色 · 隐藏";
 "Blend" = "混合";
 "Blend mode" = "混合模式";
 "Blend the chosen color into the edges while keeping the center unchanged" = "把所选颜色混入边缘，同时保持中心不变";
 "Bloom" = "泛光";
+"Bloom / Glow" = "泛光 / 光晕";
 "Blue" = "蓝";
 "Blue Primary" = "蓝色原色";
 "Blur / Smudge / Liquify" = "模糊 / 涂抹 / 液化";
@@ -79,6 +82,7 @@
 "Brush size" = "画笔大小";
 "Brush tool" = "画笔工具";
 "Calibration" = "校准";
+"Camera Raw Filter" = "Camera Raw 滤镜";
 "Cancel" = "取消";
 "Cancel %@" = "取消 %@";
 "Cancel current canvas operation" = "取消当前画布操作";
@@ -134,7 +138,10 @@
 "Close Project" = "关闭工程";
 "Close to the current process, with slightly softer primary and shadow shifts." = "接近当前处理，原色与阴影偏移略柔和。";
 "Color" = "颜色";
+"Color Balance" = "色彩平衡";
+"Color Burn" = "颜色加深";
 "Color Detail" = "颜色细节";
+"Color Dodge" = "颜色减淡";
 "Color Grading" = "颜色分级";
 "Color Mixer" = "颜色混合器";
 "Color Overlay" = "颜色叠加";
@@ -195,6 +202,7 @@
 "Cycle shape kind" = "循环切换形状种类";
 "Cycle tool mode" = "循环工具模式";
 "Dark" = "暗";
+"Darken" = "变暗";
 "Dashed Lines" = "虚线";
 "Decrease brush hardness" = "减小画笔硬度";
 "Decrease brush size" = "减小画笔大小";
@@ -223,6 +231,7 @@
 "Deselect" = "取消选择";
 "Detail" = "细节";
 "Develop “%@”" = "处理“%@”";
+"Difference" = "差值";
 "Diffusion" = "扩散";
 "Diffusion is soft and wide, Bloom is tighter, and Halation is a red fringe." = "“扩散”柔和而宽泛，“泛光”更集中，“光晕”带红色边缘。";
 "Dims the picture outside this color's range. It is not kept when you press OK." = "使此颜色范围之外的图片变暗。按下“好”后不会保留。";
@@ -231,6 +240,7 @@
 "Discard Changes" = "放弃更改";
 "Distort Layer Mask" = "变形图层蒙版";
 "Distribution" = "分布";
+"Dither" = "抖动";
 "Document Bounds" = "文档边界";
 "Done" = "完成";
 "Don’t Save" = "不存储";
@@ -331,9 +341,11 @@
 "Freehand" = "自由";
 "Fuzziness" = "容差范围";
 "Gaussian" = "高斯";
+"Gaussian Blur" = "高斯模糊";
 "Geometry" = "几何";
 "Glow" = "辉光";
 "Gradient" = "渐变";
+"Gradient Map" = "渐变映射";
 "Gradient tool" = "渐变工具";
 "Grading" = "分级";
 "Grain" = "颗粒";
@@ -348,6 +360,7 @@
 "Group Layers" = "编组图层";
 "Group Selected Layers" = "编组所选图层";
 "Group selected layers (⌘G)" = "编组所选图层（⌘G）";
+"Guided" = "引导";
 "Guides" = "参考线";
 "HSL" = "HSL";
 "HSL lists every color. Color edits one family. Point Color adjusts a color you pick." = "HSL 列出所有颜色。“颜色”编辑一个色系。“点颜色”调整你选取的颜色。";
@@ -356,6 +369,7 @@
 "Halftone Dots" = "半调网点";
 "Halftone Lines" = "半调线条";
 "Hand tool" = "抓手工具";
+"Hard Light" = "强光";
 "Hardness" = "硬度";
 "Height" = "高度";
 "Hex" = "十六进制";
@@ -445,6 +459,7 @@
 "Layers" = "图层";
 "Leading" = "行距";
 "Left" = "左";
+"Lens Correction" = "镜头校正";
 "Levels" = "色阶";
 "Levels…" = "色阶…";
 "Light" = "亮";
@@ -453,11 +468,16 @@
 "Light Red" = "浅红";
 "Light blooming around the lines, like a CRT's phosphors" = "线条周围的光晕，如同 CRT 荧光粉";
 "Light on Dark" = "深色背景上的浅色";
+"Lighten" = "变亮";
 "Lightness" = "明度";
 "Limited to the selection" = "仅限选区内";
+"Line" = "直线";
 "Line Spacing" = "行距";
 "Line height, baseline to baseline. Empty or 0 is Auto: 120% of the font size." = "行高，从基线到基线。留空或 0 表示“自动”：字号的 120%。";
 "Linear" = "线性";
+"Linear Burn" = "线性加深";
+"Linear Dodge (Add)" = "线性减淡（相加）";
+"Linear Light" = "线性光";
 "Linear histogram with automatic vertical scaling. Tall spikes may extend beyond the graph; all tones from 0 to 255 remain included." = "线性直方图，垂直方向自动缩放。过高的尖峰会超出图外；0 到 255 的所有色调仍全部计入。";
 "Linear runs along the line; Radial spreads out from the start point" = "线性沿线条方向；径向从起点向外扩散";
 "Link Mask" = "链接蒙版";
@@ -503,6 +523,7 @@
 "Mode" = "模式";
 "Monochromatic" = "单色";
 "More ink (darker) or less before dithering" = "抖动前的墨量，越多越暗";
+"Motion Blur" = "动感模糊";
 "Move / Transform tool" = "移动 / 变换工具";
 "Move Guide" = "移动参考线";
 "Move Layer" = "移动图层";
@@ -541,6 +562,7 @@
 "No tool selected · Press a tool's key to pick one · Space to pan" = "未选择工具 · 按工具的快捷键以选取 · 空格平移";
 "Noise Reduction" = "降噪";
 "None" = "无";
+"Normal" = "正常";
 "Not enough memory to complete that." = "内存不足，无法完成该操作。";
 "Not enough unselected, opaque image pixels to synthesize a fill. Use a smaller selection with some surrounding image." = "未选中的不透明图像像素不足，无法合成填充。请缩小选区，并在周围保留一些图像。";
 "Nothing is selected, so there’s nowhere to paint. Choose Select › Deselect (⌘D) to paint anywhere." = "未选择任何内容，因此无处可绘画。请选取“选择”›“取消选择”（⌘D）以在任意位置绘画。";
@@ -550,6 +572,7 @@
 "Object" = "对象";
 "Object Selection" = "对象选择";
 "Object Selection requires macOS 14 or later." = "对象选择需要 macOS 14 或更高版本。";
+"Off" = "关闭";
 "Off leaves the picture as it is. Guided straightens from lines you draw on the picture." = "“关闭”保持图片原样。“引导”根据你在图片上绘制的线条进行校正。";
 "Only 8-bit RGB Photoshop files can be imported." = "只能导入 8 位 RGB 的 Photoshop 文件。";
 "Only print dimensions and resolution change. Pixels stay unchanged." = "只更改打印尺寸与分辨率，像素保持不变。";
@@ -577,6 +600,7 @@
 "Output black" = "输出黑场";
 "Output white" = "输出白场";
 "Outside" = "外部";
+"Overlay" = "叠加";
 "Paint" = "绘画";
 "Paint with the foreground color (B), or erase pixels away (E)" = "用前景色绘画（B），或擦除像素（E）";
 "Parametric" = "参数";
@@ -586,6 +610,7 @@
 "Perspective" = "透视";
 "Perspective allows stronger keystone. Rectilinear keeps the warp gentler." = "“透视”允许更强的梯形校正。“直线”使变形更平缓。";
 "Picas" = "派卡";
+"Pin Light" = "点光";
 "Pixel Grid (800% and above)" = "像素网格（800% 及以上）";
 "Pixel Shape" = "像素形状";
 "Pixel Size" = "像素大小";
@@ -642,6 +667,7 @@
 "Release Clipping Mask" = "释放剪贴蒙版";
 "Release clipping mask" = "释放剪贴蒙版";
 "Remove %@" = "移除 %@";
+"Remove Background" = "移除背景";
 "Remove Chromatic Aberration" = "去除色差";
 "Remove Distortion" = "去除畸变";
 "Remove Links and Delete" = "移除链接并删除";
@@ -728,6 +754,7 @@
 "Smudge and Liquify work on a layer's pixels, not its mask." = "涂抹与液化作用于图层的像素，而不是其蒙版。";
 "Snap" = "对齐";
 "Snap To" = "对齐到";
+"Soft Light" = "柔光";
 "Some dropped items couldn’t be read. Drag JPEG, PNG, HEIC, TIFF, or Photoshop (PSD) files from Finder." = "部分拖入的项目无法读取。请从 Finder 拖入 JPEG、PNG、HEIC、TIFF 或 Photoshop（PSD）文件。";
 "Square" = "方形";
 "Start of the hue range, in degrees." = "色相范围的起点，以度为单位。";
@@ -785,6 +812,7 @@
 "Toggle Levels preview" = "切换色阶预览";
 "Toggle visibility" = "切换可见性";
 "Tolerance" = "容差";
+"Tonal Contrast" = "色调对比度";
 "Tones per channel: 2 is pure black and white" = "每通道的色调数：2 为纯黑与纯白";
 "Tool options" = "工具选项";
 "Top" = "上";
@@ -831,6 +859,7 @@
 "Vertical ruler" = "垂直标尺";
 "Vignette" = "晕影";
 "Visualize Range" = "可视化范围";
+"Vivid Light" = "亮光";
 "Wand" = "魔棒";
 "White Balance" = "白平衡";
 "White Balance Selector" = "白平衡选择器";

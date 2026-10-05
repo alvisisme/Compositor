@@ -66,7 +66,9 @@ nonisolated enum ProjectError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalid: Localization.text("This is not a valid Compositor project, or its metadata is damaged.")
-        case .version(let version): Localization.string("This project uses format version %@. This app supports versions %@–%@.", version, ProjectManifest.supported.lowerBound, ProjectManifest.supported.upperBound)
+        case .version(let version): Localization.string("This project uses format version %@. This app supports versions %@–%@.",
+                              String(version), String(ProjectManifest.supported.lowerBound),
+                              String(ProjectManifest.supported.upperBound))
         case .missingImage: Localization.text("An image inside the project is missing or damaged. The current document has not been replaced.")
         case .tooLarge: Localization.string("This project exceeds the supported canvas, layer, file-size, or %lld-megapixel document limit.", DocumentLimits.documentBudgetMegapixels)
         case .encode: Localization.text("An image could not be saved. The previous project has not been replaced.")

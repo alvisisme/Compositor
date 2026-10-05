@@ -21,6 +21,7 @@
 "Actual pixels (⌘1)" = "Actual pixels (⌘1)";
 "Add %@" = "Add %@";
 "Add Mask" = "Add Mask";
+"Add Noise" = "Add Noise";
 "Add layer" = "Add layer";
 "Add layer mask" = "Add layer mask";
 "Add layer mask (Option-click for a black mask)" = "Add layer mask (Option-click for a black mask)";
@@ -60,12 +61,14 @@
 "Bayer 2 × 2" = "Bayer 2 × 2";
 "Bayer 4 × 4" = "Bayer 4 × 4";
 "Bayer 8 × 8" = "Bayer 8 × 8";
+"Black" = "Black";
 "Black & White" = "Black & White";
 "Black · Hide" = "Black · Hide";
 "Blend" = "Blend";
 "Blend mode" = "Blend mode";
 "Blend the chosen color into the edges while keeping the center unchanged" = "Blend the chosen color into the edges while keeping the center unchanged";
 "Bloom" = "Bloom";
+"Bloom / Glow" = "Bloom / Glow";
 "Blue" = "Blue";
 "Blue Primary" = "Blue Primary";
 "Blur / Smudge / Liquify" = "Blur / Smudge / Liquify";
@@ -79,6 +82,7 @@
 "Brush size" = "Brush size";
 "Brush tool" = "Brush tool";
 "Calibration" = "Calibration";
+"Camera Raw Filter" = "Camera Raw Filter";
 "Cancel" = "Cancel";
 "Cancel %@" = "Cancel %@";
 "Cancel current canvas operation" = "Cancel current canvas operation";
@@ -134,7 +138,10 @@
 "Close Project" = "Close Project";
 "Close to the current process, with slightly softer primary and shadow shifts." = "Close to the current process, with slightly softer primary and shadow shifts.";
 "Color" = "Color";
+"Color Balance" = "Color Balance";
+"Color Burn" = "Color Burn";
 "Color Detail" = "Color Detail";
+"Color Dodge" = "Color Dodge";
 "Color Grading" = "Color Grading";
 "Color Mixer" = "Color Mixer";
 "Color Overlay" = "Color Overlay";
@@ -195,6 +202,7 @@
 "Cycle shape kind" = "Cycle shape kind";
 "Cycle tool mode" = "Cycle tool mode";
 "Dark" = "Dark";
+"Darken" = "Darken";
 "Dashed Lines" = "Dashed Lines";
 "Decrease brush hardness" = "Decrease brush hardness";
 "Decrease brush size" = "Decrease brush size";
@@ -223,6 +231,7 @@
 "Deselect" = "Deselect";
 "Detail" = "Detail";
 "Develop “%@”" = "Develop “%@”";
+"Difference" = "Difference";
 "Diffusion" = "Diffusion";
 "Diffusion is soft and wide, Bloom is tighter, and Halation is a red fringe." = "Diffusion is soft and wide, Bloom is tighter, and Halation is a red fringe.";
 "Dims the picture outside this color's range. It is not kept when you press OK." = "Dims the picture outside this color's range. It is not kept when you press OK.";
@@ -231,6 +240,7 @@
 "Discard Changes" = "Discard Changes";
 "Distort Layer Mask" = "Distort Layer Mask";
 "Distribution" = "Distribution";
+"Dither" = "Dither";
 "Document Bounds" = "Document Bounds";
 "Done" = "Done";
 "Don’t Save" = "Don’t Save";
@@ -331,9 +341,11 @@
 "Freehand" = "Freehand";
 "Fuzziness" = "Fuzziness";
 "Gaussian" = "Gaussian";
+"Gaussian Blur" = "Gaussian Blur";
 "Geometry" = "Geometry";
 "Glow" = "Glow";
 "Gradient" = "Gradient";
+"Gradient Map" = "Gradient Map";
 "Gradient tool" = "Gradient tool";
 "Grading" = "Grading";
 "Grain" = "Grain";
@@ -348,6 +360,7 @@
 "Group Layers" = "Group Layers";
 "Group Selected Layers" = "Group Selected Layers";
 "Group selected layers (⌘G)" = "Group selected layers (⌘G)";
+"Guided" = "Guided";
 "Guides" = "Guides";
 "HSL" = "HSL";
 "HSL lists every color. Color edits one family. Point Color adjusts a color you pick." = "HSL lists every color. Color edits one family. Point Color adjusts a color you pick.";
@@ -356,6 +369,7 @@
 "Halftone Dots" = "Halftone Dots";
 "Halftone Lines" = "Halftone Lines";
 "Hand tool" = "Hand tool";
+"Hard Light" = "Hard Light";
 "Hardness" = "Hardness";
 "Height" = "Height";
 "Hex" = "Hex";
@@ -445,6 +459,7 @@
 "Layers" = "Layers";
 "Leading" = "Leading";
 "Left" = "Left";
+"Lens Correction" = "Lens Correction";
 "Levels" = "Levels";
 "Levels…" = "Levels…";
 "Light" = "Light";
@@ -453,11 +468,16 @@
 "Light Red" = "Light Red";
 "Light blooming around the lines, like a CRT's phosphors" = "Light blooming around the lines, like a CRT's phosphors";
 "Light on Dark" = "Light on Dark";
+"Lighten" = "Lighten";
 "Lightness" = "Lightness";
 "Limited to the selection" = "Limited to the selection";
+"Line" = "Line";
 "Line Spacing" = "Line Spacing";
 "Line height, baseline to baseline. Empty or 0 is Auto: 120% of the font size." = "Line height, baseline to baseline. Empty or 0 is Auto: 120% of the font size.";
 "Linear" = "Linear";
+"Linear Burn" = "Linear Burn";
+"Linear Dodge (Add)" = "Linear Dodge (Add)";
+"Linear Light" = "Linear Light";
 "Linear histogram with automatic vertical scaling. Tall spikes may extend beyond the graph; all tones from 0 to 255 remain included." = "Linear histogram with automatic vertical scaling. Tall spikes may extend beyond the graph; all tones from 0 to 255 remain included.";
 "Linear runs along the line; Radial spreads out from the start point" = "Linear runs along the line; Radial spreads out from the start point";
 "Link Mask" = "Link Mask";
@@ -503,6 +523,7 @@
 "Mode" = "Mode";
 "Monochromatic" = "Monochromatic";
 "More ink (darker) or less before dithering" = "More ink (darker) or less before dithering";
+"Motion Blur" = "Motion Blur";
 "Move / Transform tool" = "Move / Transform tool";
 "Move Guide" = "Move Guide";
 "Move Layer" = "Move Layer";
@@ -541,6 +562,7 @@
 "No tool selected · Press a tool's key to pick one · Space to pan" = "No tool selected · Press a tool's key to pick one · Space to pan";
 "Noise Reduction" = "Noise Reduction";
 "None" = "None";
+"Normal" = "Normal";
 "Not enough memory to complete that." = "Not enough memory to complete that.";
 "Not enough unselected, opaque image pixels to synthesize a fill. Use a smaller selection with some surrounding image." = "Not enough unselected, opaque image pixels to synthesize a fill. Use a smaller selection with some surrounding image.";
 "Nothing is selected, so there’s nowhere to paint. Choose Select › Deselect (⌘D) to paint anywhere." = "Nothing is selected, so there’s nowhere to paint. Choose Select › Deselect (⌘D) to paint anywhere.";
@@ -550,6 +572,7 @@
 "Object" = "Object";
 "Object Selection" = "Object Selection";
 "Object Selection requires macOS 14 or later." = "Object Selection requires macOS 14 or later.";
+"Off" = "Off";
 "Off leaves the picture as it is. Guided straightens from lines you draw on the picture." = "Off leaves the picture as it is. Guided straightens from lines you draw on the picture.";
 "Only 8-bit RGB Photoshop files can be imported." = "Only 8-bit RGB Photoshop files can be imported.";
 "Only print dimensions and resolution change. Pixels stay unchanged." = "Only print dimensions and resolution change. Pixels stay unchanged.";
@@ -577,6 +600,7 @@
 "Output black" = "Output black";
 "Output white" = "Output white";
 "Outside" = "Outside";
+"Overlay" = "Overlay";
 "Paint" = "Paint";
 "Paint with the foreground color (B), or erase pixels away (E)" = "Paint with the foreground color (B), or erase pixels away (E)";
 "Parametric" = "Parametric";
@@ -586,6 +610,7 @@
 "Perspective" = "Perspective";
 "Perspective allows stronger keystone. Rectilinear keeps the warp gentler." = "Perspective allows stronger keystone. Rectilinear keeps the warp gentler.";
 "Picas" = "Picas";
+"Pin Light" = "Pin Light";
 "Pixel Grid (800% and above)" = "Pixel Grid (800% and above)";
 "Pixel Shape" = "Pixel Shape";
 "Pixel Size" = "Pixel Size";
@@ -642,6 +667,7 @@
 "Release Clipping Mask" = "Release Clipping Mask";
 "Release clipping mask" = "Release clipping mask";
 "Remove %@" = "Remove %@";
+"Remove Background" = "Remove Background";
 "Remove Chromatic Aberration" = "Remove Chromatic Aberration";
 "Remove Distortion" = "Remove Distortion";
 "Remove Links and Delete" = "Remove Links and Delete";
@@ -728,6 +754,7 @@
 "Smudge and Liquify work on a layer's pixels, not its mask." = "Smudge and Liquify work on a layer's pixels, not its mask.";
 "Snap" = "Snap";
 "Snap To" = "Snap To";
+"Soft Light" = "Soft Light";
 "Some dropped items couldn’t be read. Drag JPEG, PNG, HEIC, TIFF, or Photoshop (PSD) files from Finder." = "Some dropped items couldn’t be read. Drag JPEG, PNG, HEIC, TIFF, or Photoshop (PSD) files from Finder.";
 "Square" = "Square";
 "Start of the hue range, in degrees." = "Start of the hue range, in degrees.";
@@ -785,6 +812,7 @@
 "Toggle Levels preview" = "Toggle Levels preview";
 "Toggle visibility" = "Toggle visibility";
 "Tolerance" = "Tolerance";
+"Tonal Contrast" = "Tonal Contrast";
 "Tones per channel: 2 is pure black and white" = "Tones per channel: 2 is pure black and white";
 "Tool options" = "Tool options";
 "Top" = "Top";
@@ -831,6 +859,7 @@
 "Vertical ruler" = "Vertical ruler";
 "Vignette" = "Vignette";
 "Visualize Range" = "Visualize Range";
+"Vivid Light" = "Vivid Light";
 "Wand" = "Wand";
 "White Balance" = "White Balance";
 "White Balance Selector" = "White Balance Selector";

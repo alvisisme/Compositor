@@ -377,7 +377,7 @@ struct ContentView: View {
             if let document = session.document {
                 Text(session.viewport.zoom, format: .percent.precision(.fractionLength(0...1)))
                     .frame(width: 62, alignment: .leading).accessibilityIdentifier("zoomStatus")
-                Text(Localization.v("%@ × %@ px", document.width, document.height)).accessibilityIdentifier("canvasDimensions")
+                Text(Localization.v("%@ × %@ px", String(document.width), String(document.height))).accessibilityIdentifier("canvasDimensions")
                 Text(Localization.v("sRGB · Transparent"))
             } else { Text(Localization.v("Ready when you are")) }
             Spacer()

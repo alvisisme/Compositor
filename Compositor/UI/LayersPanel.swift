@@ -11,7 +11,7 @@ struct LayersPanel: View {
             HStack {
                 Text(Localization.v("Layers")).font(.system(size: 12, weight: .semibold))
                 Spacer()
-                Text(Localization.v("%@", session.document?.layers.count ?? 0)).font(.caption.monospacedDigit()).foregroundStyle(.tertiary)
+                Text(Localization.v("%@", String(session.document?.layers.count ?? 0))).font(.caption.monospacedDigit()).foregroundStyle(.tertiary)
                     .accessibilityIdentifier("layerCount")
             }.padding(18)
             Divider()

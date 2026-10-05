@@ -67,7 +67,7 @@ struct CanvasSizeSheet: View {
     @ViewBuilder private var sheet: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(Localization.v("Canvas Size")).font(.title2.bold())
-            Text(Localization.v("Current: %@ × %@ pixels", draft.originalWidth, draft.originalHeight))
+            Text(Localization.v("Current: %@ × %@ pixels", String(draft.originalWidth), String(draft.originalHeight)))
             Text(Localization.v("%@ uncompressed RGBA canvas", bytes(draft.originalWidth, draft.originalHeight)))
                 .font(.callout).foregroundStyle(.secondary)
             Divider()

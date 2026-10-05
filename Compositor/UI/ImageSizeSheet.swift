@@ -105,7 +105,7 @@ struct ImageSizeSheet: View {
     @ViewBuilder private var sheet: some View {
         VStack(alignment: .leading, spacing: 18) {
             Text(Localization.v("Image Size")).font(.title2.bold())
-            Text(Localization.v("Current: %@ × %@ pixels", document.width, document.height)).foregroundStyle(.secondary)
+            Text(Localization.v("Current: %@ × %@ pixels", String(document.width), String(document.height))).foregroundStyle(.secondary)
             Picker(Localization.v("Units"), selection: $unit) {
                 ForEach(units.filter { resample || ($0 != "Pixels" && $0 != "Percent") }, id: \.self) { Text($0) }
             }
