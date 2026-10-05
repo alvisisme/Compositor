@@ -74,6 +74,9 @@ brew install --cask robbietilton-compositor
 - Drag a number's label to scrub its value, as in Photoshop
 - Automatic updates, signed and notarized
 
+### Speaks more than one language
+- English and Simplified Chinese, switched from the app menu without a relaunch; see [Localization](docs/localization.md)
+
 ### Works with AI agents
 - AI agents and scripts can build and edit projects directly: a `.comp` is a folder of PNG layers and a manifest, and an open project updates live as it's written. See [Writing Compositor projects](docs/writing-comp-files.md)
 
