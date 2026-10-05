@@ -55,7 +55,7 @@ struct CameraRawControls: View {
             Text(readout)
                 .font(.caption.monospacedDigit())
                 .foregroundStyle(.secondary)
-                .help("Red, green, and blue of the pixel under the pointer.")
+                .help(Localization.v("Red, green, and blue of the pixel under the pointer."))
         }
     }
 
@@ -77,7 +77,7 @@ struct CameraRawControls: View {
         }
         .buttonStyle(.plain)
         .help(shadows ? "Show clipped shadows in blue on the preview." : "Show clipped highlights in red on the preview.")
-        .accessibilityLabel(shadows ? "Shadow Clipping Indicator" : "Highlight Clipping Indicator")
+        .accessibilityLabel(Localization.text(shadows ? "Shadow Clipping Indicator" : "Highlight Clipping Indicator"))
     }
 
     private func graph(_ scope: CameraRawScope?, mode: CameraRawScopeMode) -> some View {
@@ -103,7 +103,7 @@ struct CameraRawControls: View {
                 }
             }
         }
-        .accessibilityLabel(mode == .histogram ? "RGB histogram" : "Vectorscope")
+        .accessibilityLabel(Localization.text(mode == .histogram ? "RGB histogram" : "Vectorscope"))
     }
 
     private func ribbon(_ bins: [Double], color: Color, peak: Double, in context: GraphicsContext, size: CGSize) {
@@ -185,12 +185,12 @@ struct CameraRawControls: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 10) {
                 Text(Localization.v("White Balance")).frame(minWidth: Self.labelWidth, alignment: .leading)
-                    .help("Auto balances the average color. Custom follows Temperature and Tint.")
+                    .help(Localization.v("Auto balances the average color. Custom follows Temperature and Tint."))
                 Picker(Localization.v("White Balance"), selection: Binding(get: { raw.whiteBalance }, set: setWhiteBalance)) {
                     ForEach(CameraRawWhiteBalance.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }
                 .labelsHidden()
-                .help("Auto balances the average color. Custom follows Temperature and Tint.")
+                .help(Localization.v("Auto balances the average color. Custom follows Temperature and Tint."))
                 Button {
                     session.filterEdit?.samplesWhiteBalance.toggle()
                     session.brushRevision += 1
@@ -199,8 +199,8 @@ struct CameraRawControls: View {
                 }
                 .buttonStyle(.borderless)
                 .tint(session.filterEdit?.samplesWhiteBalance == true ? Color.accentColor : Color.secondary)
-                .help("Click a pixel that should be neutral.")
-                .accessibilityLabel("White Balance Selector")
+                .help(Localization.v("Click a pixel that should be neutral."))
+                .accessibilityLabel(Localization.v("White Balance Selector"))
             }
             if session.filterEdit?.samplesWhiteBalance == true {
                 Text(Localization.v("Click the original layer. Click the eyedropper again to stop."))
@@ -231,7 +231,7 @@ struct CameraRawControls: View {
             Picker(Localization.v("Style"), selection: Binding(get: { raw.glowStyle }, set: { style in update { $0.cameraRaw.glowStyle = style } })) {
                 ForEach(CameraRawGlowStyle.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
-            .help("Diffusion is soft and wide, Bloom is tighter, and Halation is a red fringe.")
+            .help(Localization.v("Diffusion is soft and wide, Bloom is tighter, and Halation is a red fringe."))
             VStack(alignment: .leading, spacing: 8) {
                 slider("Range", \.glowRange, range: CameraRawSettings.toneRange, decimals: 0, clipping: nil,
                        help: "Chooses how bright an area must be to glow. Has no effect until Glow is raised.")
@@ -247,7 +247,7 @@ struct CameraRawControls: View {
             Picker(Localization.v("Style"), selection: Binding(get: { raw.vignetteStyle }, set: { style in update { $0.cameraRaw.vignetteStyle = style } })) {
                 ForEach(CameraRawVignetteStyle.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
-            .help("Highlight Priority protects bright edges. Color Priority also reduces color. Paint Overlay covers the edges evenly.")
+            .help(Localization.v("Highlight Priority protects bright edges. Color Priority also reduces color. Paint Overlay covers the edges evenly."))
             VStack(alignment: .leading, spacing: 8) {
                 slider("Midpoint", \.vignetteMidpoint, range: CameraRawSettings.unitRange, decimals: 0, clipping: nil,
                        reset: 50, help: "Sets where the vignette begins, from the center outward.")
@@ -289,7 +289,7 @@ struct CameraRawControls: View {
         }
         .buttonStyle(.borderless)
         .help(shown ? "Hide \(name) in the preview" : "Show \(name) in the preview")
-        .accessibilityLabel(shown ? "Hide \(name)" : "Show \(name)")
+        .accessibilityLabel(Localization.string(shown ? "Hide %@" : "Show %@", name))
     }
 
     private func slider(_ title: String, _ key: WritableKeyPath<CameraRawSettings, Double>, range: ClosedRange<Double>,

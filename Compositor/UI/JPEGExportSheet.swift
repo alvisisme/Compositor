@@ -37,13 +37,13 @@ struct JPEGExportSheet: View {
                 Text(Localization.v("Export JPEG")).font(.title2.bold())
                 Spacer()
                 Button(Localization.v("Fit")) { zoom = nil }.disabled(zoom == nil)
-                    .help("Show the whole image (⌘0)")
+                    .help(Localization.v("Show the whole image (⌘0)"))
                 Button { zoomBy(1) } label: { Image(systemName: "plus.magnifyingglass") }
                     .disabled(JPEGPreview.step(from: shownZoom, in: 1) == nil)
-                    .help("Zoom in (⌘+), now \(percent). At 100% each pixel of the JPEG is one pixel of the screen, as on the canvas")
+                    .help(Localization.v("Zoom in (⌘+), now %@. At 100% each pixel of the JPEG is one pixel of the screen, as on the canvas", percent))
                 Button { zoomBy(-1) } label: { Image(systemName: "minus.magnifyingglass") }
                     .disabled(JPEGPreview.step(from: shownZoom, in: -1) == nil)
-                    .help("Zoom out (⌘−), now \(percent)")
+                    .help(Localization.v("Zoom out (⌘−), now %@", percent))
             }
             // Closer to the title row than the rest of the dialog's spacing.
             .padding(.bottom, -8)
@@ -56,7 +56,7 @@ struct JPEGExportSheet: View {
                     ProgressView().padding().background(.regularMaterial, in: RoundedRectangle(cornerRadius: 8))
                 }
             }.frame(width: JPEGPreview.frame.width, height: JPEGPreview.frame.height).clipped()
-                .help("Drag or scroll to move around; double-click switches between Fit and 100%")
+                .help(Localization.v("Drag or scroll to move around; double-click switches between Fit and 100%"))
             HStack {
                 Text(Localization.v("Quality"))
                 Slider(value: $options.quality, in: 0...1, step: 0.01)
@@ -66,7 +66,7 @@ struct JPEGExportSheet: View {
             HStack(spacing: 8) {
                 Text(Localization.v("Background for transparency"))
                 DialogColorSwatch(title: "JPEG Background", color: matte, session: session)
-                    .help("Color that fills transparent areas")
+                    .help(Localization.v("Color that fills transparent areas"))
             }
             HStack(spacing: 12) {
                 Text(Localization.v("%@ × %@ px · sRGB", raster.image.width.formatted(), raster.image.height.formatted()))

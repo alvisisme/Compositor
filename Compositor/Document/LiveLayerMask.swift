@@ -109,7 +109,7 @@ extension EditorSession {
         alert.messageText = Localization.text(ids.count == 1 ? "This layer supplies a live mask" : "These layers supply live masks")
         alert.informativeText = Localization.text("Bake keeps the current masked appearance in the dependent layers’ pixels. Remove Links reveals their pixels. You can undo either choice.")
         alert.addButton(withTitle: Localization.text("Bake and Delete"))
-        alert.addButton(withTitle: "Cancel")
+        alert.addButton(withTitle: Localization.text("Cancel"))
         alert.addButton(withTitle: Localization.text("Remove Links and Delete"))
         let response = alert.runModal()
         if response == .alertThirdButtonReturn { finishDeletingLayers(ids, baked: [:]); return true }

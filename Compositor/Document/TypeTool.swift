@@ -2,6 +2,17 @@ import AppKit
 
 nonisolated enum TextAlignment: String, Codable, CaseIterable, Sendable {
     case left = "Left", center = "Center", right = "Right"
+
+    /// What the alignment buttons show, in the reader's language. The raw value is what a `.comp` stores,
+    /// so it stays as it is; see `LayerBlendMode.displayName`.
+    var displayName: String {
+        switch self {
+        case .left: "Left"
+        case .center: "Center"
+        case .right: "Right"
+        }
+    }
+    var localizedName: String { Localization.text(displayName) }
 }
 
 nonisolated struct LayerTextStyle: Codable, Equatable, Sendable {

@@ -15,7 +15,7 @@ struct ColorRangeSheet: View {
                         .background(edit?.effectiveMode == mode ? Color.accentColor.opacity(0.25) : .clear,
                                     in: RoundedRectangle(cornerRadius: 4))
                         .help(help(mode))
-                        .accessibilityLabel("\(mode.rawValue) color")
+                        .accessibilityLabel(Localization.v("%@ color", mode.rawValue))
                 }
                 Spacer()
             }
@@ -30,9 +30,9 @@ struct ColorRangeSheet: View {
                 TextField(Localization.v("Fuzziness"), value: fuzziness, format: .number.precision(.fractionLength(0)))
                     .frame(width: 48).textFieldStyle(.roundedBorder).multilineTextAlignment(.trailing)
             }
-            .help("How far a color may be from the picked ones and still be selected")
+            .help(Localization.v("How far a color may be from the picked ones and still be selected"))
             Toggle(Localization.v("Invert"), isOn: Binding(get: { edit?.invert ?? false }, set: { edit?.invert = $0; session.updateColorRange() }))
-                .help("Select everything except those colors, such as all but a green screen")
+                .help(Localization.v("Select everything except those colors, such as all but a green screen"))
             if let error = edit?.error {
                 Text(error).foregroundStyle(.orange).fixedSize(horizontal: false, vertical: true)
             }

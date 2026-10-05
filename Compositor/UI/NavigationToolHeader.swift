@@ -22,8 +22,8 @@ struct NavigationToolHeader: View {
                     .arrowSteps(editing: editingZoom, stepper: stepper,
                                 value: { Double(zoomText.filter { $0.isNumber || $0 == "." }) ?? Double(session.viewport.zoom * 100) },
                                 change: { step($0) })
-                    .accessibilityLabel("Zoom percentage")
-                    .help("Zoom percentage (0.1–3200%). Press Return to apply.")
+                    .accessibilityLabel(Localization.v("Zoom percentage"))
+                    .help(Localization.v("Zoom percentage (0.1–3200%). Press Return to apply."))
                     .disabled(session.document == nil || session.showsBusy)
                     .unitSuffix("%", scrubValue: Binding<Double>(
                         get: { Double(session.viewport.zoom * 100) }, set: { step($0) }),

@@ -68,7 +68,7 @@ struct ColorPickerSheet: View {
             hsb.saturation = min(1, max(0, value.location.x / fieldSize))
             hsb.brightness = 1 - min(1, max(0, value.location.y / fieldSize))
         })
-        .accessibilityLabel("Saturation and brightness")
+        .accessibilityLabel(Localization.v("Saturation and brightness"))
     }
 
     private var hueStrip: some View {
@@ -92,7 +92,7 @@ struct ColorPickerSheet: View {
         .gesture(DragGesture(minimumDistance: 0).onChanged { value in
             hsb.hue = (1 - min(1, max(0, value.location.y / fieldSize))) * 360
         })
-        .accessibilityLabel("Hue")
+        .accessibilityLabel(Localization.v("Hue"))
         .accessibilityValue("\(Int(hsb.hue.rounded())) degrees")
     }
 
@@ -101,7 +101,7 @@ struct ColorPickerSheet: View {
             .fill(color.swiftUI)
             .overlay { RoundedRectangle(cornerRadius: 5, style: .continuous).strokeBorder(.black.opacity(0.6), lineWidth: 1) }
             .frame(width: 64, height: 64)
-            .accessibilityLabel("New color")
+            .accessibilityLabel(Localization.v("New color"))
     }
 
     private var fields: some View {
@@ -116,7 +116,7 @@ struct ColorPickerSheet: View {
                     .frame(width: 84)
                     .focused($hexFocused)
                     .onSubmit(commitHex)
-                    .accessibilityLabel("Hex color")
+                    .accessibilityLabel(Localization.v("Hex color"))
             }
         }
     }
@@ -140,7 +140,7 @@ struct ColorPickerSheet: View {
                                 rgb[keyPath: channel] = CGFloat(min(255, max(0, newValue.rounded()))) / 255
                                 hsb.setRGB(rgb)
                             })
-                .accessibilityLabel(label == "R" ? "Red" : label == "G" ? "Green" : "Blue")
+                .accessibilityLabel(Localization.text(label == "R" ? "Red" : label == "G" ? "Green" : "Blue"))
         }
     }
 

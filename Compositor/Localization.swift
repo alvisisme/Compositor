@@ -4,21 +4,21 @@ import SwiftUI
 /// The app's languages, and the machinery for choosing one at runtime.
 ///
 /// macOS normally picks a process's localization once, at launch, and an app that wants to change it has to be
-/// relaunched. Compositor instead resolves every string through a bundle for the chosen language, so the switcher
-/// in Settings takes effect immediately.
+/// relaunched. Compositor instead resolves every string through a bundle for the chosen language, so the switcher in
+/// the app menu takes effect immediately.
 ///
-/// Three things make that work, and all three are needed:
+/// The load-bearing fact, measured rather than assumed: `Bundle.main` resolves which `.lproj` it reads *once*, and
+/// nothing at runtime redirects it — not `AppleLanguages`, not the `locale` environment. A bundle built explicitly
+/// for a language does return that language, and that is the whole mechanism. Two call-site rules follow:
 ///
-/// - `Localization.bundle(for:)` returns the `.lproj` bundle for a language. Foundation reads a bundle's `Localizable`
-///   table without consulting the process language, so asking for one bundle or the other is the whole mechanism.
-/// - AppKit and model code call `Localization.string(_:)` (or `text(_:)` for a plain `String`), which look the key up
-///   in that bundle. Code with no view to read the environment from still gets the right language.
-/// - SwiftUI resolves a `Text("literal")` against the main bundle, which a bundle argument cannot reach. `LocaleRoot`
-///   therefore re-identifies the whole tree when the language changes, so those literals are resolved again — against
-///   the bundle `environment(\.localizationBundle, …)` has put in place.
+/// - View code uses `v(_:)`. A bare `Text("Save")` asks `Bundle.main` and is therefore stuck in the launch language,
+///   so on a Mac set to Chinese the English option would not work at all. `LocalizationRoot` re-identifies the tree
+///   when the language changes, which is what re-resolves those strings with the chosen bundle in the environment.
+/// - Everything else uses `string(_:)` or `text(_:)`. AppKit menu titles, alerts, and the enums that name themselves
+///   are built where no view can be read and no actor is in reach, so those look the bundle up directly.
 ///
-/// `Text` also needs its string in the table under the *English wording* as the key, which is what `String(localized:)`
-/// does too, so one table serves both kinds of call site. See `docs/localization.md`.
+/// `docs/localization.md` has the measurements, the reason `displayName` is kept separate from `rawValue`, and what
+/// macOS does not let a running app change.
 enum Localization {
     /// The languages the app ships. `code` is what `.lproj` folders are named after; `endonym` is the language's own
     /// name, which is what a language picker should show — a reader who cannot read the current language can still

@@ -13,10 +13,10 @@ struct TransformInspector: View {
           // Command flips Auto Select while it's held, and the box shows it flipped (see HeldModifiers).
           Toggle(Localization.v("Auto Select"), isOn: Binding(get: { session.transformAutoSelect != held.contains(.command) },
                                               set: { session.transformAutoSelect = $0 != held.contains(.command) }))
-              .help("Select layers by clicking the canvas. Hold Command to turn it the other way while you click.")
+              .help(Localization.v("Select layers by clicking the canvas. Hold Command to turn it the other way while you click."))
               .accessibilityIdentifier("transformAutoSelect")
           Toggle(Localization.v("Show Controls"), isOn: $session.showsTransformControls)
-              .help("Show the transform box and handles (⌘H). When hidden, drag anywhere to move the layer.")
+              .help(Localization.v("Show the transform box and handles (⌘H). When hidden, drag anywhere to move the layer."))
           ScrollView(.horizontal) {
             HStack(spacing: 12) {
                 field("X", value: value.origin.x) { $0.origin.x = $1 }.frame(width: 85)
@@ -26,13 +26,13 @@ struct TransformInspector: View {
                 // Shift flips the lock while dragging a handle, and the button shows it flipped.
                 Toggle(isOn: Binding(get: { session.locksTransformRatio != held.contains(.shift) },
                                      set: { session.locksTransformRatio = $0 != held.contains(.shift) })) { Image(systemName: "link") }
-                    .toggleStyle(.button).help("Lock aspect ratio. Hold Shift while dragging a handle to turn it the other way.")
+                    .toggleStyle(.button).help(Localization.v("Lock aspect ratio. Hold Shift while dragging a handle to turn it the other way."))
                 TransformValueField(label: "Scale", suffix: "%", value: value.scalePercent(pixelSize: pixelSize), range: 0.1...30_000, finish: finish) { number in
                     change { value in
                         guard number > 0 else { return }
                         value = value.scaled(toPercent: number, pixelSize: pixelSize)
                     }
-                }.frame(width: 110).help("Scale width and height together, about the center")
+                }.frame(width: 110).help(Localization.v("Scale width and height together, about the center"))
                 field("°", value: value.rotation, range: -360...360) { $0.rotation = $1.truncatingRemainder(dividingBy: 360) }.frame(width: 75)
                 Picker(Localization.v("Sampling"), selection: Binding(get: { value.sampling }, set: { sampling in
                     change { $0.sampling = sampling }

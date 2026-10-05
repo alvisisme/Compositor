@@ -113,7 +113,7 @@ struct ProjectTabStrip: View {
             }
         }
         .frame(width: contentWidth, height: 34, alignment: .topLeading)
-        .accessibilityLabel("Project tabs")
+        .accessibilityLabel(Localization.v("Project tabs"))
         .onReceive(dragTimer) { _ in
             // External drags don't deliver mouse-down to our window. Track the
             // drag pasteboard's new session, and clear on release/cancel.
@@ -255,8 +255,8 @@ private struct NewTabDropSlot: View {
                 style: StrokeStyle(lineWidth: targeted ? 2 : 1, dash: targeted ? [] : [4, 3])))
             .contentShape(Capsule())
             .fixedSize()
-            .help("Drop to open in a new canvas")
-            .accessibilityLabel("Drop into new canvas")
+            .help(Localization.v("Drop to open in a new canvas"))
+            .accessibilityLabel(Localization.v("Drop into new canvas"))
             .onDrop(of: [UTType.fileURL.identifier, UTType.image.identifier, ProjectWorkspace.layerType], delegate:
                 ProjectTabDropDelegate(workspace: workspace, destination: nil, targeted: $targeted))
     }
@@ -339,7 +339,7 @@ private struct ProjectTabButton: View {
             Button { workspace.select(tab.id) } label: {
                 HStack(spacing: 5) {
                     if tab.session.isModified {
-                        Circle().frame(width: 5, height: 5).accessibilityLabel("Unsaved changes")
+                        Circle().frame(width: 5, height: 5).accessibilityLabel(Localization.v("Unsaved changes"))
                     }
                     Text(tab.title).font(.system(size: 12, weight: active ? .semibold : .medium)).lineLimit(1)
                 }
@@ -361,8 +361,8 @@ private struct ProjectTabButton: View {
                     .frame(width: 16, height: 28)
                     .padding(.trailing, 5)
                     .contentShape(Rectangle())
-            }.buttonStyle(.plain).help("Close \(tab.title)").disabled(!workspace.canSwitch)
-                .accessibilityLabel("Close \(tab.title)")
+            }.buttonStyle(.plain).help(Localization.v("Close %@", tab.title)).disabled(!workspace.canSwitch)
+                .accessibilityLabel(Localization.v("Close %@", tab.title))
         }
         .frame(height: 28)
         .background(targeted ? Color.accentColor.opacity(0.3) : Color.white.opacity(active ? 0.12 : 0.035), in: Capsule())

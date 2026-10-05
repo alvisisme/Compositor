@@ -129,7 +129,7 @@ struct CanvasSizeSheet: View {
                 HStack(spacing: 8) {
                     Text(Localization.v("Extension color"))
                     DialogColorSwatch(title: "Extension Color", color: $customColor, session: session)
-                        .help("Color for the added canvas")
+                        .help(Localization.v("Color for the added canvas"))
                 }
             }
             HStack {

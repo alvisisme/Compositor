@@ -59,7 +59,7 @@ struct GridSettingsSheet: View {
                     ForEach(GridAppearance.Preset.allCases) { Text($0.rawValue).tag($0) }
                 }.labelsHidden()
                 DialogColorSwatch(title: "Grid Color", color: swatchColor, session: session)
-                    .help("Choose a custom grid color")
+                    .help(Localization.v("Choose a custom grid color"))
             }
             HStack {
                 Text(Localization.v("Style")).frame(width: 110, alignment: .leading)

@@ -21,8 +21,8 @@ struct ColorPaletteControls: View {
             .buttonStyle(.plain)
             .foregroundStyle(.secondary)
             .offset(x: swatchSize + 3, y: -3)
-            .help("Swap foreground and background (X)")
-            .accessibilityLabel("Swap colors")
+            .help(Localization.v("Swap foreground and background (X)"))
+            .accessibilityLabel(Localization.v("Swap colors"))
             Button { session.resetPaletteColors() } label: {
                 Image(systemName: "arrow.counterclockwise")
                     .font(.system(size: 7.5, weight: .medium))
@@ -32,8 +32,8 @@ struct ColorPaletteControls: View {
             .buttonStyle(.plain)
             .foregroundStyle(.secondary)
             .offset(x: -1, y: swatchSize + 3)
-            .help("Default colors (D)")
-            .accessibilityLabel("Default colors")
+            .help(Localization.v("Default colors (D)"))
+            .accessibilityLabel(Localization.v("Default colors"))
         }
         .frame(width: swatchSize + swatchOffset, height: swatchSize + swatchOffset, alignment: .topLeading)
         .disabled(!session.canEditPalette)

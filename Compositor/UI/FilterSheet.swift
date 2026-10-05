@@ -37,7 +37,7 @@ struct FilterSheet: View {
                 control("Blues", \.blackWhite.blues, range: BlackWhiteSettings.range, unit: "%", decimals: 0, logarithmic: false, track: .luminance(240))
                 control("Magentas", \.blackWhite.magentas, range: BlackWhiteSettings.range, unit: "%", decimals: 0, logarithmic: false, track: .luminance(300))
                 Toggle(Localization.v("Tint"), isOn: flag(\.blackWhite.tint))
-                    .help("Color the result while keeping its tones, for a sepia or a cyanotype")
+                    .help(Localization.v("Color the result while keeping its tones, for a sepia or a cyanotype"))
                 if settings.blackWhite.tint {
                     control("Hue", \.blackWhite.tintHue, range: 0...360, unit: "°", decimals: 0, logarithmic: false, track: .plain)
                     control("Saturation", \.blackWhite.tintSaturation, range: 0...100, unit: "%", decimals: 0, logarithmic: false,
@@ -60,7 +60,7 @@ struct FilterSheet: View {
                 control("Magenta / Green", \.colorBalance.highlightMagentaGreen, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.magentaGreenTrack)
                 control("Yellow / Blue", \.colorBalance.highlightYellowBlue, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.yellowBlueTrack)
                 Toggle(Localization.v("Preserve Luminosity"), isOn: flag(\.colorBalance.preserveLuminosity))
-                    .help("Put each pixel's brightness back afterwards, so only the color moves")
+                    .help(Localization.v("Put each pixel's brightness back afterwards, so only the color moves"))
             case .grain:
                 control("Amount", \.grain.amount, range: GrainSettings.amountRange, unit: "", decimals: 0, logarithmic: false)
                 control("Size", \.grain.size, range: GrainSettings.sizeRange, unit: "px", decimals: 1, logarithmic: true)
@@ -73,14 +73,14 @@ struct FilterSheet: View {
                     ForEach(BackgroundQuality.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }
                 .pickerStyle(.segmented).labelsHidden()
-                .help("Basic is quick; Advanced refines the mask against the layer's own detail, for hair and fur")
+                .help(Localization.v("Basic is quick; Advanced refines the mask against the layer's own detail, for hair and fur"))
                 if settings.backgroundQuality == .advanced {
                     control("Refine", \.refineEdges, range: 0...40, unit: "px", decimals: 0, logarithmic: false)
-                        .help("Pull the mask onto the image's own edges, which recovers hair and fur")
+                        .help(Localization.v("Pull the mask onto the image's own edges, which recovers hair and fur"))
                     control("Contrast", \.matteContrast, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
-                        .help("Clear the haze that leaves background showing through thin areas")
+                        .help(Localization.v("Clear the haze that leaves background showing through thin areas"))
                     control("Shift Edge", \.shiftEdge, range: -10...10, unit: "px", decimals: 0, logarithmic: false)
-                        .help("Shrink the mask to drop the rim of background color around the subject, or grow it")
+                        .help(Localization.v("Shrink the mask to drop the rim of background color around the subject, or grow it"))
                 }
             case .contentAwareFill:
                 Text(Localization.v("Fill the selection using surrounding pixels from this layer."))
@@ -116,16 +116,16 @@ struct FilterSheet: View {
                             .contentShape(shape)
                     }
                     .buttonStyle(.plain)
-                    .help("Choose the vignette color")
+                    .help(Localization.v("Choose the vignette color"))
                     Spacer()
                 }
                 control("Amount", \.vignetteAmount, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
-                    .help("Blend the chosen color into the edges while keeping the center unchanged")
+                    .help(Localization.v("Blend the chosen color into the edges while keeping the center unchanged"))
                 control("Midpoint", \.vignetteMidpoint, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
                 control("Roundness", \.vignetteRoundness, range: -100...100, unit: "", decimals: 0, logarithmic: false)
                 control("Feather", \.vignetteFeather, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
                 control("Highlights", \.vignetteHighlights, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
-                    .help("Protect bright areas near the edge")
+                    .help(Localization.v("Protect bright areas near the edge"))
             case .bloomGlow:
                 control("Amount", \.bloomAmount, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
                 control("Radius", \.bloomRadius, range: 1...150, unit: "px", decimals: 0, logarithmic: true)
@@ -191,21 +191,21 @@ struct FilterSheet: View {
         }
         if dither.style.usesPixelSize {
         control("Pixel Size", \.dither.pixelSize, range: DitherSettings.pixelSizeRange, unit: "px", decimals: 0, logarithmic: false)
-            .help("Make each dithered pixel this many pixels across, for a chunky old-screen look")
+            .help(Localization.v("Make each dithered pixel this many pixels across, for a chunky old-screen look"))
         }
         if dither.style == .ascii {
             control("Text Size", \.dither.textSize, range: DitherSettings.textSizeRange, unit: "px", decimals: 0, logarithmic: false)
-                .help("The height of each line of characters")
+                .help(Localization.v("The height of each line of characters"))
         }
         if dither.style == .scanlines {
             control("Line Spacing", \.dither.lineSpacing, range: DitherSettings.lineSpacingRange, unit: "px", decimals: 0, logarithmic: false)
-                .help("How far apart the screen's lines are")
+                .help(Localization.v("How far apart the screen's lines are"))
             control("Glow", \.dither.glow, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
-                .help("Light blooming around the lines, like a CRT's phosphors")
+                .help(Localization.v("Light blooming around the lines, like a CRT's phosphors"))
             control("Dots", \.dither.dots, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
-                .help("Break the lines into glowing beads")
+                .help(Localization.v("Break the lines into glowing beads"))
             control("Wobble", \.dither.wobble, range: DitherSettings.wobbleRange, unit: "px", decimals: 0, logarithmic: false)
-                .help("Make the lines waver sideways down the screen, like a CRT losing sync")
+                .help(Localization.v("Make the lines waver sideways down the screen, like a CRT losing sync"))
         }
         if dither.style.isHalftone {
             control("Cell Size", \.dither.cellSize, range: DitherSettings.cellSizeRange, unit: "px", decimals: 0, logarithmic: false)
@@ -219,18 +219,18 @@ struct FilterSheet: View {
                 TextField(Localization.v("Characters"), text: Binding(get: { dither.characters }, set: { new in update { $0.dither.characters = new } }))
                     .textFieldStyle(.roundedBorder).font(.body.monospaced())
             }
-            .help("The characters to draw with, in any order: each spot gets the one whose ink best matches its tone")
+            .help(Localization.v("The characters to draw with, in any order: each spot gets the one whose ink best matches its tone"))
         }
         if dither.style.hasTones {
             control("Tones", \.dither.levels, range: DitherSettings.levelsRange, unit: "", decimals: 0, logarithmic: false)
-                .help("Tones per channel: 2 is pure black and white")
+                .help(Localization.v("Tones per channel: 2 is pure black and white"))
         }
         if dither.style.diffuses {
             control("Diffusion", \.dither.diffusion, range: 0...100, unit: "%", decimals: 0, logarithmic: false)
-                .help("How much of each pixel's error spreads to its neighbors. Less gives flatter areas")
+                .help(Localization.v("How much of each pixel's error spreads to its neighbors. Less gives flatter areas"))
         }
         control("Density", \.dither.density, range: -100...100, unit: "", decimals: 0, logarithmic: false)
-            .help("More ink (darker) or less before dithering")
+            .help(Localization.v("More ink (darker) or less before dithering"))
         control("Contrast", \.dither.contrast, range: -100...100, unit: "", decimals: 0, logarithmic: false)
         // A menu, like Style: the three choices as segments are wider than the panel, which then flips between
         // squeezing the row and wrapping it, resizing itself at every slider step.
@@ -252,11 +252,11 @@ struct FilterSheet: View {
                 ForEach(DitherPixelShape.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .fixedSize()
-            .help("Draw each chunky pixel as a solid square, or as a round dot like a dot-matrix screen")
+            .help(Localization.v("Draw each chunky pixel as a solid square, or as a round dot like a dot-matrix screen"))
         }
         if dither.style.drawsMarks {
             Toggle(Localization.v("Light on Dark"), isOn: flag(\.dither.lightOnDark))
-                .help("Draw the marks for the light tones on the dark color, like a glowing screen")
+                .help(Localization.v("Draw the marks for the light tones on the dark color, like a glowing screen"))
         }
     }
 
@@ -361,8 +361,8 @@ struct GradientMapControls: View {
                     .contentShape(shape)
             }
             .buttonStyle(.plain)
-            .help("Choose the \(title.lowercased()) color")
-            .accessibilityLabel("\(title) color")
+            .help(Localization.v("Choose the %@ color", title.lowercased()))
+            .accessibilityLabel(Localization.v("%@ color", title))
             Text(title)
         }
     }

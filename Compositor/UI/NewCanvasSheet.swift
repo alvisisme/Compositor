@@ -42,8 +42,8 @@ struct NewCanvasSheet: View {
                             .padding(.trailing, -10)
                     }
                     .menuStyle(.button).buttonStyle(.plain).menuIndicator(.hidden).fixedSize()
-                    .help("Preset sizes for screens and common formats")
-                    .accessibilityLabel("Preset sizes")
+                    .help(Localization.v("Preset sizes for screens and common formats"))
+                    .accessibilityLabel(Localization.v("Preset sizes"))
                 }
             }
             HStack(spacing: 16) {
