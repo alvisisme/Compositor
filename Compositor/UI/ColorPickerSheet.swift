@@ -110,7 +110,7 @@ struct ColorPickerSheet: View {
             channelRow("G", \.green)
             channelRow("B", \.blue)
             GridRow {
-                Text("#").frame(width: 14, alignment: .leading)
+                Text(verbatim: "#").frame(width: 14, alignment: .leading)
                 TextField(Localization.v("Hex"), text: $hexDraft)
                     .font(.system(.body, design: .monospaced))
                     .frame(width: 84)

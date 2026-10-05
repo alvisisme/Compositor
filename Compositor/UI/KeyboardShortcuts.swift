@@ -62,14 +62,25 @@ struct ShortcutChord: Codable, Equatable, Hashable {
 
 struct ShortcutDefinition: Identifiable {
     let title: String
+    /// Format arguments for `title` when it is a format string; empty for a plain title.
+    var arguments: [String] = []
     let group: String
     let original: ShortcutChord
     var id: String { "\(group):\(title)" }
     var isMenu: Bool { group == "Menus" }
+    /// What the editor draws, in the reader's language. `id` and `isMenu` keep the English `group` and
+    /// `title`: the identity has to survive a language change, and `group` is also the section key.
+    var localizedTitle: String {
+        // Through `String(format:)` so a title with a specifier can be reordered by its translation.
+        arguments.isEmpty ? Localization.v(title) : Localization.v(title, arguments: arguments)
+    }
+    var localizedGroup: String { Localization.text(group) }
 
     static let all: [ShortcutDefinition] = {
-        func entry(_ title: String, _ key: String, _ modifiers: Int = 0, menu: Bool = false) -> ShortcutDefinition {
-            .init(title: title, group: menu ? "Menus" : "Canvas & Layers", original: ShortcutChord(key, modifiers))
+        func entry(_ title: String, _ key: String, _ modifiers: Int = 0, menu: Bool = false,
+                   format: [String] = []) -> ShortcutDefinition {
+            .init(title: title, arguments: format, group: menu ? "Menus" : "Canvas & Layers",
+                  original: ShortcutChord(key, modifiers))
         }
         var result: [ShortcutDefinition] = [
             entry("Undo", "z", 1, menu: true), entry("Redo", "z", 9, menu: true),
@@ -111,16 +122,24 @@ struct ShortcutDefinition: Identifiable {
         result += [entry("Decrease brush hardness", "[", 8), entry("Increase brush hardness", "]", 8),
                    entry("Previous blend mode", "-", 8), entry("Next blend mode", "=", 8),
                    entry("Cycle shape kind", "u", 8)]
-        for digit in 0...9 { result.append(entry("Opacity digit \(digit) (type two for exact %)", String(digit))) }
+        // The digit is both the key and the substitution, so `%@` in the source is filled with it.
+        for digit in 0...9 {
+            result.append(entry("Opacity digit %@ (type two for exact %%)", String(digit), 0, format: [String(digit)]))
+        }
         for (direction, key) in [("Left", "\u{f702}"), ("Right", "\u{f703}"), ("Up", "\u{f700}"), ("Down", "\u{f701}")] {
-            result += [entry("Nudge \(direction) 1 px", key), entry("Nudge \(direction) 10 px", key, 8),
-                       entry("Move selected pixels \(direction) 1 px", key, 1), entry("Move selected pixels \(direction) 10 px", key, 9)]
+            result += [entry("Nudge %@ 1 px", key, 0, format: [direction]),
+                       entry("Nudge %@ 10 px", key, 8, format: [direction]),
+                       entry("Move selected pixels %@ 1 px", key, 1, format: [direction]),
+                       entry("Move selected pixels %@ 10 px", key, 9, format: [direction])]
         }
         result.append(.init(title: "Finish editing text", group: "Text Editing", original: ShortcutChord("\r", 1)))
         for (title, key) in [("Decrease tracking", "\u{f702}"), ("Increase tracking", "\u{f703}"),
                              ("Decrease leading", "\u{f700}"), ("Increase leading", "\u{f701}")] {
             result.append(.init(title: title, group: "Text Editing", original: ShortcutChord(key, 2)))
-            result.append(.init(title: title + " by 10", group: "Text Editing", original: ShortcutChord(key, 10)))
+            // The whole phrase is the key, not a suffix glued onto the title: a suffix leaves the title itself
+            // in English inside the translated phrase.
+            result.append(.init(title: title + " by 10", group: "Text Editing",
+                                   original: ShortcutChord(key, 10)))
         }
         result.append(entry("Toggle Levels preview", "p", 2))
         return result
@@ -240,10 +259,10 @@ private struct KeyboardShortcutsSheet: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 6) {
                     ForEach(["Menus", "Canvas & Layers", "Text Editing"], id: \.self) { group in
-                        Text(group).font(.headline).padding(.top, 8)
+                        Text(Localization.v(group)).font(.headline).padding(.top, 8)
                         ForEach(ShortcutDefinition.all.filter { $0.group == group && (search.isEmpty || $0.title.localizedCaseInsensitiveContains(search)) }) { definition in
                             HStack {
-                                Text(definition.title)
+                                Text(definition.localizedTitle)
                                 Spacer()
                                 ShortcutRecorder(chord: draft[definition.id] ?? definition.original,
                                     recording: recording == definition.id,
@@ -289,7 +308,7 @@ private struct ShortcutRecorder: NSViewRepresentable {
     func makeNSView(context: Context) -> RecorderButton { RecorderButton() }
     func updateNSView(_ button: RecorderButton, context: Context) {
         button.start = start; button.finish = finish; button.recording = recording
-        button.title = recording ? "Press keys…" : chord.label
+        button.title = recording ? Localization.text("Press keys…") : chord.label
         button.setAccessibilityLabel(recording ? Localization.text("Press a shortcut") : chord.label)
         if recording, button.window?.firstResponder !== button { button.window?.makeFirstResponder(button) }
     }

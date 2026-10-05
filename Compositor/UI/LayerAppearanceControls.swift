@@ -31,7 +31,7 @@ struct LayerAppearanceControls: View {
                         .arrowSteps(editing: focused, stepper: stepper,
                                     value: { ((session.activeLayer?.opacity ?? 1) * 100).rounded() },
                                     change: { step($0) })
-                    Text("%").font(.caption)
+                    Text(verbatim: "%").font(.caption)
                 }
             }
         }.padding(12).disabled(!session.canEditOpacity)

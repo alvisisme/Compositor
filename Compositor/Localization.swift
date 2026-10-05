@@ -161,6 +161,13 @@ enum Localization {
         String(format: string(key), arguments: arguments)
     }
 
+    /// The same for arguments already in an array. A variadic cannot be spread, so a call site that stores the
+    /// arguments beside the format string — `ShortcutDefinition` does, so a title can be reordered by its
+    /// translation — needs this one.
+    static func string(_ key: String, arguments: [CVarArg]) -> String {
+        String(format: string(key), arguments: arguments)
+    }
+
     /// A localized string as a plain `String`, for the places that need one and cannot take a `LocalizedStringKey` —
     /// an `NSMenuItem` title, an `NSAlert` message, a `help(_:)` tooltip.
     static func text(_ key: String) -> String { string(key) }
@@ -190,6 +197,11 @@ enum Localization {
     /// `.strings` file: `String(localized:)` reads `%@` only from a `.xcstrings` or `.plist` catalog, where the
     /// key also has to match the interpolated source exactly. A `.strings` file accepts it directly.
     static func v(_ key: String, _ arguments: CVarArg...) -> String {
+        String(format: String(localized: String.LocalizationValue(key), bundle: Current.bundle), arguments: arguments)
+    }
+
+    /// The same for arguments already in an array; see `string(_:arguments:)`.
+    static func v(_ key: String, arguments: [CVarArg]) -> String {
         String(format: String(localized: String.LocalizationValue(key), bundle: Current.bundle), arguments: arguments)
     }
 }
