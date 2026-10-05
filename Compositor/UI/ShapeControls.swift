@@ -5,8 +5,8 @@ struct ShapeControls: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Text("Shape").font(ToolHeaderStyle.titleFont)
-            Picker("Shape", selection: Binding(get: { session.shapeKind }, set: { kind in
+            Text(Localization.v("Shape")).font(ToolHeaderStyle.titleFont)
+            Picker(Localization.v("Shape"), selection: Binding(get: { session.shapeKind }, set: { kind in
                 session.cancelShape()
                 session.shapeKind = kind
             })) {
@@ -16,11 +16,11 @@ struct ShapeControls: View {
             .help("Shift-U (or Tab) steps through Rectangle, Ellipse and Line")
             if session.shapeKind == .line {
                 HStack(spacing: 6) {
-                    Text("Width").scrubbable(sensitivity: 1, value: $session.shapeLineWidth, range: 1...5000)
+                    Text(Localization.v("Width")).scrubbable(sensitivity: 1, value: $session.shapeLineWidth, range: 1...5000)
                     Slider(value: Binding(get: { min(100, session.shapeLineWidth) },
                                           set: { session.shapeLineWidth = $0.rounded() }), in: 1...100)
                         .frame(width: 100)
-                    TextField("Width", value: Binding(get: { session.shapeLineWidth },
+                    TextField(Localization.v("Width"), value: Binding(get: { session.shapeLineWidth },
                                                       set: { session.shapeLineWidth = $0.isFinite ? min(5000, max(1, $0)) : 4 }),
                               format: .number.precision(.fractionLength(0)))
                         .frame(width: 48).textFieldStyle(.roundedBorder).multilineTextAlignment(.trailing)
@@ -31,11 +31,11 @@ struct ShapeControls: View {
             }
             if session.shapeKind == .rectangle {
                 HStack(spacing: 6) {
-                    Text("Radius").scrubbable(sensitivity: 1, value: $session.shapeCornerRadius, range: 0...5000)
+                    Text(Localization.v("Radius")).scrubbable(sensitivity: 1, value: $session.shapeCornerRadius, range: 0...5000)
                     Slider(value: Binding(get: { min(200, session.shapeCornerRadius) },
                                           set: { session.shapeCornerRadius = $0.rounded() }), in: 0...200)
                         .frame(width: 100)
-                    TextField("Radius", value: Binding(get: { session.shapeCornerRadius },
+                    TextField(Localization.v("Radius"), value: Binding(get: { session.shapeCornerRadius },
                                                        set: { session.shapeCornerRadius = $0.isFinite ? min(5000, max(0, $0)) : 0 }),
                               format: .number.precision(.fractionLength(0)))
                         .frame(width: 48).textFieldStyle(.roundedBorder).multilineTextAlignment(.trailing)
@@ -46,7 +46,7 @@ struct ShapeControls: View {
                 .help("Round the rectangle's corners by this many pixels; 0 keeps them square")
             }
             HStack(spacing: 6) {
-                Text("Fill")
+                Text(Localization.v("Fill"))
                 Button { session.openColorPicker(background: false) } label: {
                     let swatch = RoundedRectangle(cornerRadius: 3, style: .continuous)
                     swatch.fill(Color(nsColor: session.foregroundColor.nsColor))

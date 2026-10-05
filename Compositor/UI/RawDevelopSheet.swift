@@ -19,7 +19,7 @@ struct RawDevelopSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Develop “\(url.lastPathComponent)”").font(.title2.bold())
+            Text(Localization.v("Develop “%@”", url.lastPathComponent)).font(.title2.bold())
             ZStack {
                 RoundedRectangle(cornerRadius: 6).fill(Color.black.opacity(0.35))
                 if let preview {
@@ -37,10 +37,10 @@ struct RawDevelopSheet: View {
             slider("Boost", value: $settings.boost, range: 0...1, unit: "", precision: 2)
 
             HStack {
-                Button("Reset") { settings.reset() }.disabled(settings.isAsShot)
+                Button(Localization.v("Reset")) { settings.reset() }.disabled(settings.isAsShot)
                 Spacer()
-                Button("Cancel") { session.finishRawDevelop(nil) }.keyboardShortcut(.cancelAction)
-                Button("Import") { session.finishRawDevelop(settings) }.keyboardShortcut(.defaultAction)
+                Button(Localization.v("Cancel")) { session.finishRawDevelop(nil) }.keyboardShortcut(.cancelAction)
+                Button(Localization.v("Import")) { session.finishRawDevelop(settings) }.keyboardShortcut(.defaultAction)
             }
         }
         .padding(24).fixedSize()

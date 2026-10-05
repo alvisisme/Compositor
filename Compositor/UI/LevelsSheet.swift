@@ -16,13 +16,13 @@ struct LevelsSheet: View {
     }
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Picker("Channel", selection: Binding(get: { settings.channel }, set: { channel in update { $0.channel = channel } })) {
+            Picker(Localization.v("Channel"), selection: Binding(get: { settings.channel }, set: { channel in update { $0.channel = channel } })) {
                 ForEach(LevelsChannel.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }.frame(width: 180)
             VStack(spacing: 0) {
                 histogram.frame(height: 150).background(.black.opacity(0.25))
                     .overlay(alignment: .topLeading) {
-                        if edit?.histogramReady != true { Text("Loading histogram…").font(.caption).padding(8) }
+                        if edit?.histogramReady != true { Text(Localization.v("Loading histogram…")).font(.caption).padding(8) }
                     }
                 handles(output: false).frame(height: 20)
             }
@@ -43,7 +43,7 @@ struct LevelsSheet: View {
                 field("Output white", value(\.outputWhite), decimals: 0)
             }
             HStack {
-                Text("Sample").font(.caption).foregroundStyle(.secondary)
+                Text(Localization.v("Sample")).font(.caption).foregroundStyle(.secondary)
                 ForEach(LevelsSample.allCases, id: \.self) { mode in
                     Button {
                         edit?.sampleMode = edit?.sampleMode == mode ? nil : mode
@@ -54,11 +54,11 @@ struct LevelsSheet: View {
                 }
             }
             if let mode = edit?.sampleMode {
-                Text("Click the original layer to set \(mode.localizedName.lowercased()). Click the eyedropper again to stop.")
+                Text(Localization.v("Click the original layer to set %@. Click the eyedropper again to stop.", mode.localizedName.lowercased()))
                     .font(.caption).foregroundStyle(.secondary)
             }
             VStack(alignment: .leading, spacing: 6) {
-                Text("Auto").font(.caption).foregroundStyle(.secondary)
+                Text(Localization.v("Auto")).font(.caption).foregroundStyle(.secondary)
                 HStack {
                     ForEach(LevelsAuto.allCases, id: \.self) { mode in
                         Button(mode.localizedName) { session.autoLevels(mode) }
@@ -66,20 +66,20 @@ struct LevelsSheet: View {
                 }.disabled(edit?.histogramReady != true)
             }
             HStack {
-                Toggle("Preview", isOn: Binding(get: { edit?.preview ?? true }, set: {
+                Toggle(Localization.v("Preview"), isOn: Binding(get: { edit?.preview ?? true }, set: {
                     session.updateLevels(settings, preview: $0)
                 })).configuredNativeShortcut("p", modifiers: .option)
                 Spacer()
-                Button("Reset") { edit?.sampleMode = nil; update { $0 = LevelsSettings() } }
+                Button(Localization.v("Reset")) { edit?.sampleMode = nil; update { $0 = LevelsSettings() } }
             }
             Text(session.adjustmentOriginal != nil ? "Underlying pixels · alpha-weighted histogram" : session.selection == nil ? "Original pixels · alpha-weighted histogram" : "Original pixels · selection and alpha-weighted histogram")
                 .font(.caption).foregroundStyle(.secondary)
             Divider()
             HStack {
-                Button("Cancel") { session.cancelLevels() }.configuredNativeShortcut(.escape)
+                Button(Localization.v("Cancel")) { session.cancelLevels() }.configuredNativeShortcut(.escape)
                 Spacer()
                 if edit?.committing == true { ProgressView().controlSize(.small) }
-                Button("OK") { Task { await session.commitLevels() } }
+                Button(Localization.v("OK")) { Task { await session.commitLevels() } }
                     .configuredNativeShortcut(.return).buttonStyle(.borderedProminent)
             }
         }

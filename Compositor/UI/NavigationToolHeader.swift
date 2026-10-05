@@ -11,7 +11,7 @@ struct NavigationToolHeader: View {
         HStack(spacing: 12) {
             Text(session.tool == .hand ? "Pan" : "Zoom").font(ToolHeaderStyle.titleFont)
             if session.tool == .zoom {
-                TextField("Zoom", text: $zoomText)
+                TextField(Localization.v("Zoom"), text: $zoomText)
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 72)
                     .multilineTextAlignment(.trailing)

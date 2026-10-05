@@ -9,11 +9,11 @@ struct LayerAppearanceControls: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack {
-                Text("Blend").font(.caption)
+                Text(Localization.v("Blend")).font(.caption)
                 BlendModePicker(session: session)
             }.disabled(!session.canEditAppearance)
             HStack(spacing: 6) {
-                Text("Opacity").font(.caption)
+                Text(Localization.v("Opacity")).font(.caption)
                     .scrubbable(sensitivity: 1,
                                 value: Binding<Double>(get: { (session.activeLayer?.opacity ?? 1) * 100 }, set: step),
                                 range: 0...100,
@@ -23,7 +23,7 @@ struct LayerAppearanceControls: View {
                                       set: { session.setLayerOpacity($0) }), in: 0...1,
                        onEditingChanged: { if $0 { session.beginOpacityEdit() } else { session.finishOpacityEdit() } })
                 HStack(spacing: 2) {
-                    TextField("Opacity percent", text: $percentage)
+                    TextField(Localization.v("Opacity percent"), text: $percentage)
                         .textFieldStyle(.roundedBorder).frame(width: 44).focused($focused)
                         .onSubmit { releaseFocus() }
                         .onExitCommand { releaseFocus() }

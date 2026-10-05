@@ -12,14 +12,14 @@ struct CameraRawCurveControls: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Picker("Curve", selection: Binding(get: { edit?.cameraRawCurvePage ?? .parametric }, set: { session.filterEdit?.cameraRawCurvePage = $0 })) {
+            Picker(Localization.v("Curve"), selection: Binding(get: { edit?.cameraRawCurvePage ?? .parametric }, set: { session.filterEdit?.cameraRawCurvePage = $0 })) {
                 ForEach(CameraRawCurvePage.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .pickerStyle(.segmented)
             .labelsHidden()
             .help("Parametric lifts tonal regions. Point places anchors on the curve.")
             if edit?.cameraRawCurvePage == .point {
-                Picker("Channel", selection: Binding(get: { edit?.cameraRawPointChannel ?? .rgb }, set: { session.filterEdit?.cameraRawPointChannel = $0 })) {
+                Picker(Localization.v("Channel"), selection: Binding(get: { edit?.cameraRawPointChannel ?? .rgb }, set: { session.filterEdit?.cameraRawPointChannel = $0 })) {
                     ForEach(CameraRawPointChannel.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }
                 .pickerStyle(.segmented)
@@ -39,16 +39,16 @@ struct CameraRawCurveControls: View {
                 amount("Shadows", \.shadows, "Lifts or lowers the darkest tones.")
             } else {
                 if let point = selectedPoint {
-                    Text("In \(Int((point.x * 255).rounded()))   Out \(Int((point.y * 255).rounded()))")
+                    Text(Localization.v("In %lld   Out %lld", Int((point.x * 255).rounded()), Int((point.y * 255).rounded())))
                         .font(.caption.monospacedDigit())
                         .foregroundStyle(.secondary)
                         .help("Input and output of the selected curve point.")
                 }
-                Picker("Preset", selection: Binding(get: { CurvePreset.matching(currentPoints) }, set: applyPreset)) {
-                    Text("Custom").tag(CurvePreset.custom)
-                    Text("Linear").tag(CurvePreset.linear)
-                    Text("Medium Contrast").tag(CurvePreset.medium)
-                    Text("Strong Contrast").tag(CurvePreset.strong)
+                Picker(Localization.v("Preset"), selection: Binding(get: { CurvePreset.matching(currentPoints) }, set: applyPreset)) {
+                    Text(Localization.v("Custom")).tag(CurvePreset.custom)
+                    Text(Localization.v("Linear")).tag(CurvePreset.linear)
+                    Text(Localization.v("Medium Contrast")).tag(CurvePreset.medium)
+                    Text(Localization.v("Strong Contrast")).tag(CurvePreset.strong)
                 }
                 .help("Replaces this curve with a straight line or a contrast curve.")
                 if edit?.cameraRawPointChannel == .rgb {
@@ -228,7 +228,7 @@ struct CameraRawCurveControls: View {
     }
 
     private func targetButton(armed: Bool, help: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) { Label("Targeted Adjustment", systemImage: "scope") }
+        Button(action: action) { Label(Localization.v("Targeted Adjustment"), systemImage: "scope") }
             .buttonStyle(.bordered)
             .tint(armed ? Color.accentColor : Color.secondary)
             .help(help)
@@ -271,7 +271,7 @@ struct CameraRawMixerControls: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Picker("Mixer", selection: Binding(get: { edit?.cameraRawMixerPage ?? .hsl }, set: { session.filterEdit?.cameraRawMixerPage = $0 })) {
+            Picker(Localization.v("Mixer"), selection: Binding(get: { edit?.cameraRawMixerPage ?? .hsl }, set: { session.filterEdit?.cameraRawMixerPage = $0 })) {
                 ForEach(CameraRawMixerPage.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .pickerStyle(.segmented)
@@ -279,7 +279,7 @@ struct CameraRawMixerControls: View {
             .help("HSL lists every color. Color edits one family. Point Color adjusts a color you pick.")
             switch edit?.cameraRawMixerPage ?? .hsl {
             case .hsl:
-                Picker("Component", selection: Binding(get: { edit?.cameraRawMixerTab ?? .hue }, set: { session.filterEdit?.cameraRawMixerTab = $0 })) {
+                Picker(Localization.v("Component"), selection: Binding(get: { edit?.cameraRawMixerTab ?? .hue }, set: { session.filterEdit?.cameraRawMixerTab = $0 })) {
                     ForEach(CameraRawMixerTab.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }
                 .pickerStyle(.segmented).labelsHidden()
@@ -296,7 +296,7 @@ struct CameraRawMixerControls: View {
             Button {
                 session.filterEdit?.targetsCameraRawCurve = false
                 session.filterEdit?.targetsCameraRawMixer.toggle()
-            } label: { Label("Targeted Adjustment", systemImage: "scope") }
+            } label: { Label(Localization.v("Targeted Adjustment"), systemImage: "scope") }
             .buttonStyle(.bordered)
             .tint(edit?.targetsCameraRawMixer == true ? Color.accentColor : Color.secondary)
             .help("Drag a color in the picture. Nearby color families move together.")
@@ -383,7 +383,7 @@ struct CameraRawMixerControls: View {
                 pointSlider("Hue Range", \.hueRange, help: "How far in hue the adjustment reaches.", range: 5...180, reset: 30)
                 pointSlider("Saturation Range", \.saturationRange, help: "How far in saturation the adjustment reaches.", range: 0.05...1, reset: 0.4)
                 pointSlider("Luminance Range", \.luminanceRange, help: "How far in brightness the adjustment reaches.", range: 0.05...1, reset: 0.4)
-                Toggle("Visualize Range", isOn: Binding(get: { raw.mixer.points[edit?.cameraRawPointIndex ?? 0].visualize },
+                Toggle(Localization.v("Visualize Range"), isOn: Binding(get: { raw.mixer.points[edit?.cameraRawPointIndex ?? 0].visualize },
                                                        set: { value in updatePoint { $0.visualize = value } }))
                     .help("Dims the picture outside this color's range. It is not kept when you press OK.")
             }
@@ -432,7 +432,7 @@ struct CameraRawGradingControls: View {
         VStack(alignment: .leading, spacing: 8) {
             // Five segments spelled out want 453 points and the docked panel has 374, so the
             // choice is a menu rather than a row that runs past the panel's edge.
-            Picker("Grading", selection: Binding(get: { page }, set: { session.filterEdit?.cameraRawGradePage = $0 })) {
+            Picker(Localization.v("Grading"), selection: Binding(get: { page }, set: { session.filterEdit?.cameraRawGradePage = $0 })) {
                 ForEach(CameraRawGradePage.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .pickerStyle(.menu)
@@ -474,7 +474,7 @@ struct CameraRawGradingControls: View {
                        set: { hue, saturation in update { $0.grading[keyPath: key].hue = hue; $0.grading[keyPath: key].saturation = saturation } },
                        reset: { update { $0.grading[keyPath: key].hue = 0; $0.grading[keyPath: key].saturation = 0 } })
                 .frame(width: 86, height: 86)
-            Text("\(Int(wheel.hue.rounded()))°  \(Int(wheel.saturation.rounded()))")
+            Text(Localization.v("%lld°  %lld", Int(wheel.hue.rounded()), Int(wheel.saturation.rounded())))
                 .font(.caption2.monospacedDigit())
                 .help("Hue and saturation of this wheel.")
             // A slider asks for 120 on its own, which put three columns past the panel's edge.

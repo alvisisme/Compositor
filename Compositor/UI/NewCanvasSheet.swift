@@ -18,12 +18,12 @@ struct NewCanvasSheet: View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(spacing: 14) {
                 HStack {
-                    Text("New canvas").font(.title2.weight(.semibold))
+                    Text(Localization.v("New canvas")).font(.title2.weight(.semibold))
                     Spacer()
                     // Preset sizes, tucked into a More button; the size in use is checked.
                     Menu {
-                        Picker("Size", selection: preset) {
-                            Text("Custom").tag(CanvasPreset?.none)
+                        Picker(Localization.v("Size"), selection: preset) {
+                            Text(Localization.v("Custom")).tag(CanvasPreset?.none)
                             ForEach(CanvasPreset.groups.indices, id: \.self) { group in
                                 Divider()
                                 ForEach(CanvasPreset.groups[group]) { Text($0.title).tag(CanvasPreset?.some($0)) }
@@ -54,10 +54,10 @@ struct NewCanvasSheet: View {
             Text(valid ? "Transparent canvas · sRGB" : "Enter whole numbers from 1 to \(DocumentLimits.maxSide.formatted()) pixels.")
                 .font(.callout).foregroundStyle(valid ? Color.secondary : Color.orange)
             HStack(spacing: 10) {
-                Button("Open project") { onOpen?() }.buttonStyle(.bordered)
-                Button("Import image") { session.showsImporter = true }.buttonStyle(.bordered)
+                Button(Localization.v("Open project")) { onOpen?() }.buttonStyle(.bordered)
+                Button(Localization.v("Import image")) { session.showsImporter = true }.buttonStyle(.bordered)
                 Spacer()
-                Button("Create canvas") {
+                Button(Localization.v("Create canvas")) {
                     guard let w = CanvasDocument.validDimension(width),
                           let h = CanvasDocument.validDimension(height) else { return }
                     if let onCreate { onCreate(w, h) }
@@ -111,7 +111,7 @@ struct NewCanvasSheet: View {
                 TextField(title, text: text).textFieldStyle(.plain)
                     .focused($focusedField, equals: field)
                     .accessibilityIdentifier(title.lowercased() + "Input")
-                Text("px").foregroundStyle(.secondary)
+                Text(Localization.v("px")).foregroundStyle(.secondary)
             }
             .padding(12).background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 7))
         }

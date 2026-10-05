@@ -34,9 +34,9 @@ struct JPEGExportSheet: View {
     @ViewBuilder private var sheet: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 8) {
-                Text("Export JPEG").font(.title2.bold())
+                Text(Localization.v("Export JPEG")).font(.title2.bold())
                 Spacer()
-                Button("Fit") { zoom = nil }.disabled(zoom == nil)
+                Button(Localization.v("Fit")) { zoom = nil }.disabled(zoom == nil)
                     .help("Show the whole image (⌘0)")
                 Button { zoomBy(1) } label: { Image(systemName: "plus.magnifyingglass") }
                     .disabled(JPEGPreview.step(from: shownZoom, in: 1) == nil)
@@ -58,26 +58,26 @@ struct JPEGExportSheet: View {
             }.frame(width: JPEGPreview.frame.width, height: JPEGPreview.frame.height).clipped()
                 .help("Drag or scroll to move around; double-click switches between Fit and 100%")
             HStack {
-                Text("Quality")
+                Text(Localization.v("Quality"))
                 Slider(value: $options.quality, in: 0...1, step: 0.01)
-                Text("\(Int((options.quality * 100).rounded()))%")
+                Text(Localization.v("%lld%%", Int((options.quality * 100).rounded())))
                     .monospacedDigit().frame(width: 45, alignment: .trailing)
             }
             HStack(spacing: 8) {
-                Text("Background for transparency")
+                Text(Localization.v("Background for transparency"))
                 DialogColorSwatch(title: "JPEG Background", color: matte, session: session)
                     .help("Color that fills transparent areas")
             }
             HStack(spacing: 12) {
-                Text("\(raster.image.width.formatted()) × \(raster.image.height.formatted()) px · sRGB")
+                Text(Localization.v("%@ × %@ px · sRGB", raster.image.width.formatted(), raster.image.height.formatted()))
                     .foregroundStyle(.secondary)
                 Spacer()
                 if let error { Text(error).foregroundStyle(.red) }
                 else if readyOptions == options, let result {
                     Text(ByteCountFormatter.string(fromByteCount: Int64(result.data.count), countStyle: .file)).monospacedDigit()
-                } else { Text("Updating…").foregroundStyle(.secondary) }
-                Button("Cancel") { DialogColorSwatch.closePicker(session); finish(nil) }.configuredNativeShortcut(.escape)
-                Button("Export…") {
+                } else { Text(Localization.v("Updating…")).foregroundStyle(.secondary) }
+                Button(Localization.v("Cancel")) { DialogColorSwatch.closePicker(session); finish(nil) }.configuredNativeShortcut(.escape)
+                Button(Localization.v("Export…")) {
                     DialogColorSwatch.closePicker(session)
                     UserDefaults.standard.set(options.quality, forKey: Self.qualityKey)
                     finish(result?.data)

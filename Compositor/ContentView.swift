@@ -51,8 +51,8 @@ struct ContentView: View {
             }
             if session.tool == .eyedropper {
                 HStack(spacing: 16) {
-                    Text("Eyedropper").font(ToolHeaderStyle.titleFont)
-                    Toggle("Sample Ring", isOn: $session.showsSampleRing).toggleStyle(.checkbox)
+                    Text(Localization.v("Eyedropper")).font(ToolHeaderStyle.titleFont)
+                    Toggle(Localization.v("Sample Ring"), isOn: $session.showsSampleRing).toggleStyle(.checkbox)
                     Spacer()
                 }.padding(.horizontal, 18).toolHeaderBar()
                 Divider()
@@ -68,7 +68,7 @@ struct ContentView: View {
             // No tool (A) keeps the header, so the canvas doesn't jump.
             if session.tool == .idle {
                 HStack(spacing: 16) {
-                    Text("Select a tool").font(ToolHeaderStyle.titleFont)
+                    Text(Localization.v("Select a tool")).font(ToolHeaderStyle.titleFont)
                     Spacer()
                 }.padding(.horizontal, 18).toolHeaderBar()
                 Divider()
@@ -159,7 +159,7 @@ struct ContentView: View {
         .navigationTitle(session.projectURL?.deletingPathExtension().lastPathComponent ?? "Untitled")
         .toolbar {
             ToolbarItem(placement: .navigation) {
-                Button { requestNewCanvas() } label: { Label("New canvas", systemImage: "plus") }
+                Button { requestNewCanvas() } label: { Label(Localization.v("New canvas"), systemImage: "plus") }
                     .help("New canvas (⌘N)").accessibilityIdentifier("newCanvasToolbar")
                     .disabled(session.isImporting || session.showsBusy || session.levels != nil)
                     .modifier(NewProjectDropTarget(workspace: applicationDelegate?.workspace))
@@ -180,7 +180,7 @@ struct ContentView: View {
             // Without this spacer, the growing tab strip pushes the primary actions left.
             ToolbarItem(placement: .navigation) { Spacer() }
             ToolbarItem(placement: .primaryAction) {
-                Button("Fit") { session.fit() }.help("Fit canvas in window (⌘0)")
+                Button(Localization.v("Fit")) { session.fit() }.help("Fit canvas in window (⌘0)")
                     .accessibilityIdentifier("fitCanvas").disabled(session.document == nil)
                     .padding(.horizontal, 4)
             }
@@ -270,15 +270,15 @@ struct ContentView: View {
         .alert("Import couldn’t finish", isPresented: Binding(
             get: { session.importError != nil }, set: { if !$0 { session.importError = nil } })) {
                 // No cancel role: an alert with only a cancel button gets a second OK of its own.
-                Button("OK") { session.importError = nil }
+                Button(Localization.v("OK")) { session.importError = nil }
             } message: { Text(session.importError ?? "") }
         .alert("Couldn’t paint", isPresented: Binding(get: { session.brushError != nil },
             set: { if !$0 { session.brushError = nil } })) {
-                Button("OK") { session.brushError = nil }
+                Button(Localization.v("OK")) { session.brushError = nil }
             } message: { Text(session.brushError ?? "") }
         .alert("Couldn’t crop", isPresented: Binding(get: { session.cropError != nil },
             set: { if !$0 { session.cropError = nil } })) {
-                Button("OK") { session.cropError = nil }
+                Button(Localization.v("OK")) { session.cropError = nil }
             } message: { Text(session.cropError ?? "") }
     }
     private func requestNewCanvas() {
@@ -329,16 +329,16 @@ struct ContentView: View {
             if let document = session.document {
                 Text(session.viewport.zoom, format: .percent.precision(.fractionLength(0...1)))
                     .frame(width: 62, alignment: .leading).accessibilityIdentifier("zoomStatus")
-                Text("\(document.width) × \(document.height) px").accessibilityIdentifier("canvasDimensions")
-                Text("sRGB · Transparent")
-            } else { Text("Ready when you are") }
+                Text(Localization.v("%@ × %@ px", document.width, document.height)).accessibilityIdentifier("canvasDimensions")
+                Text(Localization.v("sRGB · Transparent"))
+            } else { Text(Localization.v("Ready when you are")) }
             Spacer()
             if session.showsBusy {
                 ProgressView().controlSize(.mini)
-                Text("Working…")
+                Text(Localization.v("Working…"))
             } else if session.isImporting {
                 ProgressView().controlSize(.mini)
-                Text("Importing images…")
+                Text(Localization.v("Importing images…"))
             } else {
                 Text(session.tool == .marquee ? (session.marqueeKind == .ellipse ? "Drag an ellipse · Shift add · Option subtract · Shift again mid-drag circle · Drag inside to move · Delete clears · ⌘D deselect" : "Drag a rectangle · Shift add · Option subtract · Shift again mid-drag square · Drag inside to move · ⌘-drag moves pixels · Delete clears · ⌘D deselect") : session.tool == .wand ? (session.wandMode == .object ? "Click an object to select its outline · Tab for Wand · Shift add · Option subtract · Drag inside to move · ⌘-drag moves pixels · Delete clears · ⌘D deselect" : "Click to select similar colors · Tab for Object · Shift add · Option subtract · Drag inside to move · ⌘-drag moves pixels · Delete clears · ⌘D deselect") : session.tool == .lasso ? (session.lassoKind == .freehand ? "Drag to select · Drag inside to move · Shift add · Option subtract · Delete clears · ⌥⌫/⌘⌫ fill · ⌘D deselect" : "Click corners · Click start, double-click or Enter to close · Delete removes corner · Escape cancel") : session.tool == .brush ? (session.brushMode == .erase ? "Drag to erase" : "Drag to paint") + " · [ ] size · Shift-[ ] hardness · 1–0 opacity · Escape cancel · Space to pan" : session.tool == .blur ? (session.blurMode == .blur ? "Drag to soften" : session.blurMode == .smudge ? "Drag to smudge" : "Drag to push pixels") + " · [ ] size · Shift-[ ] hardness · 1–0 strength · Space to pan" : session.tool == .cloneStamp ? "Option-click to set the source · Drag to clone · [ ] size · Shift-[ ] hardness · 1–0 opacity · Space to pan" : session.tool == .spotHealing ? "Drag over blemishes to heal · [ ] size · Shift-[ ] hardness · Escape cancel · Space to pan" : session.tool == .type ? "Drag a text box · Click text to edit · Drag box handles to resize · ⌘Return finish · Escape cancel" : session.tool == .shape ? "Drag to draw a shape on a new layer · Shift \(session.shapeKind == .line ? "45°" : session.shapeKind == .rectangle ? "square" : "circle") · Option from center · Shift-U or Tab for the next shape · Escape cancel · Space to pan" : session.tool == .gradient ? "Drag to draw · Drag ends to adjust · Shift 45° · 1–0 opacity · Enter apply · Escape cancel" : session.tool == .crop ? "Drag to crop · Enter apply · Escape cancel · Space to pan" : session.tool == .move ? "Drag to move · Handles to resize · Circle to rotate · 1–0 layer opacity · Space to pan" : session.tool == .hand ? "Drag to pan · Pinch to zoom" : session.tool == .idle ? "No tool selected · Press a tool's key to pick one · Space to pan" : "Click to zoom in · Option-click to zoom out · Drag right or left to zoom smoothly · Space to pan")
             }

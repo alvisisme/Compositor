@@ -5,21 +5,21 @@ struct GradientControls: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Text("Gradient").font(ToolHeaderStyle.titleFont)
-            Picker("Shape", selection: $session.gradientSettings.shape) {
+            Text(Localization.v("Gradient")).font(ToolHeaderStyle.titleFont)
+            Picker(Localization.v("Shape"), selection: $session.gradientSettings.shape) {
                 ForEach(GradientShape.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .pickerStyle(.segmented).labelsHidden().fixedSize()
             .help("Linear runs along the line; Radial spreads out from the start point")
             swatch
-            Picker("Colors", selection: $session.gradientSettings.style) {
+            Picker(Localization.v("Colors"), selection: $session.gradientSettings.style) {
                 ForEach(GradientStyle.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .labelsHidden().fixedSize()
-            Toggle("Reverse", isOn: $session.gradientSettings.reversed)
-            Text("Opacity").scrubbable(sensitivity: 0.01, value: $session.gradientSettings.opacity, range: 0.01...1)
+            Toggle(Localization.v("Reverse"), isOn: $session.gradientSettings.reversed)
+            Text(Localization.v("Opacity")).scrubbable(sensitivity: 0.01, value: $session.gradientSettings.opacity, range: 0.01...1)
             Slider(value: $session.gradientSettings.opacity, in: 0.01...1).frame(width: 100)
-            TextField("Opacity", value: Binding<Double>(get: { Double(session.gradientSettings.opacity * 100) },
+            TextField(Localization.v("Opacity"), value: Binding<Double>(get: { Double(session.gradientSettings.opacity * 100) },
                 set: { session.gradientSettings.opacity = $0.isFinite ? CGFloat(min(100, max(1, $0)) / 100) : 1 }),
                 format: .number.precision(.fractionLength(0)))
                 .frame(width: 42).textFieldStyle(.roundedBorder)
@@ -28,10 +28,10 @@ struct GradientControls: View {
                 .help("Press 1–9 for 10–90%, 0 for 100%")
                 .unitSuffix("%")
             Spacer(minLength: 0)
-            if session.isMaskSelected { Text("Mask").foregroundStyle(.secondary) }
+            if session.isMaskSelected { Text(Localization.v("Mask")).foregroundStyle(.secondary) }
             if session.gradientEdit != nil {
-                Button("Cancel") { session.cancelGradient() }
-                Button("Apply") { Task { await session.commitGradient() } }
+                Button(Localization.v("Cancel")) { session.cancelGradient() }
+                Button(Localization.v("Apply")) { Task { await session.commitGradient() } }
             }
         }
         .padding(.horizontal, 18).toolHeaderBar().releasesFocusOnCommit(session)

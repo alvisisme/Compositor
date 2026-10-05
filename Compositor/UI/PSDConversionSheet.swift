@@ -30,7 +30,7 @@ struct PSDConversionSheet: View {
             if request.isReading {
                 HStack(spacing: 10) {
                     ProgressView().controlSize(.small)
-                    Text("Reading the Photoshop file…").foregroundStyle(.secondary)
+                    Text(Localization.v("Reading the Photoshop file…")).foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity, minHeight: 180)
             } else {
@@ -44,7 +44,7 @@ struct PSDConversionSheet: View {
             }
             HStack {
                 Spacer()
-                Button("Cancel") { finish(false) }.keyboardShortcut(.cancelAction)
+                Button(Localization.v("Cancel")) { finish(false) }.keyboardShortcut(.cancelAction)
                 Button(request.confirmTitle) { finish(true) }.keyboardShortcut(.defaultAction)
                     .disabled(request.isReading)
             }

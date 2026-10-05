@@ -9,9 +9,9 @@ struct LayersPanel: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text("Layers").font(.system(size: 12, weight: .semibold))
+                Text(Localization.v("Layers")).font(.system(size: 12, weight: .semibold))
                 Spacer()
-                Text("\(session.document?.layers.count ?? 0)").font(.caption.monospacedDigit()).foregroundStyle(.tertiary)
+                Text(Localization.v("%@", session.document?.layers.count ?? 0)).font(.caption.monospacedDigit()).foregroundStyle(.tertiary)
                     .accessibilityIdentifier("layerCount")
             }.padding(18)
             Divider()
@@ -22,7 +22,7 @@ struct LayersPanel: View {
             } else {
                 VStack(spacing: 10) {
                     Image(systemName: "square.3.layers.3d").font(.system(size: 25, weight: .light))
-                    Text("No layers yet").font(.callout.weight(.medium))
+                    Text(Localization.v("No layers yet")).font(.callout.weight(.medium))
                     Text(session.document == nil ? "Create a canvas or import an image." : "Import an image or add a blank layer.")
                         .font(.caption).multilineTextAlignment(.center)
                 }

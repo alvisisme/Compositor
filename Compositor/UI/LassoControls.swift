@@ -7,7 +7,7 @@ struct LassoControls: View {
         HStack(spacing: 12) {
             Text(session.tool == .marquee ? "Marquee" : session.tool == .wand ? "Magic" : "Lasso").font(ToolHeaderStyle.titleFont)
             if session.tool == .marquee {
-                Picker("Shape", selection: Binding(get: { session.marqueeKind }, set: { kind in
+                Picker(Localization.v("Shape"), selection: Binding(get: { session.marqueeKind }, set: { kind in
                     session.cancelLasso()
                     session.marqueeKind = kind
                 })) {
@@ -17,7 +17,7 @@ struct LassoControls: View {
                 .help("Press M to switch between Rectangle and Ellipse")
             }
             if session.tool == .wand {
-                Picker("Mode", selection: Binding(get: { session.wandMode }, set: { mode in
+                Picker(Localization.v("Mode"), selection: Binding(get: { session.wandMode }, set: { mode in
                     session.cancelLasso()
                     session.wandMode = mode
                 })) {
@@ -27,7 +27,7 @@ struct LassoControls: View {
                 .help("Press Tab to switch between Wand and Object")
             }
             if session.tool == .lasso {
-                Picker("Lasso", selection: Binding(get: { session.lassoKind }, set: { kind in
+                Picker(Localization.v("Lasso"), selection: Binding(get: { session.lassoKind }, set: { kind in
                     session.cancelLasso()
                     session.lassoKind = kind
                 })) {
@@ -37,7 +37,7 @@ struct LassoControls: View {
                 .help("Press L to switch between Freehand and Polygonal")
             }
             // Shows held Shift/Option (or an outline's mode) live; clicking sets the choice.
-            Picker("Mode", selection: Binding(get: { session.displayedSelectionMode },
+            Picker(Localization.v("Mode"), selection: Binding(get: { session.displayedSelectionMode },
                                               set: { session.selectionModeChoice = $0 })) {
                 ForEach(SelectionMode.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
@@ -47,7 +47,7 @@ struct LassoControls: View {
             if session.tool == .wand, session.wandMode == .object { objectSelectionControls }
             // Rectangles snap to whole pixels, so smoothing doesn't apply (as in Photoshop); ellipses curve.
             if session.tool == .lasso || session.tool == .wand || (session.tool == .marquee && session.marqueeKind == .ellipse) {
-                Toggle("Anti-alias", isOn: $session.selectionAntialiased)
+                Toggle(Localization.v("Anti-alias"), isOn: $session.selectionAntialiased)
                     .help(session.tool == .wand && session.wandMode == .object ? "Smooth the detected object outline; turn off for the raw pixel mask" : "Smooth selection edges; turn off for hard pixel edges")
             }
             Divider().frame(height: 18)
@@ -59,10 +59,10 @@ struct LassoControls: View {
             }
             // Softens the selection's edge, as Select → Feather does.
             HStack(spacing: 5) {
-                Button("Feather") { session.featherSelection(by: session.selectionFeatherAmount) }
+                Button(Localization.v("Feather")) { session.featherSelection(by: session.selectionFeatherAmount) }
                     .disabled(!session.canModifySelection)
                     .help("Fade the edge of the selection by this many pixels")
-                TextField("Feather", value: Binding(get: { Double(session.selectionFeatherAmount) },
+                TextField(Localization.v("Feather"), value: Binding(get: { Double(session.selectionFeatherAmount) },
                                                     set: { session.selectionFeatherAmount = $0.isFinite ? Int(min(250, max(1, $0))) : 2 }),
                           format: .number.precision(.fractionLength(0)))
                     .frame(width: 48).textFieldStyle(.roundedBorder).multilineTextAlignment(.trailing)
@@ -73,8 +73,8 @@ struct LassoControls: View {
             }
             Spacer(minLength: 0)
             if let selection = session.selection {
-                if selection.isEmpty { Text("Empty selection").foregroundStyle(.secondary) }
-                Button("Deselect") { session.deselect() }.disabled(!session.canEditSelection)
+                if selection.isEmpty { Text(Localization.v("Empty selection")).foregroundStyle(.secondary) }
+                Button(Localization.v("Deselect")) { session.deselect() }.disabled(!session.canEditSelection)
             }
         }
         .padding(.horizontal, 18).toolHeaderBar().releasesFocusOnCommit(session)
@@ -85,8 +85,8 @@ struct LassoControls: View {
     private var wandControls: some View {
         HStack(spacing: 12) {
             HStack(spacing: 6) {
-                Text("Tolerance").scrubbable(sensitivity: 1, value: $session.wandSettings.tolerance, range: 0...255)
-                TextField("Tolerance", value: Binding(get: { session.wandSettings.tolerance },
+                Text(Localization.v("Tolerance")).scrubbable(sensitivity: 1, value: $session.wandSettings.tolerance, range: 0...255)
+                TextField(Localization.v("Tolerance"), value: Binding(get: { session.wandSettings.tolerance },
                                                       set: { session.wandSettings.tolerance = min(255, max(0, $0)) }),
                           format: .number)
                     .frame(width: 44).textFieldStyle(.roundedBorder)
@@ -95,33 +95,33 @@ struct LassoControls: View {
                                 change: { session.wandSettings.tolerance = Int(min(255, max(0, $0.rounded()))) })
             }
             .help("How far each color channel (0–255) can differ from the clicked color and still be selected")
-            Picker("Sample Size", selection: $session.wandSettings.sampleSize) {
+            Picker(Localization.v("Sample Size"), selection: $session.wandSettings.sampleSize) {
                 ForEach(WandSampleSize.allCases, id: \.self) { Text($0.title).tag($0) }
             }
             .labelsHidden().fixedSize()
             .help("Match the clicked pixel, or the average of the pixels around it")
-            Picker("Sample", selection: $session.wandSettings.sampleAllLayers) {
-                Text("This Layer").tag(false)
-                Text("All Layers").tag(true)
+            Picker(Localization.v("Sample"), selection: $session.wandSettings.sampleAllLayers) {
+                Text(Localization.v("This Layer")).tag(false)
+                Text(Localization.v("All Layers")).tag(true)
             }
             .pickerStyle(.segmented).labelsHidden().fixedSize()
             .help("Read colors from the active layer only, or from every visible layer as shown")
-            Toggle("Contiguous", isOn: $session.wandSettings.contiguous)
+            Toggle(Localization.v("Contiguous"), isOn: $session.wandSettings.contiguous)
                 .help("Select only similar pixels connected to the one you click; off selects them everywhere")
         }
     }
 
     private var objectSelectionControls: some View {
         HStack(spacing: 12) {
-            Picker("Sample", selection: $session.objectSelectionSettings.sampleAllLayers) {
-                Text("This Layer").tag(false)
-                Text("All Layers").tag(true)
+            Picker(Localization.v("Sample"), selection: $session.objectSelectionSettings.sampleAllLayers) {
+                Text(Localization.v("This Layer")).tag(false)
+                Text(Localization.v("All Layers")).tag(true)
             }
             .pickerStyle(.segmented).labelsHidden().fixedSize()
             .help("Analyze the active layer only, or every visible layer as shown")
             HStack(spacing: 6) {
-                Text("Edge").scrubbable(sensitivity: 1, value: $session.objectSelectionSettings.edgeOffset, range: -10...10)
-                TextField("Edge", value: Binding(get: { session.objectSelectionSettings.edgeOffset },
+                Text(Localization.v("Edge")).scrubbable(sensitivity: 1, value: $session.objectSelectionSettings.edgeOffset, range: -10...10)
+                TextField(Localization.v("Edge"), value: Binding(get: { session.objectSelectionSettings.edgeOffset },
                                                  set: { session.objectSelectionSettings.edgeOffset = min(10, max(-10, $0)) }),
                           format: .number)
                     .frame(width: 40).textFieldStyle(.roundedBorder)
@@ -207,27 +207,27 @@ struct SelectionAmountSheet: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 10) {
-                Text("Amount").frame(minWidth: 60, alignment: .leading)
+                Text(Localization.v("Amount")).frame(minWidth: 60, alignment: .leading)
                     .scrubbable(sensitivity: 1,
                                 value: Binding<Int>(get: { amount ?? 1 }, set: { input = String($0) }),
                                 range: 1...maximum)
                 Slider(value: Binding(get: { Double(amount ?? 1) },
                                       set: { input = String(Int($0.rounded())) }),
                        in: 1...Double(maximum), step: 1)
-                TextField("Amount", text: $input)
+                TextField(Localization.v("Amount"), text: $input)
                     .frame(width: 56).textFieldStyle(.roundedBorder)
                     .multilineTextAlignment(.trailing).focused($focused)
                     .unitSuffix("px")
             }
-            Text("Enter a whole number from 1 to \(maximum) px.")
+            Text(Localization.v("Enter a whole number from 1 to %@ px.", maximum))
                 .font(.callout).foregroundStyle(.secondary)
                 .opacity(amount == nil ? 1 : 0)
             Divider()
             HStack {
-                Button("Cancel") { session.selectionAmountOperation = nil }
+                Button(Localization.v("Cancel")) { session.selectionAmountOperation = nil }
                     .configuredNativeShortcut(.escape)
                 Spacer()
-                Button("OK") {
+                Button(Localization.v("OK")) {
                     if let amount { session.confirmSelectionAmount(amount) }
                 }
                 .configuredNativeShortcut(.return).buttonStyle(.borderedProminent)

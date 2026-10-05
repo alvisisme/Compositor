@@ -247,7 +247,7 @@ private struct NewTabDropSlot: View {
     let workspace: ProjectWorkspace
     @State private var targeted = false
     var body: some View {
-        Label("New", systemImage: "plus")
+        Label(Localization.v("New"), systemImage: "plus")
             .font(.system(size: 12, weight: .medium))
             .padding(.horizontal, 14).frame(height: 28)
             .background(targeted ? Color.accentColor.opacity(0.3) : Color.white.opacity(0.04), in: Capsule())

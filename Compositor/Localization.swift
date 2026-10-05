@@ -164,6 +164,34 @@ enum Localization {
     /// A localized string as a plain `String`, for the places that need one and cannot take a `LocalizedStringKey` —
     /// an `NSMenuItem` title, an `NSAlert` message, a `help(_:)` tooltip.
     static func text(_ key: String) -> String { string(key) }
+
+    // MARK: - What view code must use instead of a bare literal
+
+    /// A localized string resolved through the chosen bundle, for `Text`, `Button`, `Label` and `help`.
+    ///
+    /// A bare `Text("Save")` does **not** work with the switcher, and not for want of re-identifying the tree:
+    /// `Bundle.main` resolves which `.lproj` it reads *once*, and nothing at runtime redirects it — not
+    /// `AppleLanguages`, not the `locale` environment, not `Bundle.main.preferredLocalizations`. Measured on this
+    /// machine: after setting `AppleLanguages` to another language, the same `Bundle.main` kept returning the
+    /// launch language. So `Text("Save")` is stuck in whatever language the app launched in, which also means an
+    /// English reader whose Mac is set to Chinese can never reach English.
+    ///
+    /// Passing a bundle explicitly is the one mechanism that does switch, and it is what Apple documents for
+    /// runtime language changes. Use these two functions for anything a reader sees; keep the bare literal only
+    /// where the string is not shown.
+    static func v(_ key: String) -> String {
+        String(localized: String.LocalizationValue(key), bundle: Current.bundle)
+    }
+
+    /// A localized format string with substitutions, for view code. `key` carries the format specifiers the
+    /// translation replaces, as in `v("Delete %@", layer.name)`.
+    ///
+    /// Uses `String(format:)` rather than `String(localized:)`'s own interpolation so that the table is a plain
+    /// `.strings` file: `String(localized:)` reads `%@` only from a `.xcstrings` or `.plist` catalog, where the
+    /// key also has to match the interpolated source exactly. A `.strings` file accepts it directly.
+    static func v(_ key: String, _ arguments: CVarArg...) -> String {
+        String(format: String(localized: String.LocalizationValue(key), bundle: Current.bundle), arguments: arguments)
+    }
 }
 
 /// Puts the chosen language's bundle in the environment. `Text("literal")` cannot be told which bundle to use, which

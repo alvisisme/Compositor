@@ -25,9 +25,9 @@ struct ColorPickerSheet: View {
                 HStack(alignment: .top, spacing: 16) {
                     preview
                     VStack(spacing: 8) {
-                        Button { finish(true) } label: { Text("OK").frame(maxWidth: .infinity) }
+                        Button { finish(true) } label: { Text(Localization.v("OK")).frame(maxWidth: .infinity) }
                             .configuredNativeShortcut(.return)
-                        Button { finish(false) } label: { Text("Cancel").frame(maxWidth: .infinity) }
+                        Button { finish(false) } label: { Text(Localization.v("Cancel")).frame(maxWidth: .infinity) }
                             .configuredNativeShortcut(.escape)
                     }
                     .controlSize(.large).frame(width: 90)
@@ -36,7 +36,7 @@ struct ColorPickerSheet: View {
                 fields
                 // A dialog covers the canvas, so there's nothing to sample.
                 if case .dialog = state.target {} else {
-                    Text("Click the canvas to sample")
+                    Text(Localization.v("Click the canvas to sample"))
                         .font(.caption).foregroundStyle(.secondary).padding(.top, 8)
                 }
             }
@@ -111,7 +111,7 @@ struct ColorPickerSheet: View {
             channelRow("B", \.blue)
             GridRow {
                 Text("#").frame(width: 14, alignment: .leading)
-                TextField("Hex", text: $hexDraft)
+                TextField(Localization.v("Hex"), text: $hexDraft)
                     .font(.system(.body, design: .monospaced))
                     .frame(width: 84)
                     .focused($hexFocused)

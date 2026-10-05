@@ -46,8 +46,8 @@ struct CameraRawControls: View {
                 .padding(4)
             }
             .contextMenu {
-                Button("Histogram") { session.filterEdit?.cameraRawScopeMode = .histogram }
-                Button("Vectorscope") { session.filterEdit?.cameraRawScopeMode = .vectorscope }
+                Button(Localization.v("Histogram")) { session.filterEdit?.cameraRawScopeMode = .histogram }
+                Button(Localization.v("Vectorscope")) { session.filterEdit?.cameraRawScopeMode = .vectorscope }
             }
             .help(mode == .histogram
                   ? "Tones from black on the left to white on the right: blacks, shadows, midtones, highlights, whites. Control-click to show the vectorscope."
@@ -184,9 +184,9 @@ struct CameraRawControls: View {
     private var colorControls: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 10) {
-                Text("White Balance").frame(minWidth: Self.labelWidth, alignment: .leading)
+                Text(Localization.v("White Balance")).frame(minWidth: Self.labelWidth, alignment: .leading)
                     .help("Auto balances the average color. Custom follows Temperature and Tint.")
-                Picker("White Balance", selection: Binding(get: { raw.whiteBalance }, set: setWhiteBalance)) {
+                Picker(Localization.v("White Balance"), selection: Binding(get: { raw.whiteBalance }, set: setWhiteBalance)) {
                     ForEach(CameraRawWhiteBalance.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }
                 .labelsHidden()
@@ -203,7 +203,7 @@ struct CameraRawControls: View {
                 .accessibilityLabel("White Balance Selector")
             }
             if session.filterEdit?.samplesWhiteBalance == true {
-                Text("Click the original layer. Click the eyedropper again to stop.")
+                Text(Localization.v("Click the original layer. Click the eyedropper again to stop."))
                     .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             }
             slider("Temperature", \.temperature, range: CameraRawSettings.toneRange, decimals: 0, clipping: nil,
@@ -225,10 +225,10 @@ struct CameraRawControls: View {
                    help: "Adds or softens contrast along broader shapes.")
             slider("Dehaze", \.dehaze, range: CameraRawSettings.toneRange, decimals: 0, clipping: nil,
                    help: "Clears haze when raised, and adds haze when lowered.")
-            Text("Glow").font(.subheadline)
+            Text(Localization.v("Glow")).font(.subheadline)
             slider("Glow", \.glow, range: CameraRawSettings.unitRange, decimals: 0, clipping: nil,
                    help: "Spreads a glow from the bright areas.")
-            Picker("Style", selection: Binding(get: { raw.glowStyle }, set: { style in update { $0.cameraRaw.glowStyle = style } })) {
+            Picker(Localization.v("Style"), selection: Binding(get: { raw.glowStyle }, set: { style in update { $0.cameraRaw.glowStyle = style } })) {
                 ForEach(CameraRawGlowStyle.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .help("Diffusion is soft and wide, Bloom is tighter, and Halation is a red fringe.")
@@ -241,10 +241,10 @@ struct CameraRawControls: View {
                        help: "Shifts the glow from cool to warm. Halation stays red. Has no effect until Glow is raised.")
             }
             .padding(.leading, 16)
-            Text("Vignette").font(.subheadline)
+            Text(Localization.v("Vignette")).font(.subheadline)
             slider("Amount", \.vignetteAmount, range: CameraRawSettings.toneRange, decimals: 0, clipping: nil,
                    help: "Darkens or lightens the edges. The center does not change.")
-            Picker("Style", selection: Binding(get: { raw.vignetteStyle }, set: { style in update { $0.cameraRaw.vignetteStyle = style } })) {
+            Picker(Localization.v("Style"), selection: Binding(get: { raw.vignetteStyle }, set: { style in update { $0.cameraRaw.vignetteStyle = style } })) {
                 ForEach(CameraRawVignetteStyle.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .help("Highlight Priority protects bright edges. Color Priority also reduces color. Paint Overlay covers the edges evenly.")
@@ -259,7 +259,7 @@ struct CameraRawControls: View {
                        help: "Protects bright pixels while a dark vignette is applied. Used by Highlight Priority.")
             }
             .padding(.leading, 16)
-            Text("Grain").font(.subheadline)
+            Text(Localization.v("Grain")).font(.subheadline)
             slider("Amount", \.grainAmount, range: CameraRawSettings.unitRange, decimals: 0, clipping: nil,
                    help: "Adds film grain, strongest in the middle tones.")
             slider("Size", \.grainSize, range: CameraRawSettings.unitRange, decimals: 0, clipping: nil,

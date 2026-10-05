@@ -15,7 +15,7 @@ struct TypeControls: View {
     }
     var body: some View {
         HStack(spacing: 12) {
-            Text("Type").font(ToolHeaderStyle.titleFont)
+            Text(Localization.v("Type")).font(ToolHeaderStyle.titleFont)
             ScrollView(.horizontal) {
                 HStack(spacing: 10) {
                     TypeFontPicker(fontName: Binding(get: {
@@ -37,7 +37,7 @@ struct TypeControls: View {
                         }
                     })
                         .frame(width: 210).help("Font face, including bold and italic variants")
-                    TextField("Size", value: number(\.fontSize), format: .number).frame(width: 52)
+                    TextField(Localization.v("Size"), value: number(\.fontSize), format: .number).frame(width: 52)
                         .unitSuffix("px", scrubValue: value(\.fontSize), sensitivity: 1, range: 1...2000, step: 1)
                         .arrowSteps(value: { Double(session.currentTextStyle.fontSize) },
                                     change: { stepped in session.changeTextStyle { $0.fontSize = CGFloat(min(2000, max(1, stepped))) } })
@@ -68,19 +68,19 @@ struct TypeControls: View {
                             .accessibilityAddTraits(selected ? .isSelected : [])
                         }
                     }
-                    Text("Tracking").scrubbable(sensitivity: 1, value: value(\.tracking), range: -100...1000, step: 1)
-                    TextField("Tracking", value: number(\.tracking), format: .number).frame(width: 45)
+                    Text(Localization.v("Tracking")).scrubbable(sensitivity: 1, value: value(\.tracking), range: -100...1000, step: 1)
+                    TextField(Localization.v("Tracking"), value: number(\.tracking), format: .number).frame(width: 45)
                         .arrowSteps(value: { Double(session.currentTextStyle.tracking) },
                                     change: { stepped in session.changeTextStyle { $0.tracking = CGFloat(stepped) } })
-                    Text("Leading").scrubbable(sensitivity: 1, value: value(\.leading), range: 0...5000, step: 1)
+                    Text(Localization.v("Leading")).scrubbable(sensitivity: 1, value: value(\.leading), range: 0...5000, step: 1)
                     // 0 means Auto: the field is left empty so its "Auto" placeholder shows through.
-                    TextField("Leading", text: Binding(get: {
+                    TextField(Localization.v("Leading"), text: Binding(get: {
                         let leading = session.currentTextStyle.leading
                         return leading > 0 ? String(Int(leading.rounded())) : ""
                     }, set: { typed in
                         let value = Double(typed.trimmingCharacters(in: .whitespaces)) ?? 0
                         session.changeTextStyle { $0.leading = CGFloat(max(0, min(5000, value))) }
-                    }), prompt: Text("Auto"))
+                    }), prompt: Text(Localization.v("Auto")))
                         .frame(width: 52)
                         .arrowSteps(value: { Double(session.currentTextStyle.lineHeight) },
                                     change: { stepped in session.changeTextStyle { $0.leading = CGFloat(max(0, stepped)) } })
@@ -88,10 +88,10 @@ struct TypeControls: View {
                 }
             }.scrollIndicators(.hidden)
             if session.textDraft != nil {
-                Button("Cancel") { session.cancelText() }
-                Button("Done") { _ = session.finishText() }
+                Button(Localization.v("Cancel")) { session.cancelText() }
+                Button(Localization.v("Done")) { _ = session.finishText() }
             } else {
-                Button("Edit Text") { session.editActiveText() }.disabled(session.activeLayer?.liveText == nil)
+                Button(Localization.v("Edit Text")) { session.editActiveText() }.disabled(session.activeLayer?.liveText == nil)
             }
         }
         .textFieldStyle(.roundedBorder).padding(.horizontal, 18).toolHeaderBar()

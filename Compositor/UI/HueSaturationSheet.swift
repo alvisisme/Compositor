@@ -33,7 +33,7 @@ struct HueSaturationSheet: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 12) {
-                Picker("Range", selection: settings.range) {
+                Picker(Localization.v("Range"), selection: settings.range) {
                     ForEach(ColorRange.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }
                 .pickerStyle(.menu).frame(width: 160).labelsHidden().disabled(current.colorize)
@@ -47,25 +47,25 @@ struct HueSaturationSheet: View {
                    track: .opposing(.black, .white), reset: resetValues.lightness)
             if showsSpectrum {
                 SpectrumEditor(settings: settings)
-                Toggle("Apply outside this range instead", isOn: settings.invertRange)
+                Toggle(Localization.v("Apply outside this range instead"), isOn: settings.invertRange)
             }
             HStack(spacing: 18) {
-                Toggle("Colorize", isOn: Binding(get: { current.colorize }, set: { colorize in
+                Toggle(Localization.v("Colorize"), isOn: Binding(get: { current.colorize }, set: { colorize in
                     // Photoshop starts colorizing at hue 0, saturation 25.
                     settings.wrappedValue = colorize ? .colorizeStart : HueSaturationSettings()
                 }))
-                Toggle("Preview", isOn: preview)
-                Button("Reset") { settings.wrappedValue = current.colorize ? .colorizeStart : HueSaturationSettings() }
+                Toggle(Localization.v("Preview"), isOn: preview)
+                Button(Localization.v("Reset")) { settings.wrappedValue = current.colorize ? .colorizeStart : HueSaturationSettings() }
                 Spacer()
             }
             if session.adjustmentOriginal == nil && session.selection != nil {
-                Text("Limited to the selection").font(.callout).foregroundStyle(.secondary)
+                Text(Localization.v("Limited to the selection")).font(.callout).foregroundStyle(.secondary)
             }
             Divider()
             HStack {
-                Button("Cancel") { session.cancelHueSaturation() }.configuredNativeShortcut(.escape)
+                Button(Localization.v("Cancel")) { session.cancelHueSaturation() }.configuredNativeShortcut(.escape)
                 Spacer()
-                Button("OK") { Task { await session.commitHueSaturation() } }
+                Button(Localization.v("OK")) { Task { await session.commitHueSaturation() } }
                     .configuredNativeShortcut(.return).buttonStyle(.borderedProminent)
             }
         }

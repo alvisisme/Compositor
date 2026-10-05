@@ -41,8 +41,8 @@ struct ColorPaletteControls: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(choosingMaskBackground == true ? "Mask background" : "Mask foreground").font(.headline)
                 HStack {
-                    Button("Black · Hide") { chooseMask(.black) }
-                    Button("White · Reveal") { chooseMask(.white) }
+                    Button(Localization.v("Black · Hide")) { chooseMask(.black) }
+                    Button(Localization.v("White · Reveal")) { chooseMask(.white) }
                 }
             }.padding(16)
         }

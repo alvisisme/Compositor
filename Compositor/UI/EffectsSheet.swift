@@ -17,9 +17,9 @@ struct EffectsSheet: View {
             }
             HStack(spacing: 10) {
                 Spacer()
-                Button("Cancel") { session.finishEffectsEditing(commit: false) }
+                Button(Localization.v("Cancel")) { session.finishEffectsEditing(commit: false) }
                     .configuredNativeShortcut(.escape)
-                Button("OK") { session.finishEffectsEditing(commit: true) }
+                Button(Localization.v("OK")) { session.finishEffectsEditing(commit: true) }
                     .configuredNativeShortcut(.return)
             }
         }
@@ -31,20 +31,20 @@ struct EffectsSheet: View {
     @ViewBuilder private var stroke: some View {
         let effect = session.editingEffects.stroke
         HStack {
-            Text("Stroke").font(.headline)
+            Text(Localization.v("Stroke")).font(.headline)
             Spacer()
             if let effect {
-                Picker("Position", selection: Binding(get: { effect.inside }, set: { inside in
+                Picker(Localization.v("Position"), selection: Binding(get: { effect.inside }, set: { inside in
                     session.changeEffects { $0.stroke?.inside = inside }
                 })) {
-                    Text("Outside").tag(false)
-                    Text("Inside").tag(true)
+                    Text(Localization.v("Outside")).tag(false)
+                    Text(Localization.v("Inside")).tag(true)
                 }.pickerStyle(.segmented).labelsHidden().fixedSize()
             }
         }
         if let effect {
             HStack {
-                Text("Color").frame(width: 64, alignment: .leading)
+                Text(Localization.v("Color")).frame(width: 64, alignment: .leading)
                 swatch(.stroke)
                 Spacer()
             }
@@ -60,7 +60,7 @@ struct EffectsSheet: View {
     @ViewBuilder private var shadow: some View {
         let effect = session.editingEffects.shadow
         HStack {
-            Text("Drop Shadow").font(.headline)
+            Text(Localization.v("Drop Shadow")).font(.headline)
             Spacer()
             if effect != nil { swatch(.shadow) }
         }
@@ -83,7 +83,7 @@ struct EffectsSheet: View {
     @ViewBuilder private var colorOverlay: some View {
         let effect = session.editingEffects.colorOverlay
         HStack {
-            Text("Color Overlay").font(.headline)
+            Text(Localization.v("Color Overlay")).font(.headline)
             Spacer()
             if effect != nil { swatch(.colorOverlay) }
         }
@@ -97,7 +97,7 @@ struct EffectsSheet: View {
     @ViewBuilder private var innerShadow: some View {
         let effect = session.editingEffects.innerShadow
         HStack {
-            Text("Inner Shadow").font(.headline)
+            Text(Localization.v("Inner Shadow")).font(.headline)
             Spacer()
             if effect != nil { swatch(.innerShadow) }
         }
@@ -120,7 +120,7 @@ struct EffectsSheet: View {
     @ViewBuilder private var outerGlow: some View {
         let effect = session.editingEffects.outerGlow
         HStack {
-            Text("Outer Glow").font(.headline)
+            Text(Localization.v("Outer Glow")).font(.headline)
             Spacer()
             if effect != nil { swatch(.outerGlow) }
         }
@@ -137,7 +137,7 @@ struct EffectsSheet: View {
     @ViewBuilder private var innerGlow: some View {
         let effect = session.editingEffects.innerGlow
         HStack {
-            Text("Inner Glow").font(.headline)
+            Text(Localization.v("Inner Glow")).font(.headline)
             Spacer()
             if effect != nil { swatch(.innerGlow) }
         }

@@ -12,10 +12,10 @@ struct TrimSheet: View {
 
     @ViewBuilder private var sheet: some View {
         VStack(alignment: .leading, spacing: 18) {
-            Text("Trim").font(.title2.bold())
+            Text(Localization.v("Trim")).font(.title2.bold())
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("Based On").font(.headline)
+                Text(Localization.v("Based On")).font(.headline)
                 Picker("", selection: $basedOn) {
                     ForEach(TrimBasedOn.allCases) { option in
                         Text(option.rawValue).tag(option)
@@ -28,15 +28,15 @@ struct TrimSheet: View {
             Divider()
 
             VStack(alignment: .leading, spacing: 8) {
-                Text("Trim Away").font(.headline)
+                Text(Localization.v("Trim Away")).font(.headline)
                 Grid(alignment: .leading, horizontalSpacing: 24, verticalSpacing: 8) {
                     GridRow {
-                        Toggle("Top", isOn: $trimTop)
-                        Toggle("Bottom", isOn: $trimBottom)
+                        Toggle(Localization.v("Top"), isOn: $trimTop)
+                        Toggle(Localization.v("Bottom"), isOn: $trimBottom)
                     }
                     GridRow {
-                        Toggle("Left", isOn: $trimLeft)
-                        Toggle("Right", isOn: $trimRight)
+                        Toggle(Localization.v("Left"), isOn: $trimLeft)
+                        Toggle(Localization.v("Right"), isOn: $trimRight)
                     }
                 }
             }
@@ -44,10 +44,10 @@ struct TrimSheet: View {
             Divider()
 
             HStack {
-                Button("Cancel") { finish(nil) }
+                Button(Localization.v("Cancel")) { finish(nil) }
                     .configuredNativeShortcut(.escape)
                 Spacer()
-                Button("OK") {
+                Button(Localization.v("OK")) {
                     let options = TrimOptions(
                         basedOn: basedOn,
                         top: trimTop,

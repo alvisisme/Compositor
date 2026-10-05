@@ -36,7 +36,7 @@ struct FilterSheet: View {
                 control("Cyans", \.blackWhite.cyans, range: BlackWhiteSettings.range, unit: "%", decimals: 0, logarithmic: false, track: .luminance(180))
                 control("Blues", \.blackWhite.blues, range: BlackWhiteSettings.range, unit: "%", decimals: 0, logarithmic: false, track: .luminance(240))
                 control("Magentas", \.blackWhite.magentas, range: BlackWhiteSettings.range, unit: "%", decimals: 0, logarithmic: false, track: .luminance(300))
-                Toggle("Tint", isOn: flag(\.blackWhite.tint))
+                Toggle(Localization.v("Tint"), isOn: flag(\.blackWhite.tint))
                     .help("Color the result while keeping its tones, for a sepia or a cyanotype")
                 if settings.blackWhite.tint {
                     control("Hue", \.blackWhite.tintHue, range: 0...360, unit: "°", decimals: 0, logarithmic: false, track: .plain)
@@ -47,28 +47,28 @@ struct FilterSheet: View {
                 CameraRawControls(session: session)
                     .frame(maxHeight: .infinity, alignment: .top)
             case .colorBalance:
-                Text("Shadows").font(.headline)
+                Text(Localization.v("Shadows")).font(.headline)
                 control("Cyan / Red", \.colorBalance.shadowCyanRed, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.cyanRedTrack)
                 control("Magenta / Green", \.colorBalance.shadowMagentaGreen, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.magentaGreenTrack)
                 control("Yellow / Blue", \.colorBalance.shadowYellowBlue, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.yellowBlueTrack)
-                Text("Midtones").font(.headline)
+                Text(Localization.v("Midtones")).font(.headline)
                 control("Cyan / Red", \.colorBalance.midCyanRed, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.cyanRedTrack)
                 control("Magenta / Green", \.colorBalance.midMagentaGreen, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.magentaGreenTrack)
                 control("Yellow / Blue", \.colorBalance.midYellowBlue, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.yellowBlueTrack)
-                Text("Highlights").font(.headline)
+                Text(Localization.v("Highlights")).font(.headline)
                 control("Cyan / Red", \.colorBalance.highlightCyanRed, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.cyanRedTrack)
                 control("Magenta / Green", \.colorBalance.highlightMagentaGreen, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.magentaGreenTrack)
                 control("Yellow / Blue", \.colorBalance.highlightYellowBlue, range: ColorBalanceSettings.range, unit: "", decimals: 0, logarithmic: false, track: Self.yellowBlueTrack)
-                Toggle("Preserve Luminosity", isOn: flag(\.colorBalance.preserveLuminosity))
+                Toggle(Localization.v("Preserve Luminosity"), isOn: flag(\.colorBalance.preserveLuminosity))
                     .help("Put each pixel's brightness back afterwards, so only the color moves")
             case .grain:
                 control("Amount", \.grain.amount, range: GrainSettings.amountRange, unit: "", decimals: 0, logarithmic: false)
                 control("Size", \.grain.size, range: GrainSettings.sizeRange, unit: "px", decimals: 1, logarithmic: true)
                 control("Roughness", \.grain.roughness, range: GrainSettings.roughnessRange, unit: "", decimals: 0, logarithmic: false)
             case .removeBackground:
-                Text("Hide the background behind a layer mask, keeping the foreground subjects. The pixels stay, so the background can be painted back at any time.")
+                Text(Localization.v("Hide the background behind a layer mask, keeping the foreground subjects. The pixels stay, so the background can be painted back at any time."))
                     .fixedSize(horizontal: false, vertical: true)
-                Picker("Quality", selection: Binding(get: { settings.backgroundQuality },
+                Picker(Localization.v("Quality"), selection: Binding(get: { settings.backgroundQuality },
                                                      set: { new in update { $0.backgroundQuality = new } })) {
                     ForEach(BackgroundQuality.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }
@@ -83,7 +83,7 @@ struct FilterSheet: View {
                         .help("Shrink the mask to drop the rim of background color around the subject, or grow it")
                 }
             case .contentAwareFill:
-                Text("Fill the selection using surrounding pixels from this layer.")
+                Text(Localization.v("Fill the selection using surrounding pixels from this layer."))
                     .fixedSize(horizontal: false, vertical: true)
             case .gaussianBlur:
                 control("Radius", \.radius, range: 0.1...250, unit: "px", decimals: 1, logarithmic: true)
@@ -93,19 +93,19 @@ struct FilterSheet: View {
             case .addNoise:
                 control("Amount", \.amount, range: 0.1...400, unit: "%", decimals: 1, logarithmic: true)
                 HStack(spacing: 10) {
-                    Text("Distribution")
-                    Picker("Distribution", selection: flag(\.gaussian)) {
-                        Text("Uniform").tag(false)
-                        Text("Gaussian").tag(true)
+                    Text(Localization.v("Distribution"))
+                    Picker(Localization.v("Distribution"), selection: flag(\.gaussian)) {
+                        Text(Localization.v("Uniform")).tag(false)
+                        Text(Localization.v("Gaussian")).tag(true)
                     }
                     .pickerStyle(.segmented).labelsHidden()
                 }
-                Toggle("Monochromatic", isOn: flag(\.monochromatic))
+                Toggle(Localization.v("Monochromatic"), isOn: flag(\.monochromatic))
             case .dither:
                 ditherControls
             case .vignette:
                 HStack(spacing: 8) {
-                    Text("Color").frame(width: 95, alignment: .leading)
+                    Text(Localization.v("Color")).frame(width: 95, alignment: .leading)
                     Button { session.openVignetteColorPicker() } label: {
                         let shape = RoundedRectangle(cornerRadius: 6, style: .continuous)
                         shape.fill(Color(.sRGB, red: settings.vignetteColor.red,
@@ -137,20 +137,20 @@ struct FilterSheet: View {
                 control("Radius", \.tonalRadius, range: 1...100, unit: "px", decimals: 0, logarithmic: true)
             case .lensCorrection:
                 control("Remove Distortion", \.distortion, range: -100...100, unit: "", decimals: 0, logarithmic: false)
-                Text("Positive straightens lines that bow outward (barrel); negative, lines that bow inward (pincushion).")
+                Text(Localization.v("Positive straightens lines that bow outward (barrel); negative, lines that bow inward (pincushion)."))
                     .font(.callout).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             }
-            Toggle("Preview", isOn: Binding(get: { edit?.preview ?? true },
+            Toggle(Localization.v("Preview"), isOn: Binding(get: { edit?.preview ?? true },
                                             set: { session.updateFilter(settings, preview: $0) }))
             if let error = edit?.previewError {
                 Text(error).foregroundStyle(.orange).fixedSize(horizontal: false, vertical: true)
             }
             if session.adjustmentOriginal == nil && session.selection != nil {
-                Text("Limited to the selection").font(.callout).foregroundStyle(.secondary)
+                Text(Localization.v("Limited to the selection")).font(.callout).foregroundStyle(.secondary)
             }
             Divider()
             HStack {
-                Button("Cancel") { session.cancelFilter() }.configuredNativeShortcut(.escape)
+                Button(Localization.v("Cancel")) { session.cancelFilter() }.configuredNativeShortcut(.escape)
                 Spacer()
                 // While the preview is being worked out (Remove Background's mask, Content-Aware Fill) OK waits, so
                 // the panel says what it is waiting for rather than showing a disabled button and nothing else.
@@ -161,7 +161,7 @@ struct FilterSheet: View {
                     Text(edit?.committing == true ? "Applying…" : "Working…")
                         .font(.callout).foregroundStyle(.secondary)
                 }
-                Button("OK") { Task { await session.commitFilter() } }
+                Button(Localization.v("OK")) { Task { await session.commitFilter() } }
                     .configuredNativeShortcut(.return).buttonStyle(.borderedProminent)
                     .disabled(edit?.kind.isAutomatic == true && (edit?.preparing == true || edit?.previewError != nil))
             }
@@ -183,7 +183,7 @@ struct FilterSheet: View {
 
     @ViewBuilder private var ditherControls: some View {
         let dither = settings.dither
-        Picker("Style", selection: Binding(get: { dither.style }, set: { new in update { $0.dither.style = new } })) {
+        Picker(Localization.v("Style"), selection: Binding(get: { dither.style }, set: { new in update { $0.dither.style = new } })) {
             ForEach(DitherStyle.groups.indices, id: \.self) { group in
                 if group > 0 { Divider() }
                 ForEach(DitherStyle.groups[group], id: \.self) { Text($0.rawValue).tag($0) }
@@ -215,8 +215,8 @@ struct FilterSheet: View {
         }
         if dither.style == .ascii {
             HStack(spacing: 10) {
-                Text("Characters")
-                TextField("Characters", text: Binding(get: { dither.characters }, set: { new in update { $0.dither.characters = new } }))
+                Text(Localization.v("Characters"))
+                TextField(Localization.v("Characters"), text: Binding(get: { dither.characters }, set: { new in update { $0.dither.characters = new } }))
                     .textFieldStyle(.roundedBorder).font(.body.monospaced())
             }
             .help("The characters to draw with, in any order: each spot gets the one whose ink best matches its tone")
@@ -234,28 +234,28 @@ struct FilterSheet: View {
         control("Contrast", \.dither.contrast, range: -100...100, unit: "", decimals: 0, logarithmic: false)
         // A menu, like Style: the three choices as segments are wider than the panel, which then flips between
         // squeezing the row and wrapping it, resizing itself at every slider step.
-        Picker("Colors", selection: Binding(get: { dither.colors }, set: { new in update { $0.dither.colors = new } })) {
+        Picker(Localization.v("Colors"), selection: Binding(get: { dither.colors }, set: { new in update { $0.dither.colors = new } })) {
             ForEach(DitherColors.allCases, id: \.self) { Text($0.rawValue).tag($0) }
         }
         .fixedSize()
         if dither.colors == .twoColors {
             HStack(spacing: 8) {
-                Text("Dark")
+                Text(Localization.v("Dark"))
                 swatch(dither.dark, help: "Choose the dark color") { session.openDitherColorPicker(light: false) }
-                Text("Light").padding(.leading, 10)
+                Text(Localization.v("Light")).padding(.leading, 10)
                 swatch(dither.light, help: "Choose the light color") { session.openDitherColorPicker(light: true) }
                 Spacer()
             }
         }
         if dither.pixelSize > 1, dither.style.usesPixelSize {
-            Picker("Pixel Shape", selection: Binding(get: { dither.pixelShape }, set: { new in update { $0.dither.pixelShape = new } })) {
+            Picker(Localization.v("Pixel Shape"), selection: Binding(get: { dither.pixelShape }, set: { new in update { $0.dither.pixelShape = new } })) {
                 ForEach(DitherPixelShape.allCases, id: \.self) { Text($0.rawValue).tag($0) }
             }
             .fixedSize()
             .help("Draw each chunky pixel as a solid square, or as a round dot like a dot-matrix screen")
         }
         if dither.style.drawsMarks {
-            Toggle("Light on Dark", isOn: flag(\.dither.lightOnDark))
+            Toggle(Localization.v("Light on Dark"), isOn: flag(\.dither.lightOnDark))
                 .help("Draw the marks for the light tones on the dark color, like a glowing screen")
         }
     }
@@ -343,7 +343,7 @@ struct GradientMapControls: View {
                 swatch("Highlights", settings.highlights) { pick(true) }
                 Spacer()
             }
-            Toggle("Reverse", isOn: $settings.reversed)
+            Toggle(Localization.v("Reverse"), isOn: $settings.reversed)
         }
     }
 
