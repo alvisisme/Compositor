@@ -87,6 +87,8 @@ scripts/dev-build.sh typecheck
   → typecheck: clean (arm64-apple-macos15.0, SDK 26.2)      0 errors, 0 warnings
 scripts/dev-build.sh app
   → .devbuild/Compositor.app
+scripts/dev-build.sh package
+  → .devbuild/dist/Compositor-1.4.5-dev.dmg
 ```
 
 and the built bundle was exercised on this macOS 15.6.1 machine, not just linked:
@@ -108,6 +110,43 @@ name. `scripts/dev-build.sh` adds them.
 than through `xcodebuild`, for the reason in the next section, and substitutes a 4-line stand-in
 module for Sparkle. Everything else — every source file, the real SDK, the real C routines — is
 compiled as it normally would be.
+
+## The development installer
+
+`scripts/dev-build.sh package` builds `Compositor.app` and wraps it in
+`.devbuild/dist/Compositor-<version>-dev.dmg`, laid out like the release DMG: the app on the left,
+an `Applications` link on the right, over `scripts/dmg/dmg-bg.jpg`. Drag-to-install works.
+
+It is **ad-hoc signed, not notarized** — there is no Developer ID certificate on this machine
+(`security find-identity -v -p codesigning` reports none), so this is the strongest signature
+available. Gatekeeper says so plainly:
+
+```
+$ spctl --assess --type execute --verbose=2 ~/Applications/Compositor.app
+~/Applications/Compositor.app: rejected
+source=no usable signature
+```
+
+On this Mac that is harmless, and the app was installed from the DMG and run from `~/Applications`
+to confirm it: it launches, responds to Apple events and quits cleanly. On *another* Mac it means a
+first-open refusal — right-click > **Open**, or `xattr -dr com.apple.quarantine` on the app, gets
+past it. Anyone who needs no warnings on a stranger's Mac needs `scripts/release.sh`, a Developer ID
+certificate and notarization credentials instead.
+
+Three differences from a release build, all deliberate:
+
+- **No updater.** The build links a stand-in for Sparkle, so `package` turns
+  `SUEnableAutomaticChecks` off and deletes `SUFeedURL` from the bundle. The app would otherwise
+  advertise a feature it does not have, and "Check for Updates…" would do nothing instead of
+  failing. A development build also has no business replacing itself with a release.
+- **No Finder window styling.** `create-dmg` is what positions the icons and paints the background
+  picture in a release DMG, and it is not installed here (Homebrew is currently failing to fetch its
+  own portable Ruby). `hdiutil` alone cannot write the `.DS_Store` Finder reads, so the background
+  goes in as `.background.jpg` for a user to pick via **View > Show View Options**, and the icons
+  sit wherever Finder defaults to. The app and the `Applications` link are both there and both
+  work; the window just looks plain.
+- **No asset catalog compile.** Xcode compiles `Assets.xcassets`; this rebuilds `AppIcon.icns` from
+  the same PNGs with `iconutil`, so the bundle has its real icon rather than the generic one.
 
 ## What still cannot be done here
 
@@ -157,4 +196,7 @@ Every claim here was measured on this machine:
   confirmed by compiling at `-target arm64-apple-macos15.0`.
 - GitHub reachability was tested host by host; the `xcodebuild` failure is its actual output.
 - The app was launched, driven and quit, rather than assumed to work because it linked; the
-  bundle-identity gap above was found that way, by a quit that hung.
+  bundle-identity gap above was found that way, by a quit that hung. The installer was tested the
+  same way — mounted, copied out as a drag would, and run from `~/Applications`.
+- Gatekeeper's verdict on the installer is `spctl`'s actual output, not an assumption about what
+  ad-hoc signing implies.

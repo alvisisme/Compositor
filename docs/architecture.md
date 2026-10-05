@@ -152,4 +152,6 @@ CI additionally resolves packages before building, builds for testing once with
 
 Both commands resolve the Sparkle package first, which needs github.com. On a machine that cannot
 reach it, `scripts/dev-build.sh` compiles and links the app with the Xcode toolchain directly,
-substituting a stand-in for Sparkle — see [local-development-m1-air.md](local-development-m1-air.md).
+substituting a stand-in for Sparkle, and can also package the result as an ad-hoc signed development
+DMG (`scripts/dev-build.sh package`). Neither substitutes for `release.sh`: that one signs with a
+Developer ID and notarizes. See [local-development-m1-air.md](local-development-m1-air.md).
