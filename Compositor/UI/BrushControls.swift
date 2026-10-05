@@ -7,21 +7,21 @@ struct BrushControls: View {
             Text(session.tool == .spotHealing ? "Spot Healing" : session.tool == .cloneStamp ? "Clone Stamp" : session.tool == .blur ? "Smear" : session.brushMode == .erase ? "Eraser" : "Brush").font(ToolHeaderStyle.titleFont)
             if session.tool == .brush {
                 Picker(Localization.v("Mode"), selection: $session.brushMode) {
-                    ForEach(BrushToolMode.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    ForEach(BrushToolMode.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
                 }
                 .pickerStyle(.segmented).labelsHidden().fixedSize()
                 .help(Localization.v("Paint with the foreground color (B), or erase pixels away (E)"))
             }
             if session.tool == .blur {
                 Picker(Localization.v("Mode"), selection: $session.blurMode) {
-                    ForEach(BlurToolMode.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    ForEach(BlurToolMode.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
                 }
                 .pickerStyle(.segmented).labelsHidden().fixedSize()
                 .help(Localization.v("Liquify pushes pixels · Blur softens · Smudge drags color along"))
             }
             if session.tool == .spotHealing {
                 Picker(Localization.v("Type"), selection: $session.spotHealingMode) {
-                    ForEach(SpotHealingMode.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    ForEach(SpotHealingMode.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
                 }
                 .pickerStyle(.segmented).labelsHidden().fixedSize()
                 .accessibilityIdentifier("spotHealingType")

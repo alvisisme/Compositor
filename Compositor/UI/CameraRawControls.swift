@@ -129,7 +129,7 @@ struct CameraRawControls: View {
                         Image(systemName: expanded.contains(section) ? "chevron.down" : "chevron.right")
                             .font(.caption.weight(.semibold))
                             .frame(width: 12)
-                        Text(section.rawValue).font(.headline)
+                        Text(Localization.v(section.rawValue)).font(.headline)
                     }
                     .contentShape(Rectangle())
                 }
@@ -187,7 +187,7 @@ struct CameraRawControls: View {
                 Text(Localization.v("White Balance")).frame(minWidth: Self.labelWidth, alignment: .leading)
                     .help(Localization.v("Auto balances the average color. Custom follows Temperature and Tint."))
                 Picker(Localization.v("White Balance"), selection: Binding(get: { raw.whiteBalance }, set: setWhiteBalance)) {
-                    ForEach(CameraRawWhiteBalance.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    ForEach(CameraRawWhiteBalance.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
                 }
                 .labelsHidden()
                 .help(Localization.v("Auto balances the average color. Custom follows Temperature and Tint."))
@@ -229,7 +229,7 @@ struct CameraRawControls: View {
             slider("Glow", \.glow, range: CameraRawSettings.unitRange, decimals: 0, clipping: nil,
                    help: "Spreads a glow from the bright areas.")
             Picker(Localization.v("Style"), selection: Binding(get: { raw.glowStyle }, set: { style in update { $0.cameraRaw.glowStyle = style } })) {
-                ForEach(CameraRawGlowStyle.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                ForEach(CameraRawGlowStyle.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
             }
             .help(Localization.v("Diffusion is soft and wide, Bloom is tighter, and Halation is a red fringe."))
             VStack(alignment: .leading, spacing: 8) {
@@ -245,7 +245,7 @@ struct CameraRawControls: View {
             slider("Amount", \.vignetteAmount, range: CameraRawSettings.toneRange, decimals: 0, clipping: nil,
                    help: "Darkens or lightens the edges. The center does not change.")
             Picker(Localization.v("Style"), selection: Binding(get: { raw.vignetteStyle }, set: { style in update { $0.cameraRaw.vignetteStyle = style } })) {
-                ForEach(CameraRawVignetteStyle.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                ForEach(CameraRawVignetteStyle.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
             }
             .help(Localization.v("Highlight Priority protects bright edges. Color Priority also reduces color. Paint Overlay covers the edges evenly."))
             VStack(alignment: .leading, spacing: 8) {

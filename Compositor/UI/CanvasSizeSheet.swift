@@ -72,7 +72,7 @@ struct CanvasSizeSheet: View {
                 .font(.callout).foregroundStyle(.secondary)
             Divider()
             Picker(Localization.v("Units"), selection: $draft.unit) {
-                ForEach(CanvasUnit.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                ForEach(CanvasUnit.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
             }
             HStack {
                 Text(Localization.v("Width")).frame(width: 60, alignment: .leading)

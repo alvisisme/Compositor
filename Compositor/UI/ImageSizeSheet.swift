@@ -147,7 +147,7 @@ struct ImageSizeSheet: View {
             }
             if resample {
                 Picker(Localization.v("Sampling"), selection: $sampling) {
-                    ForEach(LayerSampling.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    ForEach(LayerSampling.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
                 }
                 Text(Localization.v("Resizes layer pixels and applies existing transforms. Undo restores the originals."))
                     .font(.callout).foregroundStyle(.secondary)

@@ -36,7 +36,7 @@ struct CameraRawGeometryControls: View {
                 }
             }
             Picker(Localization.v("Projection"), selection: binding(\.projection)) {
-                ForEach(CameraRawProjection.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                ForEach(CameraRawProjection.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
             }
             .help(Localization.v("Perspective allows stronger keystone. Rectilinear keeps the warp gentler."))
             geometrySlider("Vertical", \.vertical, help: "Straightens vertical lines toward the center.")
@@ -95,7 +95,7 @@ struct CameraRawCalibrationControls: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Picker(Localization.v("Process"), selection: binding(\.process)) {
-                ForEach(CameraRawProcessVersion.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                ForEach(CameraRawProcessVersion.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
             }
             .help(Localization.v("Chooses how strongly the calibration sliders below are applied. Version 6 is the current default."))
             Text(raw.calibration.process.summary)

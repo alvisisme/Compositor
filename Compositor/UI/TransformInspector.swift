@@ -37,7 +37,7 @@ struct TransformInspector: View {
                 Picker(Localization.v("Sampling"), selection: Binding(get: { value.sampling }, set: { sampling in
                     change { $0.sampling = sampling }
                 })) {
-                    ForEach(LayerSampling.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                    ForEach(LayerSampling.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
                 }.frame(width: 170)
                 Button(Localization.v("Flip H")) { change { $0.flipX.toggle() } }
                 Button(Localization.v("Flip V")) { change { $0.flipY.toggle() } }
