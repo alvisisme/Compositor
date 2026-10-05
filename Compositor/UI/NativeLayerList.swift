@@ -976,7 +976,8 @@ private final class LayerCell: NSTableCellView, NSTextFieldDelegate {
             dimensions.toolTip = Localization.string("Clipping mask based on %@. Option-click the bottom of its row to release.", sourceName)
         } else { dimensions.toolTip = nil }
         eye.image = NSImage(systemSymbolName: layer.isVisible ? "eye" : "eye.slash", accessibilityDescription: nil)
-        eye.setAccessibilityLabel(Localization.string("%@ %@", Localization.text(layer.isVisible ? "Hide" : "Show"), layer.name))
+        eye.setAccessibilityLabel(layer.isVisible ? Localization.string("Hide %@", layer.name)
+                                                      : Localization.string("Show %@", layer.name))
         eye.isEnabled = enabled
         eye.layerID = layer.id
         eye.session = session

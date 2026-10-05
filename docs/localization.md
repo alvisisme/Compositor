@@ -102,9 +102,59 @@ items beside it are the ones that will be right after the next launch.
 
 ```sh
 scripts/dev-build.sh typecheck          # must be clean; the call sites are sensitive to inference
-python3 scripts/l10n/extract-keys.py    # 450 of 451 keys translated; the one miss is a comment
+python3 scripts/l10n/extract-keys.py    # every key a call site looks up has a translation
 python3 scripts/l10n/build-strings.py   # rewrites both tables from translations.py
+python3 scripts/l10n/build-strings.py --report   # untranslated candidates and stale entries
 ```
 
-`extract-keys.py` counts the one `'literal'` in a code comment as a key. That is the whole of the
-reported gap.
+`extract-keys.py` looks for the keys passed to `Localization.v`, `text` and `string`, and reports
+514 of the 515 it finds as translated. The one it counts as missing is the `'literal'` inside the
+comment in `CompositorApp.swift` that explains why a bare `Text("literal")` cannot switch, so there is
+no real gap by that measure.
+
+**It cannot see the other way a string reaches a reader.** A phrase that arrives as an enum's
+`rawValue`, as a ternary branch, or in an array of definitions is not an argument to a `Localization`
+call at the point where it is written, so the extractor does not count it — and all three of those
+shapes were where English survived the first sweeps. A quick way to find them again is to grep for
+`Text(` whose argument ends in `.rawValue`, and for `? "…" : "…"` branches that no `Localization`
+call encloses.
+
+The remaining English is a known set rather than an unknown one: the help text on the Camera Raw
+panels and the filter sheet, and the tool names in the shortcut editor's canvas section. They are
+clusters of tooltips rather than anything on the main path.
+
+## Adding a language
+
+## Adding a language
+
+1. Add the case to `Localization.Language`, with its endonym — the language's own name for itself,
+   because that is what the picker must show a reader who cannot read the current one.
+2. Add its map to `scripts/l10n/translations.py` beside the Chinese one.
+3. Add the `.lproj` folder name to the `CFBundleLocalizations` array in `scripts/dev-build.sh`, so
+   `Bundle.main` will hand that folder out when macOS has the process language set to it.
+4. `python3 scripts/l10n/build-strings.py` writes the tables; `extract-keys.py` reports what is
+   still missing.
+
+A string with no translation falls back to English rather than to an identifier, so a partial
+translation is safe to ship and coverage can grow a batch at a time.
+
+## What the mechanical passes could not do
+
+Worth knowing before trusting a sweep. Four shapes defeated a search for a literal at a display
+call, and each of them left real English behind until it was hunted separately:
+
+- **Ternary branches.** `Text(cond ? "A" : "B")` passes the literal to the ternary, not to `Text`.
+- **`rawValue` on an enum.** The string is not written where it is shown at all. Every such picker
+  needs `Text(Localization.v($0.rawValue))` — display only, never the enum, because three of those
+  enums are `Codable` and their raw values are what a `.comp` stores.
+- **Concatenation.** `"Add " + kind.rawValue` cannot be translated: "Add Drop Shadow" is a phrase,
+  and gluing a translated noun onto an English verb is not. The whole phrase has to be the key.
+- **Interpolation as a suffix.** `title + " by 10"` with the key `"%@ by 10"` looks up the frame and
+  fills it with an English title, so Chinese read "Decrease tracking 10". The whole phrase is the key.
+
+A related trap: `Localization.text(_:)` takes no arguments. A message with a value in it needs the
+variadic `string(_:)`, and the compiler only catches the mistake when the argument is a String.
+
+Finally, notation — `100%`, `#`, `%`, the `×` in a size, the letters `RGB` — should be `Text(verbatim:)`
+or nothing at all. Translating it is wrong, and marking it explicitly is what stops the next sweep
+from "fixing" it.

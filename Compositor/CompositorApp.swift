@@ -237,7 +237,7 @@ struct CompositorApp: App {
                     Button(Localization.v("Content-Aware Fill…")) { session.beginFilter(.contentAwareFill) }
                         .configuredKeyboardShortcut(.delete, modifiers: .shift).disabled(!session.canContentAwareFill)
                 }
-                CommandMenu("Select") {
+                CommandMenu(Localization.v("Select")) {
                     // A field being edited keeps its own Select All: offer it to the responder chain
                     // first, which covers every kind of text control rather than NSTextView alone,
                     // and select the canvas only when nothing there wanted it.
@@ -276,7 +276,7 @@ struct CompositorApp: App {
                     Button(Localization.v("Feather…")) { session.promptSelectionAmount(.feather) }
                         .disabled(!session.canModifySelection)
                 }
-                CommandMenu("Image") {
+                CommandMenu(Localization.v("Image")) {
                     Button(Localization.v("Curves…")) { session.beginFilter(.curves) }
                         .configuredKeyboardShortcut("m").disabled(!session.canAdjustColors || session.hueSaturation != nil)
                     Button(Localization.v("Levels…")) { session.beginLevels() }
@@ -316,13 +316,13 @@ struct CompositorApp: App {
                             .disabled(!session.canEditLayers)
                     }
                 }
-                CommandMenu("Filter") {
+                CommandMenu(Localization.v("Filter")) {
                     ForEach(FilterKind.allCases.filter { $0 != .contentAwareFill && !$0.isImageAdjustment }, id: \.self) { kind in
                         Button(kind.localizedName + "…") { session.beginFilter(kind) }
                             .disabled(!(kind == .vignette ? session.canVignette : session.canAdjustColors) || session.hueSaturation != nil)
                     }
                 }
-                CommandMenu("Layer") {
+                CommandMenu(Localization.v("Layer")) {
                     Menu(Localization.v("New Adjustment Layer")) {
                         ForEach(AdjustmentKind.allCases, id: \.self) { kind in
                             Button(kind.localizedName + (kind.isEditable ? "…" : "")) { session.addAdjustment(kind) }
