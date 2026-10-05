@@ -1,8 +1,19 @@
 import AppKit
 
-nonisolated enum LevelsSample: String, CaseIterable { case black = "Black", gray = "Gray", white = "White" }
+nonisolated enum LevelsSample: String, CaseIterable {
+    case black = "Black", gray = "Gray", white = "White"
+
+    /// What the eyedropper buttons show, in the reader's language. See `LayerBlendMode.displayName`.
+    var displayName: String { rawValue }
+    var localizedName: String { Localization.text(displayName) }
+}
 nonisolated enum LevelsAuto: String, CaseIterable {
     case contrast = "Contrast", color = "Color", neutral = "Color + neutral midtones"
+
+    /// What the Auto buttons show, in the reader's language.
+    var displayName: String { rawValue }
+    var localizedName: String { Localization.text(displayName) }
+
     func settings(histogram: [[Double]]) -> LevelsSettings {
         var result = LevelsSettings()
         func endpoints(_ bins: [Double]) -> (Double, Double)? {

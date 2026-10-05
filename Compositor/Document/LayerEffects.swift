@@ -211,6 +211,23 @@ nonisolated struct LayerEffects: Codable, Equatable, Sendable {
 
 nonisolated enum LayerEffectKind: String, CaseIterable, Sendable {
     case stroke = "Stroke", shadow = "Drop Shadow", colorOverlay = "Color Overlay", innerShadow = "Inner Shadow", outerGlow = "Outer Glow", innerGlow = "Inner Glow"
+
+    /// What the UI shows, in English; the raw value is what a `.comp` manifest stores, so it stays fixed.
+    var displayName: String {
+        switch self {
+        case .stroke: "Stroke"
+        case .shadow: "Drop Shadow"
+        case .colorOverlay: "Color Overlay"
+        case .innerShadow: "Inner Shadow"
+        case .outerGlow: "Outer Glow"
+        case .innerGlow: "Inner Glow"
+        }
+    }
+
+    /// `displayName` in the reader's language — what a control should show. `nonisolated` and a plain member
+    /// access so a `Text(` or `Button(` call site does not have to carry a localized lookup into the view
+    /// builder, where a call like that is enough to defeat type inference.
+    var localizedName: String { Localization.text(displayName) }
 }
 
 struct LayerEffectSelection: Equatable {

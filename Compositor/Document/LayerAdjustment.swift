@@ -7,6 +7,29 @@ nonisolated enum AdjustmentKind: String, Codable, CaseIterable, Sendable {
     case gaussianBlur = "Gaussian Blur", motionBlur = "Motion Blur"
     case invert = "Invert"
     case blackWhite = "Black & White", colorBalance = "Color Balance"
+    /// What the UI shows, in English; see `LayerBlendMode.displayName` for why this is not `rawValue`.
+    var displayName: String {
+        switch self {
+        case .hsv: "Hue/Saturation"
+        case .levels: "Levels"
+        case .curves: "Curves"
+        case .exposure: "Exposure"
+        case .gradientMap: "Gradient Map"
+        case .grain: "Grain"
+        case .addNoise: "Add Noise"
+        case .gaussianBlur: "Gaussian Blur"
+        case .motionBlur: "Motion Blur"
+        case .invert: "Invert"
+        case .blackWhite: "Black & White"
+        case .colorBalance: "Color Balance"
+        }
+    }
+
+    /// `displayName` in the reader's language — what a control should show. `nonisolated` and a plain member
+    /// access so a `Text(` or `Button(` call site does not have to carry a localized lookup into the view
+    /// builder, where a call like that is enough to defeat type inference.
+    var localizedName: String { Localization.text(displayName) }
+
     var symbol: String {
         switch self {
         case .curves: return "point.topleft.down.to.point.bottomright.curvepath"

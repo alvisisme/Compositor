@@ -4,6 +4,18 @@ import CoreImage
 nonisolated enum CameraRawUprightMode: String, CaseIterable, Sendable {
     case off = "Off"
     case guided = "Guided"
+
+    var displayName: String {
+        switch self {
+        case .off: "Off"
+        case .guided: "Guided"
+        }
+    }
+
+    /// `displayName` in the reader's language — what a control should show. `nonisolated` and a plain member
+    /// access so a `Text(` or `Button(` call site does not have to carry a localized lookup into the view
+    /// builder, where a call like that is enough to defeat type inference.
+    var localizedName: String { Localization.text(displayName) }
 }
 
 nonisolated enum CameraRawProjection: String, CaseIterable, Sendable {

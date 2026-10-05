@@ -22,6 +22,36 @@ nonisolated enum FilterKind: String, CaseIterable, Sendable {
     case grain = "Grain"
     case blackWhite = "Black & White"
     case colorBalance = "Color Balance"
+
+    /// What the menus and panels show, in English; see `LayerBlendMode.displayName` for why this is separate
+    /// from `rawValue` even where the raw value is not itself persisted.
+    var displayName: String {
+        switch self {
+        case .gaussianBlur: "Gaussian Blur"
+        case .motionBlur: "Motion Blur"
+        case .addNoise: "Add Noise"
+        case .vignette: "Vignette"
+        case .bloomGlow: "Bloom / Glow"
+        case .dither: "Dither"
+        case .tonalContrast: "Tonal Contrast"
+        case .lensCorrection: "Lens Correction"
+        case .cameraRaw: "Camera Raw Filter"
+        case .removeBackground: "Remove Background"
+        case .contentAwareFill: "Content-Aware Fill"
+        case .curves: "Curves"
+        case .exposure: "Exposure"
+        case .gradientMap: "Gradient Map"
+        case .grain: "Grain"
+        case .blackWhite: "Black & White"
+        case .colorBalance: "Color Balance"
+        }
+    }
+
+    /// `displayName` in the reader's language — what a control should show. `nonisolated` and a plain member
+    /// access so a `Text(` or `Button(` call site does not have to carry a localized lookup into the view
+    /// builder, where a call like that is enough to defeat type inference.
+    var localizedName: String { Localization.text(displayName) }
+
     var isAutomatic: Bool { self == .contentAwareFill || self == .removeBackground }
     /// Color adjustments: in the Image menu (and editable as adjustment layers), not under Filter.
     var isImageAdjustment: Bool {
@@ -35,6 +65,14 @@ nonisolated enum FilterKind: String, CaseIterable, Sendable {
 nonisolated enum BackgroundQuality: String, CaseIterable, Sendable {
     case basic = "Basic"
     case advanced = "Advanced"
+
+    /// What the panel shows, in English; the raw value is what a saved session round-trips.
+    var displayName: String {
+        switch self {
+        case .basic: "Basic"
+        case .advanced: "Advanced"
+        }
+    }
 }
 
 /// Every filter's settings; each filter reads only its own.

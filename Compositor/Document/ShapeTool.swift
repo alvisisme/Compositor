@@ -4,6 +4,11 @@ nonisolated enum ShapeKind: String, CaseIterable, Codable, Sendable {
     case rectangle = "Rectangle"
     case ellipse = "Ellipse"
     case line = "Line"
+    /// What a control shows for this kind, in English. `rawValue` is also the name given to the layer a shape
+    /// creates (`nextShapeName`), so it is *not* localized: a layer named in one language must not be renamed by
+    /// switching to another.
+    var displayName: String { rawValue }
+
     /// The shape filling `rect`. A rectangle's corners round by `cornerRadius`, at most half its shorter
     /// side (so a large radius makes a pill); ellipses ignore it. A line runs corner to corner and is stroked,
     /// not filled (see `linePath`).
@@ -13,6 +18,11 @@ nonisolated enum ShapeKind: String, CaseIterable, Codable, Sendable {
         guard radius > 0 else { return CGPath(rect: rect, transform: nil) }
         return CGPath(roundedRect: rect, cornerWidth: radius, cornerHeight: radius, transform: nil)
     }
+
+    /// `displayName` in the reader's language — what a control should show. `nonisolated` and a plain member
+    /// access so a `Text(` or `Button(` call site does not have to carry a localized lookup into the view
+    /// builder, where a call like that is enough to defeat type inference.
+    var localizedName: String { Localization.text(displayName) }
 }
 
 /// What a shape layer draws, kept so the shape can be drawn again at a new size.

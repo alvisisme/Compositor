@@ -49,19 +49,19 @@ struct LevelsSheet: View {
                         edit?.sampleMode = edit?.sampleMode == mode ? nil : mode
                         session.brushRevision += 1
                     } label: {
-                        Label(mode.rawValue, systemImage: "eyedropper")
+                        Label(mode.localizedName, systemImage: "eyedropper")
                     }.tint(edit?.sampleMode == mode ? .accentColor : .secondary)
                 }
             }
             if let mode = edit?.sampleMode {
-                Text("Click the original layer to set \(mode.rawValue.lowercased()). Click the eyedropper again to stop.")
+                Text("Click the original layer to set \(mode.localizedName.lowercased()). Click the eyedropper again to stop.")
                     .font(.caption).foregroundStyle(.secondary)
             }
             VStack(alignment: .leading, spacing: 6) {
                 Text("Auto").font(.caption).foregroundStyle(.secondary)
                 HStack {
                     ForEach(LevelsAuto.allCases, id: \.self) { mode in
-                        Button(mode.rawValue) { session.autoLevels(mode) }
+                        Button(mode.localizedName) { session.autoLevels(mode) }
                     }
                 }.disabled(edit?.histogramReady != true)
             }

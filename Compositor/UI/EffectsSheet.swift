@@ -163,8 +163,8 @@ struct EffectsSheet: View {
                 .contentShape(shape)
         }
         .buttonStyle(.plain)
-        .help(kind.rawValue + " color")
-        .accessibilityLabel(kind.rawValue + " color")
+        .help(kind.localizedName + " " + Localization.text("color"))
+        .accessibilityLabel(kind.localizedName + " " + Localization.text("color"))
     }
 
     private func slider(_ title: String, value: Binding<CGFloat>, range: ClosedRange<CGFloat>,

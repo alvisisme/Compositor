@@ -10,7 +10,7 @@ struct BlendModePicker: NSViewRepresentable {
         // with a line between, so a long list stays readable.
         for (index, group) in LayerBlendMode.groups.enumerated() {
             if index > 0 { button.menu?.addItem(.separator()) }
-            for mode in group { button.addItem(withTitle: mode.rawValue) }
+            for mode in group { button.addItem(withTitle: mode.localizedName) }
         }
         button.menu?.delegate = context.coordinator
         button.target = context.coordinator
@@ -23,7 +23,7 @@ struct BlendModePicker: NSViewRepresentable {
     func updateNSView(_ button: NSPopUpButton, context: Context) {
         button.isEnabled = session.canEditAppearance
         if !context.coordinator.tracking {
-            button.selectItem(withTitle: (session.activeLayer?.blendMode ?? .normal).rawValue)
+            button.selectItem(withTitle: (session.activeLayer?.blendMode ?? .normal).localizedName)
         }
     }
     static func dismantleNSView(_ button: NSPopUpButton, coordinator: Coordinator) {
@@ -64,7 +64,7 @@ struct BlendModePicker: NSViewRepresentable {
             guard session.activeLayerID == layerID,
                   let mode = highlightedMode ?? button.selectedItem.flatMap({ LayerBlendMode(rawValue: $0.title) }) else { return }
             session.setLayerBlendMode(mode)
-            button.selectItem(withTitle: mode.rawValue)
+            button.selectItem(withTitle: mode.localizedName)
             highlightedMode = nil
             session.refreshCanvasPreview?()
         }

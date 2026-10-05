@@ -4,10 +4,16 @@ import Sparkle
 @main
 struct CompositorApp: App {
     @NSApplicationDelegateAdaptor(CompositorApplicationDelegate.self) private var applicationDelegate
+    @State private var language = Localization.shared
     private var session: EditorSession { applicationDelegate.session }
     var body: some Scene {
         Window("Compositor", id: "editor") {
-            ProjectWorkspaceView(applicationDelegate: applicationDelegate).roundedControls()
+            // LocalizationRoot re-identifies the tree when the language changes, which is what lets the
+            // `Text("literal")` and command titles below be resolved again in the new language.
+            LocalizationRoot {
+                ProjectWorkspaceView(applicationDelegate: applicationDelegate).roundedControls()
+            }
+            .environment(language)
         }
             .defaultSize(width: 1180, height: 780)
             // Files opened from Finder or dropped on the Dock icon go to the app delegate, which imports them into
@@ -94,6 +100,23 @@ struct CompositorApp: App {
                 Group {
                     CommandGroup(after: .appInfo) {
                         Button("Check for Updates…") { applicationDelegate.updater.checkForUpdates(nil) }
+                        Divider()
+                        // The app's own strings are localized, but the ones macOS supplies around them — the menu
+                        // bar's "About Compositor", "Services", "Quit" — are not: the system localizes those per app
+                        // from what the bundle declares, which a running app cannot change. Switching here changes
+                        // what this app draws; a relaunch is what changes what macOS draws for it. See
+                        // docs/localization.md.
+                        Picker(selection: Binding(get: { language.language },
+                                                  set: { language.language = $0 })) {
+                            ForEach(Localization.Language.allCases) { choice in
+                                // `verbatim` so each language is listed in its own script and stays put whatever the
+                                // current language is — a reader who cannot read the current one still has to find
+                                // their own.
+                                Text(verbatim: choice.endonym).tag(choice)
+                            }
+                        } label: {
+                            Text("Language")
+                        }
                     }
                     CommandGroup(after: .toolbar) {
                         // With a dialog's preview open (Export JPEG), these zoom that preview rather than the canvas.
@@ -256,10 +279,19 @@ struct CompositorApp: App {
                         .configuredKeyboardShortcut("l").disabled(!session.canAdjustColors || session.hueSaturation != nil)
                     Button("Hue/Saturation…") { session.beginHueSaturation() }
                         .configuredKeyboardShortcut("u").disabled(!session.canAdjustColors)
-                    ForEach([FilterKind.blackWhite, .colorBalance, .exposure, .gradientMap, .grain], id: \.self) { kind in
-                        Button("\(kind.rawValue)…") { session.beginFilter(kind) }
-                            .disabled(!session.canAdjustColors || session.hueSaturation != nil)
-                    }
+                    // Spelled out rather than a `ForEach` over the five kinds: inside a `Commands` builder a
+                    // `ForEach` whose label is built from a localized string resolves to SwiftUI's `Binding`
+                    // overload and fails to type-check, and there are only five.
+                    Button(FilterKind.blackWhite.localizedName + "…") { session.beginFilter(.blackWhite) }
+                        .disabled(!session.canAdjustColors || session.hueSaturation != nil)
+                    Button(FilterKind.colorBalance.localizedName + "…") { session.beginFilter(.colorBalance) }
+                        .disabled(!session.canAdjustColors || session.hueSaturation != nil)
+                    Button(FilterKind.exposure.localizedName + "…") { session.beginFilter(.exposure) }
+                        .disabled(!session.canAdjustColors || session.hueSaturation != nil)
+                    Button(FilterKind.gradientMap.localizedName + "…") { session.beginFilter(.gradientMap) }
+                        .disabled(!session.canAdjustColors || session.hueSaturation != nil)
+                    Button(FilterKind.grain.localizedName + "…") { session.beginFilter(.grain) }
+                        .disabled(!session.canAdjustColors || session.hueSaturation != nil)
                     Button(session.isMaskSelected ? "Invert Mask" : "Invert") { Task { await session.invertPixels() } }
                         .configuredKeyboardShortcut("i")
                         .disabled(!session.canInvert)
@@ -282,14 +314,14 @@ struct CompositorApp: App {
                 }
                 CommandMenu("Filter") {
                     ForEach(FilterKind.allCases.filter { $0 != .contentAwareFill && !$0.isImageAdjustment }, id: \.self) { kind in
-                        Button("\(kind.rawValue)…") { session.beginFilter(kind) }
+                        Button(kind.localizedName + "…") { session.beginFilter(kind) }
                             .disabled(!(kind == .vignette ? session.canVignette : session.canAdjustColors) || session.hueSaturation != nil)
                     }
                 }
                 CommandMenu("Layer") {
                     Menu("New Adjustment Layer") {
                         ForEach(AdjustmentKind.allCases, id: \.self) { kind in
-                            Button(kind.rawValue + (kind.isEditable ? "…" : "")) { session.addAdjustment(kind) }
+                            Button(kind.localizedName + (kind.isEditable ? "…" : "")) { session.addAdjustment(kind) }
                         }
                     }.disabled(!session.canEditLayers || session.document == nil)
                     Button("Edit Adjustment…") {
@@ -335,7 +367,7 @@ struct CompositorApp: App {
                             .disabled(!session.canTransform)
                     }
                     Divider()
-                    Button(session.selectedEffect != nil ? "Delete " + session.selectedEffect!.kind.rawValue : session.isMaskSelected && session.activeLayer?.mask != nil ? "Delete Layer Mask" : session.selectedLayerIDs.count > 1 ? "Delete Layers" : "Delete Layer") {
+                    Button(session.selectedEffect != nil ? Localization.string("Delete %@", Localization.text(session.selectedEffect!.kind.displayName)) : session.isMaskSelected && session.activeLayer?.mask != nil ? "Delete Layer Mask" : session.selectedLayerIDs.count > 1 ? "Delete Layers" : "Delete Layer") {
                         session.deleteLayerOrMask()
                     }
                         .disabled(!session.canEditLayers || session.activeLayer == nil)

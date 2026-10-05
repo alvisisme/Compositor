@@ -10,7 +10,7 @@ struct CameraRawGeometryControls: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Upright").font(.subheadline)
             Picker("Upright", selection: uprightBinding) {
-                ForEach(CameraRawUprightMode.allCases, id: \.self) { Text($0.rawValue).tag($0) }
+                ForEach(CameraRawUprightMode.allCases, id: \.self) { Text($0.localizedName).tag($0) }
             }
             .labelsHidden()
             .pickerStyle(.segmented)

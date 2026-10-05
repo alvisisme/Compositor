@@ -12,6 +12,44 @@ nonisolated enum LayerBlendMode: String, Codable, CaseIterable, Sendable {
     case difference = "Difference", exclusion = "Exclusion", subtract = "Subtract", divide = "Divide"
     case hue = "Hue", saturation = "Saturation", color = "Color", luminosity = "Luminosity"
 
+    /// What the UI shows for this mode, in English. Deliberately *not* `rawValue`: the raw value is what a
+    /// `.comp` manifest stores (`blendMode: "Normal"`), so localizing it would make a project file written in one
+    /// language unreadable in another. This is the lookup key into `Localizable.strings`, and `Localization.text`
+    /// turns it into the reader's language where it is shown.
+    var displayName: String {
+        switch self {
+        case .normal: "Normal"
+        case .darken: "Darken"
+        case .multiply: "Multiply"
+        case .colorBurn: "Color Burn"
+        case .linearBurn: "Linear Burn"
+        case .lighten: "Lighten"
+        case .screen: "Screen"
+        case .colorDodge: "Color Dodge"
+        case .linearDodge: "Linear Dodge (Add)"
+        case .overlay: "Overlay"
+        case .softLight: "Soft Light"
+        case .hardLight: "Hard Light"
+        case .vividLight: "Vivid Light"
+        case .linearLight: "Linear Light"
+        case .pinLight: "Pin Light"
+        case .hardMix: "Hard Mix"
+        case .difference: "Difference"
+        case .exclusion: "Exclusion"
+        case .subtract: "Subtract"
+        case .divide: "Divide"
+        case .hue: "Hue"
+        case .saturation: "Saturation"
+        case .color: "Color"
+        case .luminosity: "Luminosity"
+        }
+    }
+
+    /// `displayName` in the reader's language — what a control should show. `nonisolated` and a plain member
+    /// access so a `Text(` or `Button(` call site does not have to carry a localized lookup into the view
+    /// builder, where a call like that is enough to defeat type inference.
+    var localizedName: String { Localization.text(displayName) }
+
     /// Photoshop's grouping: darkening modes together, then lightening, then contrast, then the
     /// comparative ones, then the component modes. The menu draws a line between each group.
     static let groups: [[LayerBlendMode]] = [

@@ -64,6 +64,17 @@ COMMON=(-sdk "$SDK" -target "$TARGET" -module-cache-path "$CACHE"
 SOURCES=()
 while IFS= read -r file; do SOURCES+=("$file"); done < <(find "$ROOT/Compositor" -name '*.swift' | sort)
 
+# The .lproj tables under Compositor/. Xcode copies localized resources into the bundle; so does this.
+build_localizations() {
+    local tables="$ROOT/Compositor"
+    local language
+    for language in en zh-Hans; do
+        [ -d "$tables/$language.lproj" ] || continue
+        mkdir -p "$APP_RESOURCES/$language.lproj"
+        cp "$tables/$language.lproj/"*.strings "$APP_RESOURCES/$language.lproj/"
+    done
+}
+
 # The app's icon, from the asset catalog. Xcode compiles the catalog; iconutil does it here.
 build_icon() {
     local iconset="$BUILD/AppIcon.iconset"
@@ -106,8 +117,10 @@ build_app() {
         -framework UniformTypeIdentifiers -framework ImageIO -framework CoreGraphics \
         -framework QuartzCore -framework Security
 
+    APP_RESOURCES="$APP/Contents/Resources"
     build_icon
-    cp "$BUILD/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
+    cp "$BUILD/AppIcon.icns" "$APP_RESOURCES/AppIcon.icns"
+    build_localizations
     cp "$ROOT/Config/Info.plist" "$APP/Contents/Info.plist"
 
     # Xcode fills these in from the target's build settings (GENERATE_INFOPLIST_FILE = YES), so the
@@ -119,6 +132,12 @@ build_app() {
     /usr/libexec/PlistBuddy -c "Add :CFBundleExecutable string Compositor" "$PLIST"
     /usr/libexec/PlistBuddy -c "Add :CFBundlePackageType string APPL" "$PLIST"
     /usr/libexec/PlistBuddy -c "Add :CFBundleIconFile string AppIcon" "$PLIST"
+    # What the bundle ships, so `Bundle.main.path(forResource:ofType:)` finds both .lproj folders however
+    # macOS has the process language set. This is what Localization.bundle(for:) looks up.
+    /usr/libexec/PlistBuddy -c "Add :CFBundleLocalizations array" "$PLIST" 2>/dev/null || true
+    /usr/libexec/PlistBuddy -c "Add :CFBundleLocalizations:0 string en" "$PLIST" 2>/dev/null || true
+    /usr/libexec/PlistBuddy -c "Add :CFBundleLocalizations:1 string zh-Hans" "$PLIST" 2>/dev/null || true
+    /usr/libexec/PlistBuddy -c "Add :CFBundleDevelopmentRegion string en" "$PLIST" 2>/dev/null || true
     /usr/libexec/PlistBuddy -c "Add :CFBundleShortVersionString string $VERSION" "$PLIST"
     /usr/libexec/PlistBuddy -c "Add :CFBundleVersion string $BUILD_NUMBER" "$PLIST"
 
