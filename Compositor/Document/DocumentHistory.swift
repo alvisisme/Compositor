@@ -33,8 +33,10 @@ final class DocumentHistory {
 
     var canUndo: Bool { depth == 0 && !past.isEmpty }
     var canRedo: Bool { depth == 0 && !future.isEmpty }
-    var undoName: String { past.last?.name ?? "" }
-    var redoName: String { future.last?.name ?? "" }
+    /// The name of the edit the menu offers to undo, in the reader's language. Every edit is named in English at
+    /// its call site, and this is the only place those names are shown, so resolving here covers them all.
+    var undoName: String { Localization.text(past.last?.name ?? "") }
+    var redoName: String { Localization.text(future.last?.name ?? "") }
     var isModified: Bool { revision != savedRevision }
     var undoCount: Int { past.count }
     func markSaved() { savedRevision = revision }

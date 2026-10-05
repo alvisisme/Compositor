@@ -25,8 +25,8 @@ nonisolated enum MagicWand {
         case tooDetailed, memory
         var errorDescription: String? {
             switch self {
-            case .tooDetailed: "That selection is too detailed to outline. Try a different Tolerance, or turn on Contiguous."
-            case .memory: "There isn’t enough memory to make that selection."
+            case .tooDetailed: Localization.text("That selection is too detailed to outline. Try a different Tolerance, or turn on Contiguous.")
+            case .memory: Localization.text("There isn’t enough memory to make that selection.")
             }
         }
     }

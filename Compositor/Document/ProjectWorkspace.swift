@@ -8,7 +8,12 @@ final class ProjectTab: Identifiable {
     let session: EditorSession
     let controller: ProjectController
     let defaultName: String
-    var title: String { session.projectURL?.deletingPathExtension().lastPathComponent ?? defaultName }
+    /// A saved project is named by its file on disk. An untitled one shows the name it was created with, resolved
+    /// here rather than stored: `defaultName` also supplies the save panel's suggested filename, which should stay
+    /// the literal "Untitled" whatever the interface language.
+    var title: String {
+        session.projectURL?.deletingPathExtension().lastPathComponent ?? Localization.text(defaultName)
+    }
     init(name: String) {
         defaultName = name
         session = EditorSession()
