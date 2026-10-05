@@ -16,6 +16,7 @@
 "(Multiple)" = "(Multiple)";
 "45°" = "45°";
 "A little stronger than Version 1. The sliders below still fall well short of the current look." = "A little stronger than Version 1. The sliders below still fall well short of the current look.";
+"A subdivision every %@ pixels." = "A subdivision every %@ pixels.";
 "ASCII" = "ASCII";
 "Actual Pixels" = "Actual Pixels";
 "Actual pixels (⌘1)" = "Actual pixels (⌘1)";
@@ -26,6 +27,7 @@
 "Add layer mask" = "Add layer mask";
 "Add layer mask (Option-click for a black mask)" = "Add layer mask (Option-click for a black mask)";
 "Add layer mask revealing the selection (Option-click to hide it)" = "Add layer mask revealing the selection (Option-click to hide it)";
+"Add to %@" = "Add to %@";
 "Adjustment · Double-click to edit" = "Adjustment · Double-click to edit";
 "Advanced" = "Advanced";
 "Align " = "Align ";
@@ -46,6 +48,7 @@
 "Apply Crop" = "Apply Crop";
 "Apply current canvas operation" = "Apply current canvas operation";
 "Apply outside this range instead" = "Apply outside this range instead";
+"Applying…" = "Applying…";
 "Are you sure you want to discard your changes?" = "Are you sure you want to discard your changes?";
 "Atkinson (Classic Mac)" = "Atkinson (Classic Mac)";
 "Auto" = "Auto";
@@ -78,6 +81,7 @@
 "Bottom left" = "Bottom left";
 "Bottom right" = "Bottom right";
 "Break the lines into glowing beads" = "Break the lines into glowing beads";
+"Brush" = "Brush";
 "Brush hardness" = "Brush hardness";
 "Brush size" = "Brush size";
 "Brush tool" = "Brush tool";
@@ -134,6 +138,7 @@
 "Click to select; double-click to edit; Option-drag to copy %@" = "Click to select; double-click to edit; Option-drag to copy %@";
 "Click to zoom in · Option-click to zoom out · Drag right or left to zoom smoothly · Space to pan" = "Click to zoom in · Option-click to zoom out · Drag right or left to zoom smoothly · Space to pan";
 "Clipping mask based on %@. Option-click the bottom of its row to release." = "Clipping mask based on %@. Option-click the bottom of its row to release.";
+"Clone Stamp" = "Clone Stamp";
 "Close %@" = "Close %@";
 "Close Project" = "Close Project";
 "Close to the current process, with slightly softer primary and shadow shifts." = "Close to the current process, with slightly softer primary and shadow shifts.";
@@ -185,6 +190,7 @@
 "Couldn’t trim image" = "Couldn’t trim image";
 "Create Clipping Mask" = "Create Clipping Mask";
 "Create Texture" = "Create Texture";
+"Create a canvas or import an image." = "Create a canvas or import an image.";
 "Create canvas" = "Create canvas";
 "Create clipping mask" = "Create clipping mask";
 "Crop" = "Crop";
@@ -227,6 +233,7 @@
 "Delete selected effect" = "Delete selected effect";
 "Delete selected layer" = "Delete selected layer";
 "Delete selected layers" = "Delete selected layers";
+"Delete selected mask" = "Delete selected mask";
 "Delete selection / layer / effect / lasso point" = "Delete selection / layer / effect / lasso point";
 "Deselect" = "Deselect";
 "Detail" = "Detail";
@@ -247,6 +254,7 @@
 "Dot" = "Dot";
 "Down" = "Down";
 "Drag a color in the picture. Nearby color families move together." = "Drag a color in the picture. Nearby color families move together.";
+"Drag a point. Click to add one. Double-click a point to remove it." = "Drag a point. Click to add one. Double-click a point to remove it.";
 "Drag a rectangle · Shift add · Option subtract · Shift again mid-drag square · Drag inside to move · ⌘-drag moves pixels · Delete clears · ⌘D deselect" = "Drag a rectangle · Shift add · Option subtract · Shift again mid-drag square · Drag inside to move · ⌘-drag moves pixels · Delete clears · ⌘D deselect";
 "Drag a text box · Click text to edit · Drag box handles to resize · ⌘Return finish · Escape cancel" = "Drag a text box · Click text to edit · Drag box handles to resize · ⌘Return finish · Escape cancel";
 "Drag an ellipse · Shift add · Option subtract · Shift again mid-drag circle · Drag inside to move · Delete clears · ⌘D deselect" = "Drag an ellipse · Shift add · Option subtract · Shift again mid-drag circle · Drag inside to move · Delete clears · ⌘D deselect";
@@ -267,6 +275,7 @@
 "Drag to set hue and saturation. Double-click to reset this wheel." = "Drag to set hue and saturation. Double-click to reset this wheel.";
 "Drag to smudge" = "Drag to smudge";
 "Drag to soften" = "Drag to soften";
+"Drag up or down to lift or lower those tones. Drag a divider along the bottom to change which tones each region covers." = "Drag up or down to lift or lower those tones. Drag a divider along the bottom to change which tones each region covers.";
 "Draw Guides" = "Draw Guides";
 "Draw each chunky pixel as a solid square, or as a round dot like a dot-matrix screen" = "Draw each chunky pixel as a solid square, or as a round dot like a dot-matrix screen";
 "Draw the marks for the light tones on the dark color, like a glowing screen" = "Draw the marks for the light tones on the dark color, like a glowing screen";
@@ -293,6 +302,7 @@
 "Enable Mask" = "Enable Mask";
 "End of the hue range, in degrees." = "End of the hue range, in degrees.";
 "Enter a whole number from 1 to %@ px." = "Enter a whole number from 1 to %@ px.";
+"Eraser" = "Eraser";
 "Expand Selection" = "Expand Selection";
 "Expand or collapse folder" = "Expand or collapse folder";
 "Expand…" = "Expand…";
@@ -375,6 +385,7 @@
 "Hex" = "Hex";
 "Hex color" = "Hex color";
 "Hide %@" = "Hide %@";
+"Hide %@ in the preview" = "Hide %@ in the preview";
 "Hide All (Black)" = "Hide All (Black)";
 "Hide Compositor" = "Hide Compositor";
 "Hide Layer" = "Hide Layer";
@@ -398,6 +409,7 @@
 "Hue Range" = "Hue Range";
 "Hue Shift" = "Hue Shift";
 "Hue and saturation of this wheel." = "Hue and saturation of this wheel.";
+"Hue around the wheel, saturation outward from the center. Control-click to show the histogram." = "Hue around the wheel, saturation outward from the center. Control-click to show the histogram.";
 "Hue shifts the color, Saturation its strength, and Luminance its brightness." = "Hue shifts the color, Saturation its strength, and Luminance its brightness.";
 "Hue wheel" = "Hue wheel";
 "Hue/Saturation" = "Hue/Saturation";
@@ -409,6 +421,7 @@
 "Import Image" = "Import Image";
 "Import Images…" = "Import Images…";
 "Import Photoshop File" = "Import Photoshop File";
+"Import an image or add a blank layer." = "Import an image or add a blank layer.";
 "Import couldn’t finish" = "Import couldn’t finish";
 "Import image" = "Import image";
 "Importing images…" = "Importing images…";
@@ -498,10 +511,12 @@
 "Luminance Shift" = "Luminance Shift";
 "Mac Patterns" = "Mac Patterns";
 "Magenta / Green" = "Magenta / Green";
+"Magic" = "Magic";
 "Magic Wand" = "Magic Wand";
 "Make each dithered pixel this many pixels across, for a chunky old-screen look" = "Make each dithered pixel this many pixels across, for a chunky old-screen look";
 "Make the lines waver sideways down the screen, like a CRT losing sync" = "Make the lines waver sideways down the screen, like a CRT losing sync";
 "Manual" = "Manual";
+"Marquee" = "Marquee";
 "Marquee / cycle shape" = "Marquee / cycle shape";
 "Mask" = "Mask";
 "Mask background" = "Mask background";
@@ -513,6 +528,8 @@
 "Medium Blue" = "Medium Blue";
 "Medium Contrast" = "Medium Contrast";
 "Menus" = "Menus";
+"Merge Down" = "Merge Down";
+"Merge Group" = "Merge Group";
 "Merge Layers" = "Merge Layers";
 "Middle left" = "Middle left";
 "Middle right" = "Middle right";
@@ -603,6 +620,7 @@
 "Overlay" = "Overlay";
 "Paint" = "Paint";
 "Paint with the foreground color (B), or erase pixels away (E)" = "Paint with the foreground color (B), or erase pixels away (E)";
+"Pan" = "Pan";
 "Parametric" = "Parametric";
 "Parametric lifts tonal regions. Point places anchors on the curve." = "Parametric lifts tonal regions. Point places anchors on the curve.";
 "Paste" = "Paste";
@@ -672,6 +690,7 @@
 "Remove Distortion" = "Remove Distortion";
 "Remove Links and Delete" = "Remove Links and Delete";
 "Remove every guide line." = "Remove every guide line.";
+"Remove layer mask" = "Remove layer mask";
 "Remove point" = "Remove point";
 "Rename Layer" = "Rename Layer";
 "Rename Layer…" = "Rename Layer…";
@@ -686,6 +705,7 @@
 "Resizes layer pixels and applies existing transforms. Undo restores the originals." = "Resizes layer pixels and applies existing transforms. Undo restores the originals.";
 "Resolution" = "Resolution";
 "Restore Defaults" = "Restore Defaults";
+"Result: %@ × %@ pixels" = "Result: %@ × %@ pixels";
 "Reveal All (White)" = "Reveal All (White)";
 "Reverse" = "Reverse";
 "Revert" = "Revert";
@@ -734,6 +754,7 @@
 "Shift-click adds a color, Option-click takes one away." = "Shift-click adds a color, Option-click takes one away.";
 "Show" = "Show";
 "Show %@" = "Show %@";
+"Show %@ in the preview" = "Show %@ in the preview";
 "Show All" = "Show All";
 "Show Controls" = "Show Controls";
 "Show Grid" = "Show Grid";
@@ -741,12 +762,15 @@
 "Show Layer" = "Show Layer";
 "Show Rulers" = "Show Rulers";
 "Show Transform Controls" = "Show Transform Controls";
+"Show clipped highlights in red on the preview." = "Show clipped highlights in red on the preview.";
+"Show clipped shadows in blue on the preview." = "Show clipped shadows in blue on the preview.";
 "Show mask alone" = "Show mask alone";
 "Show the image again (or Option-click the mask thumbnail)" = "Show the image again (or Option-click the mask thumbnail)";
 "Show the transform box and handles (⌘H). When hidden, drag anywhere to move the layer." = "Show the transform box and handles (⌘H). When hidden, drag anywhere to move the layer.";
 "Show the whole image (⌘0)" = "Show the whole image (⌘0)";
 "Shrink the mask to drop the rim of background color around the subject, or grow it" = "Shrink the mask to drop the rim of background color around the subject, or grow it";
 "Size" = "Size";
+"Smear" = "Smear";
 "Smooth" = "Smooth";
 "Smooth selection edges; turn off for hard pixel edges" = "Smooth selection edges; turn off for hard pixel edges";
 "Smooth the detected object outline; turn off for the raw pixel mask" = "Smooth the detected object outline; turn off for the raw pixel mask";
@@ -756,9 +780,11 @@
 "Snap To" = "Snap To";
 "Soft Light" = "Soft Light";
 "Some dropped items couldn’t be read. Drag JPEG, PNG, HEIC, TIFF, or Photoshop (PSD) files from Finder." = "Some dropped items couldn’t be read. Drag JPEG, PNG, HEIC, TIFF, or Photoshop (PSD) files from Finder.";
+"Spot Healing" = "Spot Healing";
 "Square" = "Square";
 "Start of the hue range, in degrees." = "Start of the hue range, in degrees.";
 "Stop viewing the mask" = "Stop viewing the mask";
+"Strength" = "Strength";
 "Stroke" = "Stroke";
 "Strong Contrast" = "Strong Contrast";
 "Studio Display" = "Studio Display";
@@ -813,6 +839,7 @@
 "Toggle visibility" = "Toggle visibility";
 "Tolerance" = "Tolerance";
 "Tonal Contrast" = "Tonal Contrast";
+"Tones from black on the left to white on the right: blacks, shadows, midtones, highlights, whites. Control-click to show the vectorscope." = "Tones from black on the left to white on the right: blacks, shadows, midtones, highlights, whites. Control-click to show the vectorscope.";
 "Tones per channel: 2 is pure black and white" = "Tones per channel: 2 is pure black and white";
 "Tool options" = "Tool options";
 "Top" = "Top";
@@ -820,6 +847,7 @@
 "Top center" = "Top center";
 "Top right" = "Top right";
 "Tracking" = "Tracking";
+"Transform" = "Transform";
 "Transform Layer" = "Transform Layer";
 "Transform Layer / Selection" = "Transform Layer / Selection";
 "Transform Layer Mask" = "Transform Layer Mask";
@@ -849,6 +877,7 @@
 "Up" = "Up";
 "Updating…" = "Updating…";
 "Upright" = "Upright";
+"Use gridlines every %@–%@ pixels and %@–%@ subdivisions, no more than the pixels between gridlines." = "Use gridlines every %@–%@ pixels and %@–%@ subdivisions, no more than the pixels between gridlines.";
 "Vectorscope" = "Vectorscope";
 "Version 1" = "Version 1";
 "Version 2" = "Version 2";

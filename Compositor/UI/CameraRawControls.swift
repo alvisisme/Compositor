@@ -50,8 +50,8 @@ struct CameraRawControls: View {
                 Button(Localization.v("Vectorscope")) { session.filterEdit?.cameraRawScopeMode = .vectorscope }
             }
             .help(mode == .histogram
-                  ? "Tones from black on the left to white on the right: blacks, shadows, midtones, highlights, whites. Control-click to show the vectorscope."
-                  : "Hue around the wheel, saturation outward from the center. Control-click to show the histogram.")
+                  ? Localization.text("Tones from black on the left to white on the right: blacks, shadows, midtones, highlights, whites. Control-click to show the vectorscope.")
+                  : Localization.text("Hue around the wheel, saturation outward from the center. Control-click to show the histogram."))
             Text(readout)
                 .font(.caption.monospacedDigit())
                 .foregroundStyle(.secondary)
@@ -76,7 +76,7 @@ struct CameraRawControls: View {
                 .foregroundStyle(on ? (shadows ? Color.blue : Color.red) : Color.white.opacity(0.55))
         }
         .buttonStyle(.plain)
-        .help(shadows ? "Show clipped shadows in blue on the preview." : "Show clipped highlights in red on the preview.")
+        .help(shadows ? Localization.text("Show clipped shadows in blue on the preview.") : Localization.text("Show clipped highlights in red on the preview."))
         .accessibilityLabel(Localization.text(shadows ? "Shadow Clipping Indicator" : "Highlight Clipping Indicator"))
     }
 
@@ -288,7 +288,7 @@ struct CameraRawControls: View {
             Image(systemName: shown ? "eye" : "eye.slash")
         }
         .buttonStyle(.borderless)
-        .help(shown ? "Hide \(name) in the preview" : "Show \(name) in the preview")
+        .help(shown ? Localization.v("Hide %@ in the preview", name) : Localization.v("Show %@ in the preview", name))
         .accessibilityLabel(Localization.string(shown ? "Hide %@" : "Show %@", name))
     }
 

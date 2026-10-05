@@ -4,7 +4,7 @@ struct BrushControls: View {
     @Bindable var session: EditorSession
     var body: some View {
         HStack(spacing: 12) {
-            Text(session.tool == .spotHealing ? "Spot Healing" : session.tool == .cloneStamp ? "Clone Stamp" : session.tool == .blur ? "Smear" : session.brushMode == .erase ? "Eraser" : "Brush").font(ToolHeaderStyle.titleFont)
+            Text(session.tool == .spotHealing ? Localization.text("Spot Healing") : session.tool == .cloneStamp ? Localization.text("Clone Stamp") : session.tool == .blur ? Localization.text("Smear") : session.brushMode == .erase ? Localization.text("Eraser") : Localization.text("Brush")).font(ToolHeaderStyle.titleFont)
             if session.tool == .brush {
                 Picker(Localization.v("Mode"), selection: $session.brushMode) {
                     ForEach(BrushToolMode.allCases, id: \.self) { Text(Localization.v($0.rawValue)).tag($0) }
@@ -56,7 +56,7 @@ struct BrushControls: View {
                 .arrowSteps(value: { Double(session.brushSettings.hardness * 100) },
                             change: { session.brushSettings.hardness = CGFloat(min(1, max(0, $0 / 100))) })
                 .unitSuffix("%")
-            Text(session.tool == .blur ? "Strength" : "Opacity")
+            Text(session.tool == .blur ? Localization.text("Strength") : Localization.text("Opacity"))
                 .scrubbable(sensitivity: 0.01, value: $session.brushSettings.opacity, range: 0.01...1)
             Slider(value: $session.brushSettings.opacity, in: 0.01...1).frame(width: 100)
             TextField(Localization.v("Opacity"), value: Binding<Double>(get: { Double(session.brushSettings.opacity * 100) },

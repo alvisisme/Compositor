@@ -20,8 +20,8 @@ struct ColorRangeSheet: View {
                 Spacer()
             }
             preview
-            Text(edit?.hasColors == true ? "Shift-click adds a color, Option-click takes one away."
-                                         : "Click the image to pick the color to select.")
+            Text(edit?.hasColors == true ? Localization.text("Shift-click adds a color, Option-click takes one away.")
+                                         : Localization.text("Click the image to pick the color to select."))
                 .font(.callout).foregroundStyle(.secondary)
             HStack(spacing: 10) {
                 Text(Localization.v("Fuzziness")).fixedSize()

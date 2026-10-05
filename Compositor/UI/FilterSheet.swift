@@ -158,7 +158,7 @@ struct FilterSheet: View {
                 // make the panel flicker as it grows and shrinks.
                 if edit?.committing == true || (edit?.preparing == true && edit?.kind.isAutomatic == true) {
                     ProgressView().controlSize(.small)
-                    Text(edit?.committing == true ? "Applying…" : "Working…")
+                    Text(edit?.committing == true ? Localization.text("Applying…") : Localization.text("Working…"))
                         .font(.callout).foregroundStyle(.secondary)
                 }
                 Button(Localization.v("OK")) { Task { await session.commitFilter() } }

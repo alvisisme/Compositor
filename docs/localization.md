@@ -103,10 +103,22 @@ items beside it are the ones that will be right after the next launch.
 ```sh
 scripts/dev-build.sh typecheck          # must be clean; the call sites are sensitive to inference
 python3 scripts/l10n/check-format-args.py  # %@ must get an object, %lld an integer
+python3 scripts/l10n/check-display-literals.py  # no title renders without a lookup
 python3 scripts/l10n/extract-keys.py    # every key a call site looks up has a translation
 python3 scripts/l10n/build-strings.py   # rewrites both tables from translations.py
 python3 scripts/l10n/build-strings.py --report   # untranslated candidates and stale entries
 ```
+
+### How a string escapes a sweep
+
+Searching for `Localization.` call sites finds call sites. A string with no call site is invisible to
+that search, which is how `Merge Down`, `Delete Layer` and 32 more titles survived four passes over
+this codebase. `check-display-literals.py` walks the other way: it looks at every position that
+*renders* — the first argument to `Button`, `Text`, `Menu`, `Label`, `.help`, `.alert` — and reports
+literals there that no lookup wraps.
+
+The most common escape is one branch of a ternary. When the other branch is wrapped, the call site
+exists, so every sweep that looks for call sites sees the line as done.
 
 ### `%@` takes an object, `%lld` takes an integer
 

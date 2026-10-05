@@ -5,7 +5,7 @@ struct LassoControls: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            Text(session.tool == .marquee ? "Marquee" : session.tool == .wand ? "Magic" : "Lasso").font(ToolHeaderStyle.titleFont)
+            Text(session.tool == .marquee ? Localization.text("Marquee") : session.tool == .wand ? Localization.text("Magic") : Localization.text("Lasso")).font(ToolHeaderStyle.titleFont)
             if session.tool == .marquee {
                 Picker(Localization.v("Shape"), selection: Binding(get: { session.marqueeKind }, set: { kind in
                     session.cancelLasso()
@@ -48,7 +48,7 @@ struct LassoControls: View {
             // Rectangles snap to whole pixels, so smoothing doesn't apply (as in Photoshop); ellipses curve.
             if session.tool == .lasso || session.tool == .wand || (session.tool == .marquee && session.marqueeKind == .ellipse) {
                 Toggle(Localization.v("Anti-alias"), isOn: $session.selectionAntialiased)
-                    .help(session.tool == .wand && session.wandMode == .object ? "Smooth the detected object outline; turn off for the raw pixel mask" : "Smooth selection edges; turn off for hard pixel edges")
+                    .help(session.tool == .wand && session.wandMode == .object ? Localization.text("Smooth the detected object outline; turn off for the raw pixel mask") : Localization.text("Smooth selection edges; turn off for hard pixel edges"))
             }
             Divider().frame(height: 18)
             modifyControl("Expand", amount: $session.selectionExpandAmount) {

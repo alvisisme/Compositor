@@ -72,7 +72,7 @@ struct LevelsSheet: View {
                 Spacer()
                 Button(Localization.v("Reset")) { edit?.sampleMode = nil; update { $0 = LevelsSettings() } }
             }
-            Text(session.adjustmentOriginal != nil ? "Underlying pixels · alpha-weighted histogram" : session.selection == nil ? "Original pixels · alpha-weighted histogram" : "Original pixels · selection and alpha-weighted histogram")
+            Text(session.adjustmentOriginal != nil ? Localization.text("Underlying pixels · alpha-weighted histogram") : session.selection == nil ? Localization.text("Original pixels · alpha-weighted histogram") : Localization.text("Original pixels · selection and alpha-weighted histogram"))
                 .font(.caption).foregroundStyle(.secondary)
             Divider()
             HStack {

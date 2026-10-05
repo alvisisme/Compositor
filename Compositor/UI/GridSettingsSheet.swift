@@ -89,8 +89,8 @@ struct GridSettingsSheet: View {
                     .scrubbable(sensitivity: 0.2, value: $subdivisions, range: LayoutGrid.subdivisionRange)
                 TextField(Localization.v("Subdivisions"), value: $subdivisions, format: .number)
             }
-            Text(valid ? "A subdivision every \(Double(grid.step).formatted(.number.precision(.fractionLength(0...2)))) pixels."
-                       : "Use gridlines every \(LayoutGrid.spacingRange.lowerBound)–\(LayoutGrid.spacingRange.upperBound.formatted()) pixels and \(LayoutGrid.subdivisionRange.lowerBound)–\(LayoutGrid.subdivisionRange.upperBound) subdivisions, no more than the pixels between gridlines.")
+            Text(valid ? Localization.v("A subdivision every %@ pixels.", Double(grid.step).formatted(.number.precision(.fractionLength(0...2))))
+                       : Localization.v("Use gridlines every %@–%@ pixels and %@–%@ subdivisions, no more than the pixels between gridlines.", String(LayoutGrid.spacingRange.lowerBound), LayoutGrid.spacingRange.upperBound.formatted(), String(LayoutGrid.subdivisionRange.lowerBound), String(LayoutGrid.subdivisionRange.upperBound)))
                 .foregroundStyle(valid ? Color.secondary : Color.orange).font(.callout)
                 .fixedSize(horizontal: false, vertical: true)
             HStack {

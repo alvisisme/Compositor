@@ -30,8 +30,8 @@ struct CameraRawCurveControls: View {
             curveGraph
                 .frame(height: 150)
                 .help(edit?.cameraRawCurvePage == .parametric
-                      ? "Drag up or down to lift or lower those tones. Drag a divider along the bottom to change which tones each region covers."
-                      : "Drag a point. Click to add one. Double-click a point to remove it.")
+                      ? Localization.text("Drag up or down to lift or lower those tones. Drag a divider along the bottom to change which tones each region covers.")
+                      : Localization.text("Drag a point. Click to add one. Double-click a point to remove it."))
             if edit?.cameraRawCurvePage != .point {
                 amount("Highlights", \.highlights, "Lifts or lowers the brightest tones.")
                 amount("Lights", \.lights, "Lifts or lowers the light tones.")

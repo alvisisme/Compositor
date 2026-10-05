@@ -27,7 +27,7 @@ extension EditorSession {
     }
 
     var canMergeLayers: Bool { mergePlan() != nil }
-    var mergeTitle: String { mergePlan()?.action ?? "Merge Down" }
+    var mergeTitle: String { Localization.text(mergePlan()?.action ?? "Merge Down") }
 
     /// ⌘E: the layers composited as the canvas shows them — blend modes, opacity, masks, clipping and adjustments
     /// baked in — into one pixel layer, trimmed to what is there, in their place, as one undo step.

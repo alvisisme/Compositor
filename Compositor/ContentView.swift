@@ -267,16 +267,16 @@ struct ContentView: View {
                 if (error as NSError).code != NSUserCancelledError { session.importError = error.localizedDescription }
             }
         }
-        .alert("Import couldn’t finish", isPresented: Binding(
+        .alert(Localization.text("Import couldn’t finish"), isPresented: Binding(
             get: { session.importError != nil }, set: { if !$0 { session.importError = nil } })) {
                 // No cancel role: an alert with only a cancel button gets a second OK of its own.
                 Button(Localization.v("OK")) { session.importError = nil }
             } message: { Text(session.importError ?? "") }
-        .alert("Couldn’t paint", isPresented: Binding(get: { session.brushError != nil },
+        .alert(Localization.text("Couldn’t paint"), isPresented: Binding(get: { session.brushError != nil },
             set: { if !$0 { session.brushError = nil } })) {
                 Button(Localization.v("OK")) { session.brushError = nil }
             } message: { Text(session.brushError ?? "") }
-        .alert("Couldn’t crop", isPresented: Binding(get: { session.cropError != nil },
+        .alert(Localization.text("Couldn’t crop"), isPresented: Binding(get: { session.cropError != nil },
             set: { if !$0 { session.cropError = nil } })) {
                 Button(Localization.v("OK")) { session.cropError = nil }
             } message: { Text(session.cropError ?? "") }

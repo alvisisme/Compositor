@@ -23,7 +23,7 @@ struct LayersPanel: View {
                 VStack(spacing: 10) {
                     Image(systemName: "square.3.layers.3d").font(.system(size: 25, weight: .light))
                     Text(Localization.v("No layers yet")).font(.callout.weight(.medium))
-                    Text(session.document == nil ? "Create a canvas or import an image." : "Import an image or add a blank layer.")
+                    Text(session.document == nil ? Localization.text("Create a canvas or import an image.") : Localization.text("Import an image or add a blank layer."))
                         .font(.caption).multilineTextAlignment(.center)
                 }
                 .foregroundStyle(.secondary).padding(16)
@@ -54,7 +54,7 @@ struct LayersPanel: View {
                     .menuStyle(.borderlessButton).fixedSize().help(Localization.v("New adjustment layer")).disabled(!session.canEditLayers)
                 Spacer()
                 Button { session.deleteLayerOrMask() } label: { Image(systemName: "trash").footerHitArea() }
-                    .help(session.selectedEffect != nil ? "Delete selected effect" : session.isMaskSelected ? "Delete layer mask" : session.selectedLayerIDs.count > 1 ? "Delete selected layers" : "Delete selected layer")
+                    .help(session.selectedEffect != nil ? Localization.text("Delete selected effect") : session.isMaskSelected ? Localization.text("Delete layer mask") : session.selectedLayerIDs.count > 1 ? Localization.text("Delete selected layers") : Localization.text("Delete selected layer"))
                     .accessibilityLabel(Localization.text(session.selectedEffect != nil ? "Delete selected effect" : session.isMaskSelected ? "Delete layer mask" : session.selectedLayerIDs.count > 1 ? "Delete selected layers" : "Delete selected layer"))
                     .accessibilityIdentifier("deleteLayer")
                     .disabled(!session.canEditLayers || session.activeLayer == nil)
