@@ -102,10 +102,27 @@ items beside it are the ones that will be right after the next launch.
 
 ```sh
 scripts/dev-build.sh typecheck          # must be clean; the call sites are sensitive to inference
+python3 scripts/l10n/check-format-args.py  # %@ must get an object, %lld an integer
 python3 scripts/l10n/extract-keys.py    # every key a call site looks up has a translation
 python3 scripts/l10n/build-strings.py   # rewrites both tables from translations.py
 python3 scripts/l10n/build-strings.py --report   # untranslated candidates and stale entries
 ```
+
+### `%@` takes an object, `%lld` takes an integer
+
+Not a style rule — the difference between working and crashing. `String(format: "%@", 1920)` is a
+segfault, because `%@` asks Foundation to *send the argument a message*, and a Swift `Int` handed
+there is not a pointer to an object. It dereferences 1920 and dies. The type checker cannot see it:
+`Int` conforms to `CVarArg` exactly as `String` does, and the format string lives in a `.strings` file
+where no compiler looks.
+
+This shipped once, in the status bar's canvas size, and killed the app the moment a canvas existed —
+the first time the size was drawn. `check-format-args.py` is what keeps it from coming back. Every
+numeric value that reaches a `%@` is wrapped in `String(...)` at the call site; the specifiers inside
+the keys are left alone, so no translation changes.
+
+When adding a localized call with arguments, run it. It exits non-zero only for an argument it can
+prove is numeric, and lists the ones it could not classify for you to confirm.
 
 `extract-keys.py` looks for the keys passed to `Localization.v`, `text` and `string`, and reports
 514 of the 515 it finds as translated. The one it counts as missing is the `'literal'` inside the
